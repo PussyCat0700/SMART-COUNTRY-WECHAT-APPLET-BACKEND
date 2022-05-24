@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miniprogram.zhihuicunwu.dao.DeptgovaffairsspotDao">
+
+    <resultMap type="com.miniprogram.zhihuicunwu.entity.Deptgovaffairsspot" id="DeptgovaffairsspotMap">
+        <result property="gasid" column="GASid" jdbcType="INTEGER"/>
+        <result property="did" column="did" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="DeptgovaffairsspotMap">
+        select GASid,
+               did
+        from deptgovaffairsspot
+        where GASid = #{gasid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="DeptgovaffairsspotMap">
+        select
+        GASid, did
+        from deptgovaffairsspot
+        <where>
+            <if test="gasid != null">
+                and GASid = #{gasid}
+            </if>
+            <if test="did != null">
+                and did = #{did}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from deptgovaffairsspot
+        <where>
+            <if test="gasid != null">
+                and GASid = #{gasid}
+            </if>
+            <if test="did != null">
+                and did = #{did}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="gasid" useGeneratedKeys="true">
+        insert into deptgovaffairsspot()
+        values ()
+    </insert>
+
+    <insert id="insertBatch" keyProperty="gasid" useGeneratedKeys="true">
+        insert into deptgovaffairsspot()
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            ()
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="gasid" useGeneratedKeys="true">
+        insert into deptgovaffairsspot()
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            ()
+        </foreach>
+        on duplicate key update
+
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update deptgovaffairsspot
+        <set>
+        </set>
+        where GASid = #{gasid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from deptgovaffairsspot
+        where GASid = #{gasid}
+    </delete>
+
+</mapper>
+

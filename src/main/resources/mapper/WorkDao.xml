@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miniprogram.zhihuicunwu.dao.WorkDao">
+
+    <resultMap type="com.miniprogram.zhihuicunwu.entity.Work" id="WorkMap">
+        <result property="did" column="did" jdbcType="INTEGER"/>
+        <result property="uid" column="uid" jdbcType="INTEGER"/>
+        <result property="wname" column="wname" jdbcType="VARCHAR"/>
+        <result property="wtime" column="wtime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="WorkMap">
+        select did,
+               uid,
+               wname,
+               wtime
+        from work
+        where did = #{did}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="WorkMap">
+        select
+        did, uid, wname, wtime
+        from work
+        <where>
+            <if test="did != null">
+                and did = #{did}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="wname != null and wname != ''">
+                and wname = #{wname}
+            </if>
+            <if test="wtime != null">
+                and wtime = #{wtime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from work
+        <where>
+            <if test="did != null">
+                and did = #{did}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="wname != null and wname != ''">
+                and wname = #{wname}
+            </if>
+            <if test="wtime != null">
+                and wtime = #{wtime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="did" useGeneratedKeys="true">
+        insert into work(wname, wtime)
+        values (#{wname}, #{wtime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="did" useGeneratedKeys="true">
+        insert into work(wname, wtime)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.wname}, #{entity.wtime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="did" useGeneratedKeys="true">
+        insert into work(wname, wtime)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.wname}, #{entity.wtime})
+        </foreach>
+        on duplicate key update
+        wname = values(wname),
+        wtime = values(wtime)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update work
+        <set>
+            <if test="wname != null and wname != ''">
+                wname = #{wname},
+            </if>
+            <if test="wtime != null">
+                wtime = #{wtime},
+            </if>
+        </set>
+        where did = #{did}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from work
+        where did = #{did}
+    </delete>
+
+</mapper>
+

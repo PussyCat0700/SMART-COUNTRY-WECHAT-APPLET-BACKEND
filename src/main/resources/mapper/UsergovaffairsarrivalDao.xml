@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miniprogram.zhihuicunwu.dao.UsergovaffairsarrivalDao">
+
+    <resultMap type="com.miniprogram.zhihuicunwu.entity.Usergovaffairsarrival" id="UsergovaffairsarrivalMap">
+        <result property="gaaid" column="GAAid" jdbcType="INTEGER"/>
+        <result property="uid" column="uid" jdbcType="INTEGER"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="appointTime" column="Appoint_time" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UsergovaffairsarrivalMap">
+        select GAAid,
+               uid,
+               address,
+               Appoint_time,
+               status
+        from usergovaffairsarrival
+        where GAAid = #{gaaid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UsergovaffairsarrivalMap">
+        select
+        GAAid, uid, address, Appoint_time, status
+        from usergovaffairsarrival
+        <where>
+            <if test="gaaid != null">
+                and GAAid = #{gaaid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="appointTime != null and appointTime != ''">
+                and Appoint_time = #{appointTime}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from usergovaffairsarrival
+        <where>
+            <if test="gaaid != null">
+                and GAAid = #{gaaid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="appointTime != null and appointTime != ''">
+                and Appoint_time = #{appointTime}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="gaaid" useGeneratedKeys="true">
+        insert into usergovaffairsarrival(address, Appoint_time, status)
+        values (#{address}, #{appointTime}, #{status})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="gaaid" useGeneratedKeys="true">
+        insert into usergovaffairsarrival(address, Appoint_time, status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.address}, #{entity.appointTime}, #{entity.status})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="gaaid" useGeneratedKeys="true">
+        insert into usergovaffairsarrival(address, Appoint_time, status)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.address}, #{entity.appointTime}, #{entity.status})
+        </foreach>
+        on duplicate key update
+        address = values(address),
+        Appoint_time = values(Appoint_time),
+        status = values(status)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update usergovaffairsarrival
+        <set>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="appointTime != null and appointTime != ''">
+                Appoint_time = #{appointTime},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+        </set>
+        where GAAid = #{gaaid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from usergovaffairsarrival
+        where GAAid = #{gaaid}
+    </delete>
+
+</mapper>
+
