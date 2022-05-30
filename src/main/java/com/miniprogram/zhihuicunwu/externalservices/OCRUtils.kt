@@ -26,12 +26,12 @@ object OCRUtils {
         }
     }
 
-    fun requestOCRService(): JSONObject {
+    fun requestOCRService(base64String:String): JSONObject {
         val accessToken = acquireAccessToken()
         val response = UnirestUtils.postJsonForResult(
                 url = "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic",
                 fields = mapOf(
-                        "url" to "https://baidu-ai.bj.bcebos.com/ocr/ocr.jpg",
+                        "image" to base64String,
                         "language_type" to "CHN_ENG",
                         "detect_direction" to "false",
                         "paragraph" to "false",
