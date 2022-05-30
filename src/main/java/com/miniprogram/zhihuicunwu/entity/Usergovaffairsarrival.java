@@ -6,19 +6,19 @@ import java.io.Serializable;
  * (Usergovaffairsarrival)实体类
  *
  * @author makejava
- * @since 2022-05-24 17:56:24
+ * @since 2022-05-30 21:01:07
  */
 public class Usergovaffairsarrival implements Serializable {
-    private static final long serialVersionUID = -68324538748392635L;
-
+    private static final long serialVersionUID = -46646820693580385L;
+    
     private Integer gaaid;
-
+    
     private Integer uid;
-
+    
     private String address;
-
+    
     private String appointTime;
-
+    
     private Integer status;
 
 

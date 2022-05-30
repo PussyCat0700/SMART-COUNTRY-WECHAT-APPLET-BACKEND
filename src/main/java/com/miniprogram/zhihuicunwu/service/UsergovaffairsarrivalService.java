@@ -6,7 +6,7 @@ import com.miniprogram.zhihuicunwu.entity.Usergovaffairsarrival;
  * (Usergovaffairsarrival)表服务接口
  *
  * @author makejava
- * @since 2022-05-24 17:56:25
+ * @since 2022-05-30 21:01:07
  */
 public interface UsergovaffairsarrivalService {
 

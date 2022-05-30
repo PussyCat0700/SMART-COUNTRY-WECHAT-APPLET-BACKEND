@@ -11,7 +11,7 @@ import javax.annotation.Resource;
  * (Usergovaffairsarrival)表服务实现类
  *
  * @author makejava
- * @since 2022-05-24 17:56:25
+ * @since 2022-05-30 21:01:07
  */
 @Service("usergovaffairsarrivalService")
 public class UsergovaffairsarrivalServiceImpl implements UsergovaffairsarrivalService {

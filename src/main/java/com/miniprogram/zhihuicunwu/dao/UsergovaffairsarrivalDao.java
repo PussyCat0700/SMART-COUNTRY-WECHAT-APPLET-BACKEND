@@ -3,14 +3,13 @@ package com.miniprogram.zhihuicunwu.dao;
 import com.miniprogram.zhihuicunwu.entity.Usergovaffairsarrival;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 
 /**
  * (Usergovaffairsarrival)表数据库访问层
  *
  * @author makejava
- * @since 2022-05-24 17:56:24
+ * @since 2022-05-30 21:01:07
  */
 public interface UsergovaffairsarrivalDao {
 
@@ -26,7 +25,7 @@ public interface UsergovaffairsarrivalDao {
      * 查询指定行数据
      *
      * @param usergovaffairsarrival 查询条件
-     * @param pageable              分页对象
+     * @param pageable         分页对象
      * @return 对象列表
      */
     List<Usergovaffairsarrival> queryAllByLimit(Usergovaffairsarrival usergovaffairsarrival, @Param("pageable") Pageable pageable);

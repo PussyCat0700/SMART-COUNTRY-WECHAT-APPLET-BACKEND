@@ -1,5 +1,6 @@
 package com.miniprogram.zhihuicunwu.exception;
 
+import com.mashape.unirest.http.exceptions.UnirestException;
 import com.miniprogram.zhihuicunwu.util.Result;
 import com.miniprogram.zhihuicunwu.util.SystemCode;
 import lombok.extern.slf4j.Slf4j;
@@ -40,6 +41,22 @@ public class RestExceptionHandler {
         return Result.fail(SystemCode.METHOD_NOT_SUPPORTED_CODE, "请求方法错误");
     }
 
+    /**
+     * JSON错误
+     */
+    @ExceptionHandler(com.mashape.unirest.http.exceptions.UnirestException.class)
+    public Result handleJSONException(Exception e){
+        log.warn("JSON转义失败！", e.getMessage());
+        return Result.fail(SystemCode.FAILURE_CODE, "JSON转义失败！");
+    }
+    /**
+     * OCR鉴权错误
+     */
+    @ExceptionHandler(OCRAccessTokenException.class)
+    public Result handleOCRAccessTokenException(OCRAccessTokenException e){
+        log.warn("OCR鉴权失败！", e.getMessage());
+        return Result.fail(SystemCode.FAILURE_CODE, e.getMsg());
+    }
     /**
      * 捕获实体类抛出的异常
      */
