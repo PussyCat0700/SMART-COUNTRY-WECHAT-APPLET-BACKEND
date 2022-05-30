@@ -6,23 +6,39 @@ import com.miniprogram.zhihuicunwu.util.UnirestUtils
 
 object OCRUtils {
     private fun acquireAccessTokenResponse(): JSONObject {
-        val response = UnirestUtils.sendJsonForResult(
+        val response = UnirestUtils.postJsonForResult(
                 url = "https://aip.baidubce.com/oauth/2.0/token",
-                headers = mapOf("Content-Type" to "application/x-www-form-urlencoded"),
                 fields = mapOf("grant_type" to "client_credentials",
                         "client_id" to "ZuOm8Fe17GdGGG7WsRBdKFfm",
-                        "client_secret" to "oGXwnZM9edAbdAuU9SvQIatTN88MASub"
-                ))
+                        "client_secret" to "oGXwnZM9edAbdAuU9SvQIatTN88MASub")
+        )
         return JSONObject.parseObject(response.toString())
     }
-    fun acquireAccessToken(): String{
+
+    private fun acquireAccessToken(): String {
         val jsonResponse = acquireAccessTokenResponse()
         return if (jsonResponse.containsKey("access_token")) {
             jsonResponse.getString("access_token")
-        }else if(jsonResponse.containsKey("error_description")){
+        } else if (jsonResponse.containsKey("error_description")) {
             throw OCRAccessTokenException(jsonResponse.getString("error_description"))
-        }else{
+        } else {
             throw OCRAccessTokenException("OCR鉴权出错：未知错误")
         }
     }
+
+    fun requestOCRService(): JSONObject {
+        val accessToken = acquireAccessToken()
+        val response = UnirestUtils.postJsonForResult(
+                url = "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic",
+                fields = mapOf(
+                        "url" to "https://baidu-ai.bj.bcebos.com/ocr/ocr.jpg",
+                        "language_type" to "CHN_ENG",
+                        "detect_direction" to "false",
+                        "paragraph" to "false",
+                        "probability" to "false"),
+                queryString = mapOf("access_token" to accessToken)
+        )
+        return response
+    }
+
 }
