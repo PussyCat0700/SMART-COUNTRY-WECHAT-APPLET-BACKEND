@@ -26,9 +26,9 @@ object OCRUtils {
         }
     }
 
-    fun requestOCRService(base64String:String): JSONObject {
+    fun requestOCRService(base64String: String): JSONObject {
         val accessToken = acquireAccessToken()
-        val response = UnirestUtils.postJsonForResult(
+        return UnirestUtils.postJsonForResult(
                 url = "https://aip.baidubce.com/rest/2.0/ocr/v1/accurate_basic",
                 fields = mapOf(
                         "image" to base64String,
@@ -38,7 +38,6 @@ object OCRUtils {
                         "probability" to "false"),
                 queryString = mapOf("access_token" to accessToken)
         )
-        return response
     }
 
 }
