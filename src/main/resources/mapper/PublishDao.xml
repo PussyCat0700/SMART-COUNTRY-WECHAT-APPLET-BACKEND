@@ -9,8 +9,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="PublishMap">
-        select pid,
-               did
+        select
+          pid, did
         from publish
         where pid = #{pid}
     </select>
@@ -18,7 +18,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PublishMap">
         select
-        pid, did
+          pid, did
         from publish
         <where>
             <if test="pid != null">
@@ -55,7 +55,7 @@
         insert into publish()
         values
         <foreach collection="entities" item="entity" separator=",">
-            ()
+        ()
         </foreach>
     </insert>
 
@@ -66,7 +66,7 @@
             ()
         </foreach>
         on duplicate key update
-
+        
     </insert>
 
     <!--通过主键修改数据-->
@@ -79,9 +79,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from publish
-        where pid = #{pid}
+        delete from publish where pid = #{pid}
     </delete>
 
 </mapper>

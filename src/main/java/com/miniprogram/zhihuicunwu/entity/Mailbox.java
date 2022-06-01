@@ -6,17 +6,17 @@ import java.io.Serializable;
  * (Mailbox)实体类
  *
  * @author makejava
- * @since 2022-05-24 17:56:23
+ * @since 2022-06-01 14:39:27
  */
 public class Mailbox implements Serializable {
-    private static final long serialVersionUID = 928640607568763303L;
-
+    private static final long serialVersionUID = -17191864294625044L;
+    
     private Integer mid;
-
+    
     private Integer did;
-
+    
     private Integer uid;
-
+    
     private String mailcontent;
 
 

@@ -11,10 +11,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="DepartmentMap">
-        select did,
-               dname,
-               ddescription,
-               daddress
+        select
+          did, dname, ddescription, daddress
         from department
         where did = #{did}
     </select>
@@ -22,7 +20,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DepartmentMap">
         select
-        did, dname, ddescription, daddress
+          did, dname, ddescription, daddress
         from department
         <where>
             <if test="did != null">
@@ -71,7 +69,7 @@
         insert into department(dname, ddescription, daddress)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.dname}, #{entity.ddescription}, #{entity.daddress})
+        (#{entity.dname}, #{entity.ddescription}, #{entity.daddress})
         </foreach>
     </insert>
 
@@ -106,9 +104,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from department
-        where did = #{did}
+        delete from department where did = #{did}
     </delete>
 
 </mapper>

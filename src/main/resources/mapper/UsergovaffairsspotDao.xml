@@ -11,10 +11,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="UsergovaffairsspotMap">
-        select GASid,
-               uid,
-               Appoint_time,
-               status
+        select
+          GASid, uid, Appoint_time, status
         from usergovaffairsspot
         where GASid = #{gasid}
     </select>
@@ -22,7 +20,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="UsergovaffairsspotMap">
         select
-        GASid, uid, Appoint_time, status
+          GASid, uid, Appoint_time, status
         from usergovaffairsspot
         <where>
             <if test="gasid != null">
@@ -71,7 +69,7 @@
         insert into usergovaffairsspot(Appoint_time, status)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.appointTime}, #{entity.status})
+        (#{entity.appointTime}, #{entity.status})
         </foreach>
     </insert>
 
@@ -102,9 +100,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from usergovaffairsspot
-        where GASid = #{gasid}
+        delete from usergovaffairsspot where GASid = #{gasid}
     </delete>
 
 </mapper>

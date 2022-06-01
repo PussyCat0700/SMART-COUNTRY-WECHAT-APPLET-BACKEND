@@ -3,14 +3,13 @@ package com.miniprogram.zhihuicunwu.dao;
 import com.miniprogram.zhihuicunwu.entity.Create;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 
 /**
  * (Create)表数据库访问层
  *
  * @author makejava
- * @since 2022-05-24 17:56:20
+ * @since 2022-06-01 14:39:27
  */
 public interface CreateDao {
 
@@ -25,8 +24,8 @@ public interface CreateDao {
     /**
      * 查询指定行数据
      *
-     * @param create   查询条件
-     * @param pageable 分页对象
+     * @param create 查询条件
+     * @param pageable         分页对象
      * @return 对象列表
      */
     List<Create> queryAllByLimit(Create create, @Param("pageable") Pageable pageable);

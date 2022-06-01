@@ -6,13 +6,13 @@ import java.io.Serializable;
  * (Resident)实体类
  *
  * @author makejava
- * @since 2022-05-24 17:56:24
+ * @since 2022-06-01 14:39:27
  */
 public class Resident implements Serializable {
-    private static final long serialVersionUID = 386980201276154666L;
-
+    private static final long serialVersionUID = -50992196099220526L;
+    
     private Integer uid;
-
+    
     private Integer cid;
 
 

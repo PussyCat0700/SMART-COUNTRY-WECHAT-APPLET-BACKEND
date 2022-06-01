@@ -6,13 +6,13 @@ import java.io.Serializable;
  * (Publish)实体类
  *
  * @author makejava
- * @since 2022-05-24 17:56:24
+ * @since 2022-06-01 14:39:27
  */
 public class Publish implements Serializable {
-    private static final long serialVersionUID = 227856391772723351L;
-
+    private static final long serialVersionUID = -50910559143912374L;
+    
     private Integer pid;
-
+    
     private Integer did;
 
 

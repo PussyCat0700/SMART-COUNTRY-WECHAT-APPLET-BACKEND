@@ -7,19 +7,19 @@ import java.io.Serializable;
  * (Feedback)实体类
  *
  * @author makejava
- * @since 2022-05-24 17:56:22
+ * @since 2022-06-01 14:39:27
  */
 public class Feedback implements Serializable {
-    private static final long serialVersionUID = 568276049027878402L;
-
+    private static final long serialVersionUID = -44440946822638501L;
+    
     private Integer uid;
-
+    
     private Integer pid;
-
+    
     private Date ftime;
-
+    
     private String fcontent;
-
+    
     private String freturn;
 
 

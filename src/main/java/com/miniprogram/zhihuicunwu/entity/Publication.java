@@ -7,21 +7,21 @@ import java.io.Serializable;
  * (Publication)实体类
  *
  * @author makejava
- * @since 2022-05-24 17:56:23
+ * @since 2022-06-01 14:39:27
  */
 public class Publication implements Serializable {
-    private static final long serialVersionUID = 336863913301506108L;
-
+    private static final long serialVersionUID = 608459715559115507L;
+    
     private Integer pid;
-
+    
     private Integer ptype;
-
+    
     private String pcontent;
-
+    
     private Object pattach;
-
+    
     private Date ptime;
-
+    
     private Object ppic;
 
 

@@ -6,13 +6,13 @@ import java.io.Serializable;
  * (Countrydepartment)实体类
  *
  * @author makejava
- * @since 2022-05-24 17:56:20
+ * @since 2022-06-01 14:39:27
  */
 public class Countrydepartment implements Serializable {
-    private static final long serialVersionUID = 911782033130019571L;
-
+    private static final long serialVersionUID = 567033104728370043L;
+    
     private Integer did;
-
+    
     private Integer cid;
 
 

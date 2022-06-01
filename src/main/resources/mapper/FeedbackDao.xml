@@ -12,11 +12,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="FeedbackMap">
-        select uid,
-               pid,
-               fTime,
-               fContent,
-               fReturn
+        select
+          uid, pid, fTime, fContent, fReturn
         from feedback
         where uid = #{uid}
     </select>
@@ -24,7 +21,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="FeedbackMap">
         select
-        uid, pid, fTime, fContent, fReturn
+          uid, pid, fTime, fContent, fReturn
         from feedback
         <where>
             <if test="uid != null">
@@ -79,7 +76,7 @@
         insert into feedback(fTime, fContent, fReturn)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.ftime}, #{entity.fcontent}, #{entity.freturn})
+        (#{entity.ftime}, #{entity.fcontent}, #{entity.freturn})
         </foreach>
     </insert>
 
@@ -114,9 +111,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from feedback
-        where uid = #{uid}
+        delete from feedback where uid = #{uid}
     </delete>
 
 </mapper>

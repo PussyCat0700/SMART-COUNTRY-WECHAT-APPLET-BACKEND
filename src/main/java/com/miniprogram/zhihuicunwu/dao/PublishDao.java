@@ -3,14 +3,13 @@ package com.miniprogram.zhihuicunwu.dao;
 import com.miniprogram.zhihuicunwu.entity.Publish;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 
 /**
  * (Publish)表数据库访问层
  *
  * @author makejava
- * @since 2022-05-24 17:56:24
+ * @since 2022-06-01 14:39:27
  */
 public interface PublishDao {
 
@@ -25,8 +24,8 @@ public interface PublishDao {
     /**
      * 查询指定行数据
      *
-     * @param publish  查询条件
-     * @param pageable 分页对象
+     * @param publish 查询条件
+     * @param pageable         分页对象
      * @return 对象列表
      */
     List<Publish> queryAllByLimit(Publish publish, @Param("pageable") Pageable pageable);

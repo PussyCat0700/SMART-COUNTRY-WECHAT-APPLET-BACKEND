@@ -9,8 +9,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="DeptgovaffairsarrivalMap">
-        select GAAid,
-               did
+        select
+          GAAid, did
         from deptgovaffairsarrival
         where GAAid = #{gaaid}
     </select>
@@ -18,7 +18,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DeptgovaffairsarrivalMap">
         select
-        GAAid, did
+          GAAid, did
         from deptgovaffairsarrival
         <where>
             <if test="gaaid != null">
@@ -55,7 +55,7 @@
         insert into deptgovaffairsarrival()
         values
         <foreach collection="entities" item="entity" separator=",">
-            ()
+        ()
         </foreach>
     </insert>
 
@@ -66,7 +66,7 @@
             ()
         </foreach>
         on duplicate key update
-
+        
     </insert>
 
     <!--通过主键修改数据-->
@@ -79,9 +79,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from deptgovaffairsarrival
-        where GAAid = #{gaaid}
+        delete from deptgovaffairsarrival where GAAid = #{gaaid}
     </delete>
 
 </mapper>

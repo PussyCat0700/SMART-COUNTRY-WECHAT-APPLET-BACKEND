@@ -9,8 +9,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="ResidentMap">
-        select uid,
-               cid
+        select
+          uid, cid
         from resident
         where uid = #{uid}
     </select>
@@ -18,7 +18,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ResidentMap">
         select
-        uid, cid
+          uid, cid
         from resident
         <where>
             <if test="uid != null">
@@ -55,7 +55,7 @@
         insert into resident(cid)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.cid})
+        (#{entity.cid})
         </foreach>
     </insert>
 
@@ -82,9 +82,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from resident
-        where uid = #{uid}
+        delete from resident where uid = #{uid}
     </delete>
 
 </mapper>

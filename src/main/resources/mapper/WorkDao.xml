@@ -11,10 +11,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="WorkMap">
-        select did,
-               uid,
-               wname,
-               wtime
+        select
+          did, uid, wname, wtime
         from work
         where did = #{did}
     </select>
@@ -22,7 +20,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="WorkMap">
         select
-        did, uid, wname, wtime
+          did, uid, wname, wtime
         from work
         <where>
             <if test="did != null">
@@ -71,7 +69,7 @@
         insert into work(wname, wtime)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.wname}, #{entity.wtime})
+        (#{entity.wname}, #{entity.wtime})
         </foreach>
     </insert>
 
@@ -102,9 +100,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from work
-        where did = #{did}
+        delete from work where did = #{did}
     </delete>
 
 </mapper>

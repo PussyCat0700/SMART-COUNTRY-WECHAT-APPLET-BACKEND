@@ -6,13 +6,13 @@ import java.io.Serializable;
  * (Create)实体类
  *
  * @author makejava
- * @since 2022-05-24 17:56:20
+ * @since 2022-06-01 14:39:27
  */
 public class Create implements Serializable {
-    private static final long serialVersionUID = -70634491737859501L;
-
+    private static final long serialVersionUID = 662053721384861853L;
+    
     private Integer uid;
-
+    
     private Integer cid;
 
 

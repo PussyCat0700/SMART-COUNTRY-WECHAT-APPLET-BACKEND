@@ -6,17 +6,17 @@ import java.io.Serializable;
  * (Usergovaffairsspot)实体类
  *
  * @author makejava
- * @since 2022-05-24 17:56:25
+ * @since 2022-06-01 14:39:27
  */
 public class Usergovaffairsspot implements Serializable {
-    private static final long serialVersionUID = -99262788181280197L;
-
+    private static final long serialVersionUID = -42425667375618364L;
+    
     private Integer gasid;
-
+    
     private Integer uid;
-
+    
     private String appointTime;
-
+    
     private Integer status;
 
 

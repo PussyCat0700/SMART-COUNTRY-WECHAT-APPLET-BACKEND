@@ -14,13 +14,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
-        select uid,
-               status,
-               uname,
-               ugender,
-               uage,
-               uaddress,
-               uwxid
+        select
+          uid, status, uname, ugender, uage, uaddress, uwxid
         from user
         where uid = #{uid}
     </select>
@@ -28,7 +23,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="UserMap">
         select
-        uid, status, uname, ugender, uage, uaddress, uwxid
+          uid, status, uname, ugender, uage, uaddress, uwxid
         from user
         <where>
             <if test="uid != null">
@@ -95,7 +90,7 @@
         insert into user(status, uname, ugender, uage, uaddress, uwxid)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid})
+        (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid})
         </foreach>
     </insert>
 
@@ -142,9 +137,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from user
-        where uid = #{uid}
+        delete from user where uid = #{uid}
     </delete>
 
 </mapper>

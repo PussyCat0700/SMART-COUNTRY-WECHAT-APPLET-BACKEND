@@ -11,10 +11,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="MailboxMap">
-        select mid,
-               did,
-               uid,
-               mailContent
+        select
+          mid, did, uid, mailContent
         from mailbox
         where mid = #{mid}
     </select>
@@ -22,7 +20,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="MailboxMap">
         select
-        mid, did, uid, mailContent
+          mid, did, uid, mailContent
         from mailbox
         <where>
             <if test="mid != null">
@@ -71,7 +69,7 @@
         insert into mailbox(did, uid, mailContent)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.did}, #{entity.uid}, #{entity.mailcontent})
+        (#{entity.did}, #{entity.uid}, #{entity.mailcontent})
         </foreach>
     </insert>
 
@@ -106,9 +104,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from mailbox
-        where mid = #{mid}
+        delete from mailbox where mid = #{mid}
     </delete>
 
 </mapper>

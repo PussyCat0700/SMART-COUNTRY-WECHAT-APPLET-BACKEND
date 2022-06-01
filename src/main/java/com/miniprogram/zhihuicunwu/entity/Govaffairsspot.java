@@ -7,15 +7,15 @@ import java.io.Serializable;
  * (Govaffairsspot)实体类
  *
  * @author makejava
- * @since 2022-05-24 17:56:22
+ * @since 2022-06-01 14:39:27
  */
 public class Govaffairsspot implements Serializable {
-    private static final long serialVersionUID = 344378526949305169L;
-
+    private static final long serialVersionUID = -69890997949746096L;
+    
     private Integer gasid;
-
+    
     private Date gastime;
-
+    
     private String gasdescription;
 
 

@@ -6,7 +6,7 @@ import com.miniprogram.zhihuicunwu.entity.Deptgovaffairsspot;
  * (Deptgovaffairsspot)表服务接口
  *
  * @author makejava
- * @since 2022-05-24 17:56:22
+ * @since 2022-06-01 14:39:27
  */
 public interface DeptgovaffairsspotService {
 

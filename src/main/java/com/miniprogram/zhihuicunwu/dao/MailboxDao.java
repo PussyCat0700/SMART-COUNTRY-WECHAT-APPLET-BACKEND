@@ -3,14 +3,13 @@ package com.miniprogram.zhihuicunwu.dao;
 import com.miniprogram.zhihuicunwu.entity.Mailbox;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 
 /**
  * (Mailbox)表数据库访问层
  *
  * @author makejava
- * @since 2022-05-24 17:56:23
+ * @since 2022-06-01 14:39:27
  */
 public interface MailboxDao {
 
@@ -25,8 +24,8 @@ public interface MailboxDao {
     /**
      * 查询指定行数据
      *
-     * @param mailbox  查询条件
-     * @param pageable 分页对象
+     * @param mailbox 查询条件
+     * @param pageable         分页对象
      * @return 对象列表
      */
     List<Mailbox> queryAllByLimit(Mailbox mailbox, @Param("pageable") Pageable pageable);

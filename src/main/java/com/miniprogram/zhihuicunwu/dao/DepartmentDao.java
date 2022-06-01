@@ -3,14 +3,13 @@ package com.miniprogram.zhihuicunwu.dao;
 import com.miniprogram.zhihuicunwu.entity.Department;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
-
 import java.util.List;
 
 /**
  * (Department)表数据库访问层
  *
  * @author makejava
- * @since 2022-05-24 17:56:21
+ * @since 2022-06-01 14:39:27
  */
 public interface DepartmentDao {
 
@@ -26,7 +25,7 @@ public interface DepartmentDao {
      * 查询指定行数据
      *
      * @param department 查询条件
-     * @param pageable   分页对象
+     * @param pageable         分页对象
      * @return 对象列表
      */
     List<Department> queryAllByLimit(Department department, @Param("pageable") Pageable pageable);

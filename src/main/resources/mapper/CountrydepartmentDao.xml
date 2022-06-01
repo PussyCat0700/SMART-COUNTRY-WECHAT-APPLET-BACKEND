@@ -9,8 +9,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="CountrydepartmentMap">
-        select did,
-               cid
+        select
+          did, cid
         from countrydepartment
         where did = #{did}
     </select>
@@ -18,7 +18,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CountrydepartmentMap">
         select
-        did, cid
+          did, cid
         from countrydepartment
         <where>
             <if test="did != null">
@@ -55,7 +55,7 @@
         insert into countrydepartment()
         values
         <foreach collection="entities" item="entity" separator=",">
-            ()
+        ()
         </foreach>
     </insert>
 
@@ -66,7 +66,7 @@
             ()
         </foreach>
         on duplicate key update
-
+        
     </insert>
 
     <!--通过主键修改数据-->
@@ -79,9 +79,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from countrydepartment
-        where did = #{did}
+        delete from countrydepartment where did = #{did}
     </delete>
 
 </mapper>

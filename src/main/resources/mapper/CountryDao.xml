@@ -11,10 +11,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="CountryMap">
-        select cid,
-               score,
-               location,
-               cname
+        select
+          cid, score, location, cname
         from country
         where cid = #{cid}
     </select>
@@ -22,7 +20,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CountryMap">
         select
-        cid, score, location, cname
+          cid, score, location, cname
         from country
         <where>
             <if test="cid != null">
@@ -71,7 +69,7 @@
         insert into country(score, location, cname)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.score}, #{entity.location}, #{entity.cname})
+        (#{entity.score}, #{entity.location}, #{entity.cname})
         </foreach>
     </insert>
 
@@ -106,9 +104,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from country
-        where cid = #{cid}
+        delete from country where cid = #{cid}
     </delete>
 
 </mapper>

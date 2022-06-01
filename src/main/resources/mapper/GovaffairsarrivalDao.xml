@@ -10,9 +10,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="GovaffairsarrivalMap">
-        select GAAid,
-               GAATime,
-               GAADescription
+        select
+          GAAid, GAATime, GAADescription
         from govaffairsarrival
         where GAAid = #{gaaid}
     </select>
@@ -20,7 +19,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="GovaffairsarrivalMap">
         select
-        GAAid, GAATime, GAADescription
+          GAAid, GAATime, GAADescription
         from govaffairsarrival
         <where>
             <if test="gaaid != null">
@@ -63,7 +62,7 @@
         insert into govaffairsarrival(GAATime, GAADescription)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.gaatime}, #{entity.gaadescription})
+        (#{entity.gaatime}, #{entity.gaadescription})
         </foreach>
     </insert>
 
@@ -94,9 +93,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from govaffairsarrival
-        where GAAid = #{gaaid}
+        delete from govaffairsarrival where GAAid = #{gaaid}
     </delete>
 
 </mapper>

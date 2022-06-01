@@ -6,17 +6,17 @@ import java.io.Serializable;
  * (Country)实体类
  *
  * @author makejava
- * @since 2022-05-24 17:56:20
+ * @since 2022-06-01 14:39:27
  */
 public class Country implements Serializable {
-    private static final long serialVersionUID = -72246872293651561L;
-
+    private static final long serialVersionUID = -60058354467691693L;
+    
     private Integer cid;
-
+    
     private Integer score;
-
+    
     private String location;
-
+    
     private String cname;
 
 

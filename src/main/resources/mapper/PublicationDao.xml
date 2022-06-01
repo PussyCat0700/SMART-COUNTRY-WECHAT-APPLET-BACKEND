@@ -13,12 +13,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="PublicationMap">
-        select pid,
-               pType,
-               pContent,
-               pAttach,
-               pTime,
-               pPic
+        select
+          pid, pType, pContent, pAttach, pTime, pPic
         from publication
         where pid = #{pid}
     </select>
@@ -26,7 +22,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PublicationMap">
         select
-        pid, pType, pContent, pAttach, pTime, pPic
+          pid, pType, pContent, pAttach, pTime, pPic
         from publication
         <where>
             <if test="pid != null">
@@ -87,7 +83,7 @@
         insert into publication(pType, pContent, pAttach, pTime, pPic)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.ptype}, #{entity.pcontent}, #{entity.pattach}, #{entity.ptime}, #{entity.ppic})
+        (#{entity.ptype}, #{entity.pcontent}, #{entity.pattach}, #{entity.ptime}, #{entity.ppic})
         </foreach>
     </insert>
 
@@ -130,9 +126,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from publication
-        where pid = #{pid}
+        delete from publication where pid = #{pid}
     </delete>
 
 </mapper>

@@ -10,9 +10,8 @@
 
     <!--查询单个-->
     <select id="queryById" resultMap="GovaffairsspotMap">
-        select GASid,
-               GASTime,
-               GASDescription
+        select
+          GASid, GASTime, GASDescription
         from govaffairsspot
         where GASid = #{gasid}
     </select>
@@ -20,7 +19,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="GovaffairsspotMap">
         select
-        GASid, GASTime, GASDescription
+          GASid, GASTime, GASDescription
         from govaffairsspot
         <where>
             <if test="gasid != null">
@@ -63,7 +62,7 @@
         insert into govaffairsspot(GASTime, GASDescription)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.gastime}, #{entity.gasdescription})
+        (#{entity.gastime}, #{entity.gasdescription})
         </foreach>
     </insert>
 
@@ -94,9 +93,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete
-        from govaffairsspot
-        where GASid = #{gasid}
+        delete from govaffairsspot where GASid = #{gasid}
     </delete>
 
 </mapper>

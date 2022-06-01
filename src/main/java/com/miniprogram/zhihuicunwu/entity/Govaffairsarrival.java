@@ -7,15 +7,15 @@ import java.io.Serializable;
  * (Govaffairsarrival)实体类
  *
  * @author makejava
- * @since 2022-05-24 17:56:22
+ * @since 2022-06-01 14:39:27
  */
 public class Govaffairsarrival implements Serializable {
-    private static final long serialVersionUID = 973254103362936277L;
-
+    private static final long serialVersionUID = -28975587954399983L;
+    
     private Integer gaaid;
-
+    
     private Date gaatime;
-
+    
     private String gaadescription;
 
 
