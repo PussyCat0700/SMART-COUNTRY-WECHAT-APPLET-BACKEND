@@ -1,7 +1,7 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : localhost_3306
  Source Server Type    : MySQL
  Source Server Version : 50737
  Source Host           : localhost:3306
@@ -11,7 +11,7 @@
  Target Server Version : 50737
  File Encoding         : 65001
 
- Date: 24/05/2022 17:58:29
+ Date: 01/06/2022 14:33:12
 */
 
 SET NAMES utf8mb4;
@@ -26,6 +26,7 @@ CREATE TABLE `country`  (
   `score` decimal(10, 0) NULL DEFAULT NULL,
   `location` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `cname` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `ccode` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`cid`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
@@ -64,6 +65,7 @@ CREATE TABLE `department`  (
   `dname` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `ddescription` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `daddress` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `dphone` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`did`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
@@ -128,6 +130,7 @@ CREATE TABLE `govaffairsspot`  (
   `GASid` int(11) NOT NULL AUTO_INCREMENT,
   `GASTime` datetime NULL DEFAULT NULL,
   `GASDescription` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `GASName` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`GASid`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
@@ -199,7 +202,7 @@ CREATE TABLE `user`  (
   `ugender` int(11) NULL DEFAULT NULL,
   `uage` int(11) NULL DEFAULT NULL,
   `uaddress` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `uwxid` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `uwxid` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT 'alias = uwxopenId\r',
   PRIMARY KEY (`uid`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
@@ -211,8 +214,12 @@ CREATE TABLE `usergovaffairsarrival`  (
   `GAAid` int(11) NOT NULL,
   `uid` int(11) NOT NULL,
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Appoint_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Appoint_time` datetime NULL DEFAULT NULL,
+  `GAAName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `status` int(11) NULL DEFAULT NULL,
+  `rate` int(11) NULL DEFAULT NULL,
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`GAAid`, `uid`) USING BTREE,
   INDEX `GAAuid`(`uid`) USING BTREE,
   CONSTRAINT `GAAuid` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -228,6 +235,9 @@ CREATE TABLE `usergovaffairsspot`  (
   `uid` int(11) NOT NULL,
   `Appoint_time` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `status` int(11) NULL DEFAULT NULL,
+  `rate` int(11) NULL DEFAULT NULL,
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `create_time` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`GASid`, `uid`) USING BTREE,
   INDEX `uGASuid`(`uid`) USING BTREE,
   CONSTRAINT `uGASid` FOREIGN KEY (`GASid`) REFERENCES `govaffairsarrival` (`GAAid`) ON DELETE CASCADE ON UPDATE CASCADE,
