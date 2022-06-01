@@ -1,5 +1,7 @@
 package com.miniprogram.zhihuicunwu.entity;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.io.Serializable;
 
 /**
@@ -80,6 +82,14 @@ public class User implements Serializable {
 
     public void setUwxid(String uwxid) {
         this.uwxid = uwxid;
+    }
+
+    static public User parseFromJSON(JSONObject jsonObject){
+        User user = new User();
+        user.uname = jsonObject.getString("nickname");
+        user.ugender = jsonObject.getInteger("gender");
+        user.uaddress = jsonObject.getString("city");
+        return user;
     }
 
 }

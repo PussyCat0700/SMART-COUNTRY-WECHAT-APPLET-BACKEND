@@ -1,5 +1,6 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,17 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> add(@RequestBody User user) {
         return ResponseEntity.ok(this.userService.insert(user));
+    }
+
+    /**
+     * login Or register
+     */
+    @PostMapping("/login")
+    public ResponseEntity<User> loginOrRegister(@RequestBody JSONObject params){
+        String encryptedData = params.getString("encryptedData");
+        // TODO 解密
+        JSONObject userInfo = params.getJSONObject("userInfo");
+        return ResponseEntity.ok(this.userService.queryOrRegisterByOpenId(encryptedData, userInfo));
     }
 
     /**

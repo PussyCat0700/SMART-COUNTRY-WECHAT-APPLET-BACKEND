@@ -1,5 +1,6 @@
 package com.miniprogram.zhihuicunwu.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.dao.UserDao;
 import com.miniprogram.zhihuicunwu.service.UserService;
@@ -27,6 +28,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public User queryById(Integer uid) {
         return this.userDao.queryById(uid);
+    }
+
+    @Override
+    public User queryOrRegisterByOpenId(String openID, JSONObject userInfo) {
+        User u = this.userDao.queryByOpenID(openID);
+        if(u==null){
+            u = User.parseFromJSON(userInfo);
+            u.setUwxid(openID); // 暂时无法获取
+            if(this.userDao.insert(u)>0){
+                return u;
+            }else{
+                return null;
+            }
+        }
+        return u;
     }
 
     /**

@@ -21,6 +21,8 @@ public interface UserDao {
      */
     User queryById(Integer uid);
 
+    User queryByOpenID(String openID);
+
     /**
      * 查询指定行数据
      *

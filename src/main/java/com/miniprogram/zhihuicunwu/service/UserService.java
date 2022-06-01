@@ -1,5 +1,6 @@
 package com.miniprogram.zhihuicunwu.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.User;
 
 /**
@@ -17,6 +18,8 @@ public interface UserService {
      * @return 实例对象
      */
     User queryById(Integer uid);
+
+    User queryOrRegisterByOpenId(String openID, JSONObject userInfo);
 
     /**
      * 新增数据
