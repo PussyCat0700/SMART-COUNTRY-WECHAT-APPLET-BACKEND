@@ -17,6 +17,14 @@
         where did = #{did}
     </select>
 
+    <!--查询单个-->
+    <select id="queryByUId" resultMap="WorkMap">
+        select
+            did, uid, wname, wtime
+        from work
+        where uid = #{uid}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="WorkMap">
         select

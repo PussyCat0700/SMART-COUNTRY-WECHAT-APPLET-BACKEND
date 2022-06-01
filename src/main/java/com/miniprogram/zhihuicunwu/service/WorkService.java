@@ -18,6 +18,8 @@ public interface WorkService {
      */
     Work queryById(Integer did);
 
+    Work queryByUid(Integer uid);
+
     /**
      * 新增数据
      *

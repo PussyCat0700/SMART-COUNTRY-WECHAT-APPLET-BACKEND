@@ -1,8 +1,12 @@
 package com.miniprogram.zhihuicunwu.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.miniprogram.zhihuicunwu.dao.ResidentDao;
+import com.miniprogram.zhihuicunwu.dao.WorkDao;
+import com.miniprogram.zhihuicunwu.entity.Resident;
 import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.dao.UserDao;
+import com.miniprogram.zhihuicunwu.entity.Work;
 import com.miniprogram.zhihuicunwu.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,10 @@ import javax.annotation.Resource;
 public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
+    @Resource
+    private ResidentDao residentDao;
+    @Resource
+    private WorkDao workDao;
 
     /**
      * 通过ID查询单条数据
@@ -31,18 +39,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User queryOrRegisterByOpenId(String openID, JSONObject userInfo) {
+    public JSONObject queryOrRegisterByOpenId(String openID, JSONObject userInfo) {
+        JSONObject jsonObject = new JSONObject();
         User u = this.userDao.queryByOpenID(openID);
+        Resident r = null;
+        Work w = null;
         if(u==null){
             u = User.parseFromJSON(userInfo);
             u.setUwxid(openID); // 暂时无法获取
-            if(this.userDao.insert(u)>0){
-                return u;
-            }else{
-                return null;
+            if(this.userDao.insert(u) == 0) {
+                u = null;
             }
         }
-        return u;
+        if(u!=null){
+            r = this.residentDao.queryById(u.getUid());
+            w = this.workDao.queryByUId(u.getUid());
+        }
+        jsonObject.put("user", u);
+        jsonObject.put("countryId", r==null?null:r.getCid());
+        jsonObject.put("departmentID", w==null?null:w.getDid());
+        return jsonObject;
     }
 
     /**

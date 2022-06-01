@@ -19,7 +19,7 @@ public interface UserService {
      */
     User queryById(Integer uid);
 
-    User queryOrRegisterByOpenId(String openID, JSONObject userInfo);
+    JSONObject queryOrRegisterByOpenId(String openID, JSONObject userInfo);
 
     /**
      * 新增数据

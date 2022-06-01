@@ -49,7 +49,7 @@ public class UserController {
      * login Or register
      */
     @PostMapping("/login")
-    public ResponseEntity<User> loginOrRegister(@RequestBody JSONObject params){
+    public ResponseEntity<JSONObject> loginOrRegister(@RequestBody JSONObject params){
         String encryptedData = params.getString("encryptedData");
         // TODO 解密
         JSONObject userInfo = params.getJSONObject("userInfo");

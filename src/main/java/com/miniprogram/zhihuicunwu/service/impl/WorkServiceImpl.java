@@ -29,6 +29,11 @@ public class WorkServiceImpl implements WorkService {
         return this.workDao.queryById(did);
     }
 
+    @Override
+    public Work queryByUid(Integer uid) {
+        return this.workDao.queryByUId(uid);
+    }
+
     /**
      * 新增数据
      *

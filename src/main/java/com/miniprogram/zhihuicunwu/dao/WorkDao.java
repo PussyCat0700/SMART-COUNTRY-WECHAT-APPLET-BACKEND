@@ -21,6 +21,8 @@ public interface WorkDao {
      */
     Work queryById(Integer did);
 
+    Work queryByUId(Integer uid);
+
     /**
      * 查询指定行数据
      *
