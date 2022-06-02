@@ -8,10 +8,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.jdbc.BadSqlGrammarException;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.HttpMediaTypeException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.net.MalformedURLException;
+import java.sql.SQLSyntaxErrorException;
 
 /**
  * @Description:
@@ -23,7 +27,7 @@ import java.net.MalformedURLException;
 @Configuration
 @RestControllerAdvice
 @ConditionalOnWebApplication(type = ConditionalOnWebApplication.Type.SERVLET)
-public class RestExceptionHandler {
+public class GlobalExceptionHandler {
     private Result handleGeneralException(String message, String hint){
         log.warn("{}:{}", hint, message);
         return Result.fail(SystemCode.FAILURE_CODE, hint);
@@ -60,6 +64,14 @@ public class RestExceptionHandler {
     @ExceptionHandler(com.mashape.unirest.http.exceptions.UnirestException.class)
     public Result handleJSONException(Exception e){
         return handleGeneralException(e.getMessage(), "JSON转义失败！");
+    }
+    @ExceptionHandler(org.springframework.web.HttpMediaTypeException.class)
+    public Result handleWrongBodyTypeException(HttpMediaTypeException e){
+        return handleGeneralException(e.getMessage(), "请确认数据已经以JSON格式封装至Http请求Body字段中！");
+    }
+    @ExceptionHandler(BadSqlGrammarException.class)
+    public Result handleSQLException(BadSqlGrammarException e){
+        return handleGeneralException(e.getMessage(), "SQL语义错误：请检查您传入的数据中是否缺失了主键或更新字段等关键信息");
     }
     /**
      * OCR鉴权错误
