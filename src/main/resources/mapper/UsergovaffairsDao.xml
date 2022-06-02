@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miniprogram.zhihuicunwu.dao.UsergovaffairsDao">
+
+    <resultMap type="com.miniprogram.zhihuicunwu.entity.Usergovaffairs" id="UsergovaffairsMap">
+        <result property="gaid" column="GAid" jdbcType="INTEGER"/>
+        <result property="uid" column="uid" jdbcType="INTEGER"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+        <result property="appointTime" column="Appoint_time" jdbcType="TIMESTAMP"/>
+        <result property="ganame" column="GAName" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="rate" column="rate" jdbcType="INTEGER"/>
+        <result property="comment" column="comment" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="UsergovaffairsMap">
+        select
+          GAid, uid, address, Appoint_time, GAName, status, rate, comment, create_time
+        from usergovaffairs
+        where GAid = #{gaid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="UsergovaffairsMap">
+        select
+          GAid, uid, address, Appoint_time, GAName, status, rate, comment, create_time
+        from usergovaffairs
+        <where>
+            <if test="gaid != null">
+                and GAid = #{gaid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="appointTime != null">
+                and Appoint_time = #{appointTime}
+            </if>
+            <if test="ganame != null and ganame != ''">
+                and GAName = #{ganame}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="rate != null">
+                and rate = #{rate}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from usergovaffairs
+        <where>
+            <if test="gaid != null">
+                and GAid = #{gaid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="appointTime != null">
+                and Appoint_time = #{appointTime}
+            </if>
+            <if test="ganame != null and ganame != ''">
+                and GAName = #{ganame}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="rate != null">
+                and rate = #{rate}
+            </if>
+            <if test="comment != null and comment != ''">
+                and comment = #{comment}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="gaid" useGeneratedKeys="true">
+        insert into usergovaffairs(address, Appoint_time, GAName, status, rate, comment, create_time)
+        values (#{address}, #{appointTime}, #{ganame}, #{status}, #{rate}, #{comment}, #{createTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="gaid" useGeneratedKeys="true">
+        insert into usergovaffairs(address, Appoint_time, GAName, status, rate, comment, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.address}, #{entity.appointTime}, #{entity.ganame}, #{entity.status}, #{entity.rate}, #{entity.comment}, #{entity.createTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="gaid" useGeneratedKeys="true">
+        insert into usergovaffairs(address, Appoint_time, GAName, status, rate, comment, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.address}, #{entity.appointTime}, #{entity.ganame}, #{entity.status}, #{entity.rate}, #{entity.comment}, #{entity.createTime})
+        </foreach>
+        on duplicate key update
+        address = values(address),
+        Appoint_time = values(Appoint_time),
+        GAName = values(GAName),
+        status = values(status),
+        rate = values(rate),
+        comment = values(comment),
+        create_time = values(create_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update usergovaffairs
+        <set>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="appointTime != null">
+                Appoint_time = #{appointTime},
+            </if>
+            <if test="ganame != null and ganame != ''">
+                GAName = #{ganame},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="rate != null">
+                rate = #{rate},
+            </if>
+            <if test="comment != null and comment != ''">
+                comment = #{comment},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+        </set>
+        where GAid = #{gaid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from usergovaffairs where GAid = #{gaid}
+    </delete>
+
+</mapper>
+
