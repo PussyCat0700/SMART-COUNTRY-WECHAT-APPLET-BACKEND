@@ -1,5 +1,7 @@
 package com.miniprogram.zhihuicunwu.externalservices;
 
+import cn.hutool.core.codec.Base64Encoder;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.InputStreamReader;
@@ -16,8 +18,6 @@ import java.util.*;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
-import sun.misc.BASE64Encoder;
-
 public class SensitiveUtils {
     public static String calcAuthorization(String source, String secretId, String secretKey, String datetime)
             throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
@@ -26,7 +26,7 @@ public class SensitiveUtils {
         Key sKey = new SecretKeySpec(secretKey.getBytes("UTF-8"), mac.getAlgorithm());
         mac.init(sKey);
         byte[] hash = mac.doFinal(signStr.getBytes("UTF-8"));
-        String sig = new BASE64Encoder().encode(hash);
+        String sig = new Base64Encoder().encode(hash);
 
         String auth = "hmac id=\"" + secretId + "\", algorithm=\"hmac-sha1\", headers=\"x-date x-source\", signature=\"" + sig + "\"";
         return auth;
