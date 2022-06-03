@@ -2,8 +2,6 @@ package com.miniprogram.zhihuicunwu.util
 
 import com.alibaba.fastjson.JSONObject
 import com.mashape.unirest.http.HttpResponse
-import kotlin.Throws
-import com.mashape.unirest.http.exceptions.UnirestException
 import com.mashape.unirest.http.Unirest
 
 object UnirestUtils {
