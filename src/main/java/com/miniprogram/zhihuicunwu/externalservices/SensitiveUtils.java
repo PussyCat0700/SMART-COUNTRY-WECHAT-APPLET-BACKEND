@@ -113,10 +113,9 @@ public class SensitiveUtils {
             String line;
             String result = "";
             while ((line = in.readLine()) != null) {
+                System.out.println(line);
                 result += line;
             }
-
-            System.out.println(result);
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
