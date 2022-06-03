@@ -7,7 +7,6 @@ import com.mashape.unirest.http.exceptions.UnirestException
 import com.mashape.unirest.http.Unirest
 
 object UnirestUtils {
-    @Throws(UnirestException::class)
     fun postJsonForResult(url: String, headers: Map<String, String>? = mapOf("Content-Type" to "application/x-www-form-urlencoded"), fields: Map<String, String>? = null, queryString:Map<String, String>? = null): JSONObject {
         Unirest.setTimeouts(0, 0)
         val response: HttpResponse<*> = Unirest.post(url).run {

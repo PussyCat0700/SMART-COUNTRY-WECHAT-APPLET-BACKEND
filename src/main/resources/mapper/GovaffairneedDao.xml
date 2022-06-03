@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miniprogram.zhihuicunwu.dao.GovaffairneedDao">
+
+    <resultMap type="com.miniprogram.zhihuicunwu.entity.Govaffairneed" id="GovaffairneedMap">
+        <result property="needgovaffairid" column="needGovAffairID" jdbcType="INTEGER"/>
+        <result property="need" column="need" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="GovaffairneedMap">
+        select
+          needGovAffairID, need
+        from govaffairneed
+        where needGovAffairID = #{needgovaffairid}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="GovaffairneedMap">
+        select
+          needGovAffairID, need
+        from govaffairneed
+        <where>
+            <if test="needgovaffairid != null">
+                and needGovAffairID = #{needgovaffairid}
+            </if>
+            <if test="need != null and need != ''">
+                and need = #{need}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from govaffairneed
+        <where>
+            <if test="needgovaffairid != null">
+                and needGovAffairID = #{needgovaffairid}
+            </if>
+            <if test="need != null and need != ''">
+                and need = #{need}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="needgovaffairid" useGeneratedKeys="true">
+        insert into govaffairneed(need)
+        values (#{need})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="needgovaffairid" useGeneratedKeys="true">
+        insert into govaffairneed(need)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.need})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="needgovaffairid" useGeneratedKeys="true">
+        insert into govaffairneed(need)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.need})
+        </foreach>
+        on duplicate key update
+        need = values(need)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update govaffairneed
+        <set>
+            <if test="need != null and need != ''">
+                need = #{need},
+            </if>
+        </set>
+        where needGovAffairID = #{needgovaffairid}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from govaffairneed where needGovAffairID = #{needgovaffairid}
+    </delete>
+
+</mapper>
+

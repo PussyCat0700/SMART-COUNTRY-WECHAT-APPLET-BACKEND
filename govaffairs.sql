@@ -11,7 +11,7 @@
  Target Server Version : 50737
  File Encoding         : 65001
 
- Date: 02/06/2022 22:19:02
+ Date: 03/06/2022 11:40:03
 */
 
 SET NAMES utf8mb4;
@@ -99,6 +99,17 @@ CREATE TABLE `feedback`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
+-- Table structure for govaffairneed
+-- ----------------------------
+DROP TABLE IF EXISTS `govaffairneed`;
+CREATE TABLE `govaffairneed`  (
+  `needGovAffairID` int(11) NOT NULL COMMENT '与之关联的GovAffairID',
+  `need` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`needGovAffairID`) USING BTREE,
+  CONSTRAINT `needGovAffair` FOREIGN KEY (`needGovAffairID`) REFERENCES `govaffairs` (`GAid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for govaffairs
 -- ----------------------------
 DROP TABLE IF EXISTS `govaffairs`;
@@ -129,6 +140,17 @@ CREATE TABLE `mailbox`  (
   CONSTRAINT `mailbox_did` FOREIGN KEY (`did`) REFERENCES `department` (`did`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `mailbox_uid` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for mailboximg
+-- ----------------------------
+DROP TABLE IF EXISTS `mailboximg`;
+CREATE TABLE `mailboximg`  (
+  `mailboxId` int(11) NOT NULL COMMENT '外键：MailBoxID',
+  `imageBase64` mediumblob NULL COMMENT 'base64形式直接存储在SQL的图片文件，上限16M',
+  PRIMARY KEY (`mailboxId`) USING BTREE,
+  CONSTRAINT `ImgMailboxID` FOREIGN KEY (`mailboxId`) REFERENCES `mailbox` (`mid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for publication
