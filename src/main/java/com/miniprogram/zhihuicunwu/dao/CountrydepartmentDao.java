@@ -21,6 +21,9 @@ public interface CountrydepartmentDao {
      */
     Countrydepartment queryById(Integer did);
 
+    //查询某村下的所有部门信息
+    List<Countrydepartment> queryByCid(int cid);
+
     /**
      * 查询指定行数据
      *

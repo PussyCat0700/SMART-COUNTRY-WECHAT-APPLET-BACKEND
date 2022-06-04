@@ -22,7 +22,7 @@ import java.util.Arrays;
 @Slf4j
 public class LogAspect {
 
-    @Pointcut("execution(public * com.miniprogram.zhihuicunwu.web.controller..*(..))")
+    @Pointcut("execution(public * com.miniprogram.zhihuicunwu.controller..*(..))")
     public void requestAspect(){}
 
     @Before(value = "requestAspect()")

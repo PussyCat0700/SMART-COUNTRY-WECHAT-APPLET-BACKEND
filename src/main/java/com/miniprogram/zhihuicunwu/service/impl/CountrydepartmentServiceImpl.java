@@ -6,6 +6,7 @@ import com.miniprogram.zhihuicunwu.service.CountrydepartmentService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Countrydepartment)表服务实现类
@@ -27,6 +28,12 @@ public class CountrydepartmentServiceImpl implements CountrydepartmentService {
     @Override
     public Countrydepartment queryById(Integer did) {
         return this.countrydepartmentDao.queryById(did);
+    }
+
+    @Override
+    public List<Countrydepartment> queryByCid(int cid)
+    {
+        return this.countrydepartmentDao.queryByCid(cid);
     }
 
     /**

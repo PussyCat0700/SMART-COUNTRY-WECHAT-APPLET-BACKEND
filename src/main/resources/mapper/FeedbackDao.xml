@@ -18,6 +18,29 @@
         where uid = #{uid}
     </select>
 
+    <!--查询所有数据-->
+    <select id="queryAll" resultMap="FeedbackMap">
+        select
+          uid, pid, fTime, fContent, fReturn
+        from feedback
+    </select>
+    
+    <!--根据内容模糊查询-->
+    <select id="queryFuzzyByContent" resultMap="FeedbackMap">
+        select
+          uid, pid, fTime, fContent, fReturn
+        from feedback
+        where fContent REGEXP #{content}
+    </select>
+
+    <!--根据uid查询 我的反馈-->
+    <select id="queryFeedbackByUid" resultMap="FeedbackMap">
+        select
+          uid, pid, fTime, fContent, fReturn
+        from feedback
+        where uid = #{uid}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="FeedbackMap">
         select
@@ -68,26 +91,27 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="uid" useGeneratedKeys="true">
-        insert into feedback(fTime, fContent, fReturn)
-        values (#{ftime}, #{fcontent}, #{freturn})
+        insert into feedback(uid, pid, fContent, fReturn)
+        values (#{uid}, #{pid}, #{fcontent}, #{freturn})
     </insert>
 
     <insert id="insertBatch" keyProperty="uid" useGeneratedKeys="true">
-        insert into feedback(fTime, fContent, fReturn)
+        insert into feedback(uid, pid, fContent, fReturn)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.ftime}, #{entity.fcontent}, #{entity.freturn})
+        (#{uid}, #{pid}, #{entity.fcontent}, #{entity.freturn})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="uid" useGeneratedKeys="true">
-        insert into feedback(fTime, fContent, fReturn)
+        insert into feedback(uid, pid, fContent, fReturn)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.ftime}, #{entity.fcontent}, #{entity.freturn})
+            (#{uid}, #{pid}, #{entity.fcontent}, #{entity.freturn})
         </foreach>
         on duplicate key update
-        fTime = values(fTime),
+        uid = values(uid),
+        pid = values(pid),
         fContent = values(fContent),
         fReturn = values(fReturn)
     </insert>

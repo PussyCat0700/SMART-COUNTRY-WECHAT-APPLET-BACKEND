@@ -7,12 +7,13 @@
         <result property="dname" column="dname" jdbcType="VARCHAR"/>
         <result property="ddescription" column="ddescription" jdbcType="VARCHAR"/>
         <result property="daddress" column="daddress" jdbcType="VARCHAR"/>
+        <result property="dphone" column="dphone" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="DepartmentMap">
         select
-          did, dname, ddescription, daddress
+          did, dname, ddescription, daddress, dphone
         from department
         where did = #{did}
     </select>
@@ -20,7 +21,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DepartmentMap">
         select
-          did, dname, ddescription, daddress
+          did, dname, ddescription, daddress, dphone
         from department
         <where>
             <if test="did != null">
@@ -34,6 +35,9 @@
             </if>
             <if test="daddress != null and daddress != ''">
                 and daddress = #{daddress}
+            </if>
+            <if test="dphone != null and dphone != ''">
+                and dphone = #{dphone}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -56,33 +60,37 @@
             <if test="daddress != null and daddress != ''">
                 and daddress = #{daddress}
             </if>
+            <if test="dphone != null and dphone != ''">
+                and dphone = #{dphone}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="did" useGeneratedKeys="true">
-        insert into department(dname, ddescription, daddress)
-        values (#{dname}, #{ddescription}, #{daddress})
+        insert into department(dname, ddescription, daddress, dphone)
+        values (#{dname}, #{ddescription}, #{daddress}, #{dphone})
     </insert>
 
     <insert id="insertBatch" keyProperty="did" useGeneratedKeys="true">
-        insert into department(dname, ddescription, daddress)
+        insert into department(dname, ddescription, daddress, dphone)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.dname}, #{entity.ddescription}, #{entity.daddress})
+        (#{entity.dname}, #{entity.ddescription}, #{entity.daddress}, #{entity.dphone})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="did" useGeneratedKeys="true">
-        insert into department(dname, ddescription, daddress)
+        insert into department(dname, ddescription, daddress, dphone)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.dname}, #{entity.ddescription}, #{entity.daddress})
+            (#{entity.dname}, #{entity.ddescription}, #{entity.daddress}, #{entity.dphone})
         </foreach>
         on duplicate key update
         dname = values(dname),
         ddescription = values(ddescription),
         daddress = values(daddress)
+        dphone = values(dphone)
     </insert>
 
     <!--通过主键修改数据-->
@@ -97,6 +105,9 @@
             </if>
             <if test="daddress != null and daddress != ''">
                 daddress = #{daddress},
+            </if>
+            <if test="dphone != null and dphone != ''">
+                and dphone = #{dphone}
             </if>
         </set>
         where did = #{did}

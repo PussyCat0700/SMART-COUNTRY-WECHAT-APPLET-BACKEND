@@ -15,6 +15,14 @@
         where did = #{did}
     </select>
 
+    <!--查询某村的所有部门-->
+    <select id="queryByCid" resultMap="CountrydepartmentMap">
+        select
+          did, cid
+        from countrydepartment
+        where cid = #{cid}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CountrydepartmentMap">
         select

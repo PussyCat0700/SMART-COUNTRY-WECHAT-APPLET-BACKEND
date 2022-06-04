@@ -30,6 +30,8 @@ public class Usergovaffairs implements Serializable {
     
     private Date createTime;
 
+    private String content;
+
 
     public Integer getGaid() {
         return gaid;
@@ -101,6 +103,14 @@ public class Usergovaffairs implements Serializable {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
 }

@@ -2,6 +2,8 @@ package com.miniprogram.zhihuicunwu.service;
 
 import com.miniprogram.zhihuicunwu.entity.Countrydepartment;
 
+import java.util.List;
+
 /**
  * (Countrydepartment)表服务接口
  *
@@ -17,6 +19,9 @@ public interface CountrydepartmentService {
      * @return 实例对象
      */
     Countrydepartment queryById(Integer did);
+
+    //查询某村下所有的部门信息
+    List<Countrydepartment> queryByCid(int cid);
 
     /**
      * 新增数据

@@ -12,12 +12,13 @@
         <result property="rate" column="rate" jdbcType="INTEGER"/>
         <result property="comment" column="comment" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+        <result property="content" column="content" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="UsergovaffairsMap">
         select
-          GAid, uid, address, Appoint_time, GAName, status, rate, comment, create_time
+          GAid, uid, address, Appoint_time, GAName, status, rate, comment, create_time, content
         from usergovaffairs
         where GAid = #{gaid}
     </select>
@@ -25,7 +26,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="UsergovaffairsMap">
         select
-          GAid, uid, address, Appoint_time, GAName, status, rate, comment, create_time
+          GAid, uid, address, Appoint_time, GAName, status, rate, comment, create_time, content
         from usergovaffairs
         <where>
             <if test="gaid != null">
@@ -91,43 +92,55 @@
             <if test="createTime != null">
                 and create_time = #{createTime}
             </if>
+            <if test="content != null">
+                and content = #{content}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="gaid" useGeneratedKeys="true">
-        insert into usergovaffairs(address, Appoint_time, GAName, status, rate, comment, create_time)
-        values (#{address}, #{appointTime}, #{ganame}, #{status}, #{rate}, #{comment}, #{createTime})
+        insert into usergovaffairs(GAid, uid, address, Appoint_time, GAName, status, rate, comment, content)
+        values (#{gaid}, #{uid}, #{address}, #{appointTime}, #{ganame}, #{status}, #{rate}, #{comment}, #{content})
     </insert>
 
     <insert id="insertBatch" keyProperty="gaid" useGeneratedKeys="true">
-        insert into usergovaffairs(address, Appoint_time, GAName, status, rate, comment, create_time)
+        insert into usergovaffairs(GAid, uid, address, Appoint_time, GAName, status, rate, comment, content)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.address}, #{entity.appointTime}, #{entity.ganame}, #{entity.status}, #{entity.rate}, #{entity.comment}, #{entity.createTime})
+        (#{gaid}, #{uid}, #{entity.address}, #{entity.appointTime}, #{entity.ganame}, #{entity.status}, #{entity.rate}, #{entity.comment}, #{entity.content})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="gaid" useGeneratedKeys="true">
-        insert into usergovaffairs(address, Appoint_time, GAName, status, rate, comment, create_time)
+        insert into usergovaffairs(GAid, uid, address, Appoint_time, GAName, status, rate, comment, content)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.address}, #{entity.appointTime}, #{entity.ganame}, #{entity.status}, #{entity.rate}, #{entity.comment}, #{entity.createTime})
+            (#{gaid}, #{uid}, #{entity.address}, #{entity.appointTime}, #{entity.ganame}, #{entity.status}, #{entity.rate}, #{entity.comment}, #{entity.content})
         </foreach>
         on duplicate key update
+        GAid = values(GAid),
+        uid = values(uid),
         address = values(address),
         Appoint_time = values(Appoint_time),
         GAName = values(GAName),
         status = values(status),
         rate = values(rate),
         comment = values(comment),
-        create_time = values(create_time)
+--         create_time = values(create_time)
+        content = values(content)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update usergovaffairs
         <set>
+            <if test="gaid != null">
+                and GAid = #{gaid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
             <if test="address != null and address != ''">
                 address = #{address},
             </if>
@@ -146,8 +159,11 @@
             <if test="comment != null and comment != ''">
                 comment = #{comment},
             </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
+            <!--<if test="createTime != null">-->
+                <!--create_time = #{createTime},-->
+            <!--</if>-->
+            <if test="content != null and content != ''">
+                content = #{content},
             </if>
         </set>
         where GAid = #{gaid}

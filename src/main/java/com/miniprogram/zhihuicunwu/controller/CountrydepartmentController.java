@@ -1,11 +1,15 @@
 package com.miniprogram.zhihuicunwu.controller;
 
 import com.miniprogram.zhihuicunwu.entity.Countrydepartment;
+import com.miniprogram.zhihuicunwu.entity.Department;
 import com.miniprogram.zhihuicunwu.service.CountrydepartmentService;
+import com.miniprogram.zhihuicunwu.service.DepartmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * (Countrydepartment)表控制层
@@ -21,16 +25,18 @@ public class CountrydepartmentController {
      */
     @Resource
     private CountrydepartmentService countrydepartmentService;
+    @Resource
+    private DepartmentService departmentService;
 
     /**
      * 通过主键查询单条数据
      *
-     * @param id 主键
+     * @param did 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
-    public ResponseEntity<Countrydepartment> queryById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(this.countrydepartmentService.queryById(id));
+    @GetMapping("/department/{did}")
+    public ResponseEntity<Countrydepartment> queryById(@PathVariable("did") Integer did) {
+        return ResponseEntity.ok(this.countrydepartmentService.queryById(did));
     }
 
     /**

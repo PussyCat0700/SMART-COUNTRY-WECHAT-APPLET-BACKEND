@@ -1,6 +1,10 @@
 package com.miniprogram.zhihuicunwu.service;
 
+import java.util.List;
 import com.miniprogram.zhihuicunwu.entity.Feedback;
+import org.springframework.http.ResponseEntity;
+
+import java.util.ArrayList;
 
 /**
  * (Feedback)表服务接口
@@ -17,6 +21,15 @@ public interface FeedbackService {
      * @return 实例对象
      */
     Feedback queryById(Integer uid);
+
+    //查询所有数据
+    List<Feedback> queryAll();
+
+    //模糊查询
+    List<Feedback> queryFuzzyByContent(String content);
+
+    //查询我的反馈（根据uid查询）
+    List<Feedback> queryFeedbackByUid(int uid);
 
     /**
      * 新增数据
