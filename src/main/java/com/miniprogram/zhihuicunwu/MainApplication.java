@@ -19,6 +19,5 @@ public class MainApplication {
         long time = System.currentTimeMillis();
         SpringApplication.run(MainApplication.class, args);
         System.out.println("启动成功,耗时: " + (System.currentTimeMillis() - time) / 1000 +"s");
-
     }
 }

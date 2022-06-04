@@ -1,11 +1,15 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Usergovaffairs;
 import com.miniprogram.zhihuicunwu.service.UsergovaffairsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * (Usergovaffairs)表控制层
@@ -40,7 +44,24 @@ public class UsergovaffairsController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Usergovaffairs> add(@RequestBody Usergovaffairs usergovaffairs) {
+    public ResponseEntity<Usergovaffairs> add(@RequestBody JSONObject params) throws ParseException {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Usergovaffairs usergovaffairs = new Usergovaffairs();
+
+        String appoint_time_str = params.getString("appoint_time");
+        Date appoint_time = simpleDateFormat.parse(appoint_time_str);
+
+        //TODO:改成前端的字段名
+        usergovaffairs.setGaid(params.getInteger("affairId"));
+        usergovaffairs.setUid(params.getInteger("uid"));
+        usergovaffairs.setAddress(params.getString("arrival_location"));
+        usergovaffairs.setAppointTime(appoint_time);
+        usergovaffairs.setGaname(params.getString("service"));
+        usergovaffairs.setStatus(0);  //默认
+        usergovaffairs.setRate(0);  //默认
+        usergovaffairs.setComment("");  //默认
+        usergovaffairs.setContent(params.getString("content"));
+
         return ResponseEntity.ok(this.usergovaffairsService.insert(usergovaffairs));
     }
 

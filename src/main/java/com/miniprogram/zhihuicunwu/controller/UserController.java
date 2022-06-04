@@ -30,8 +30,12 @@ public class UserController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public ResponseEntity<User> queryById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(this.userService.queryById(id));
+//    public ResponseEntity<User> queryById(@PathVariable("id") Integer id) {
+//        return ResponseEntity.ok(this.userService.queryById(id));
+//    }
+    //TODO:后端测试
+    public User queryById(@PathVariable("id") Integer id) {
+        return this.userService.queryById(id);
     }
 
     /**

@@ -19,6 +19,8 @@ public class Department implements Serializable {
     
     private String daddress;
 
+    private String dphone;
+
 
     public Integer getDid() {
         return did;
@@ -51,6 +53,10 @@ public class Department implements Serializable {
     public void setDaddress(String daddress) {
         this.daddress = daddress;
     }
+
+    public String getDphone() { return dphone; }
+
+    public void setDphone(String dphone) { this.dphone = dphone; }
 
 }
 

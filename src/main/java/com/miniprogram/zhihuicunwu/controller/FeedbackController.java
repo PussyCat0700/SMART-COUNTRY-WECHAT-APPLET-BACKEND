@@ -1,11 +1,16 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Feedback;
 import com.miniprogram.zhihuicunwu.service.FeedbackService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 /**
  * (Feedback)表控制层
@@ -33,6 +38,39 @@ public class FeedbackController {
         return ResponseEntity.ok(this.feedbackService.queryById(id));
     }
 
+    //查询所有数据
+    @GetMapping("/all")
+    public ResponseEntity<List> queryAll()
+    {
+        return ResponseEntity.ok(this.feedbackService.queryAll());
+    }
+
+//    public List<Feedback> queryAll()
+//    {
+//        return this.feedbackService.queryAll();
+//    }
+
+    //模糊查询
+    @GetMapping("/fuzzy/{content}")
+    public ResponseEntity<List> queryFuzzyByContent(@PathVariable("content") String content)
+    {
+        return ResponseEntity.ok(this.feedbackService.queryFuzzyByContent(content));
+    }
+
+//    public List<Feedback> queryFuzzyByContent(String content)
+//    {
+//        return this.feedbackService.queryFuzzyByContent(content);
+//    }
+
+    //我的反馈列表，根据uid查询相关的反馈
+    @GetMapping("/myfeedback/{uid}")
+    public ResponseEntity<List> queryFeedbackByUid(@PathVariable("uid") int uid)
+    {
+        return ResponseEntity.ok(this.feedbackService.queryFeedbackByUid(uid));
+    }
+
+
+
     /**
      * 新增数据
      *
@@ -40,7 +78,13 @@ public class FeedbackController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Feedback> add(@RequestBody Feedback feedback) {
+    public ResponseEntity<Feedback> add(@RequestBody JSONObject params) throws ParseException {
+        Feedback feedback = new Feedback();
+        feedback.setUid(params.getInteger("uid"));
+        feedback.setPid(params.getInteger("related_article"));
+        feedback.setFcontent(params.getString("content"));
+        feedback.setFreturn("");
+
         return ResponseEntity.ok(this.feedbackService.insert(feedback));
     }
 

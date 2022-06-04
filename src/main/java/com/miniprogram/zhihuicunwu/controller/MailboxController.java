@@ -1,5 +1,6 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Mailbox;
 import com.miniprogram.zhihuicunwu.service.MailboxService;
 import org.springframework.http.ResponseEntity;
@@ -36,11 +37,21 @@ public class MailboxController {
     /**
      * 新增数据
      *
-     * @param mailbox 实体
+     * @param params 实体
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Mailbox> add(@RequestBody Mailbox mailbox) {
+    public ResponseEntity<Mailbox> add(@RequestBody JSONObject params) {
+        //存到mailbox
+        Mailbox mailbox = new Mailbox();
+        mailbox.setDid(params.getInteger("did"));
+        mailbox.setUid(params.getInteger("uid"));
+        mailbox.setMailcontent(params.getString("content"));
+        this.mailboxService.insert(mailbox);
+
+        //TODO:存mailboxImg
+
+
         return ResponseEntity.ok(this.mailboxService.insert(mailbox));
     }
 

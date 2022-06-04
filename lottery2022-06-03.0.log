@@ -1,0 +1,885 @@
+2022-06-03 17:00:34.450 [main] INFO  c.m.zhihuicunwu.MainApplication - Starting MainApplication using Java 1.8.0_112 on DESKTOP-8FE0ETM with PID 19356 (D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND\target\classes started by 22160 in D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND)
+2022-06-03 17:00:34.452 [main] INFO  c.m.zhihuicunwu.MainApplication - No active profile set, falling back to default profiles: default
+2022-06-03 17:00:34.520 [background-preinit] WARN  o.s.h.c.j.Jackson2ObjectMapperBuilder - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2022-06-03 17:00:36.321 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8999"]
+2022-06-03 17:00:36.322 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-06-03 17:00:36.322 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.43]
+2022-06-03 17:00:36.451 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-06-03 17:00:36.577 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2022-06-03 17:00:36.684 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2022-06-03 17:00:37.634 [main] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-06-03 17:00:37.719 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-06-03 17:00:37.858 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-06-03 17:00:37.884 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8999"]
+2022-06-03 17:00:37.901 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - Context refreshed
+2022-06-03 17:00:37.916 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+2022-06-03 17:00:37.960 [main] INFO  s.d.s.w.s.ApiListingReferenceScanner - Scanning for api listing references
+2022-06-03 17:00:38.065 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_1
+2022-06-03 17:00:38.066 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_1
+2022-06-03 17:00:38.067 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_1
+2022-06-03 17:00:38.069 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_1
+2022-06-03 17:00:38.071 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_2
+2022-06-03 17:00:38.072 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_2
+2022-06-03 17:00:38.073 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_2
+2022-06-03 17:00:38.073 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_2
+2022-06-03 17:00:38.076 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_3
+2022-06-03 17:00:38.077 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_3
+2022-06-03 17:00:38.077 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_3
+2022-06-03 17:00:38.078 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_3
+2022-06-03 17:00:38.081 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_4
+2022-06-03 17:00:38.082 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_4
+2022-06-03 17:00:38.083 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_4
+2022-06-03 17:00:38.084 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_4
+2022-06-03 17:00:38.087 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_5
+2022-06-03 17:00:38.087 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_5
+2022-06-03 17:00:38.088 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_5
+2022-06-03 17:00:38.091 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_5
+2022-06-03 17:00:38.094 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_6
+2022-06-03 17:00:38.095 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_6
+2022-06-03 17:00:38.095 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_6
+2022-06-03 17:00:38.096 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_6
+2022-06-03 17:00:38.098 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_7
+2022-06-03 17:00:38.099 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_7
+2022-06-03 17:00:38.100 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_7
+2022-06-03 17:00:38.100 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_7
+2022-06-03 17:00:38.131 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_8
+2022-06-03 17:00:38.132 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_8
+2022-06-03 17:00:38.132 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_8
+2022-06-03 17:00:38.133 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_8
+2022-06-03 17:00:38.135 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_9
+2022-06-03 17:00:38.135 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_9
+2022-06-03 17:00:38.136 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_9
+2022-06-03 17:00:38.137 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_9
+2022-06-03 17:00:38.139 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_10
+2022-06-03 17:00:38.140 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_10
+2022-06-03 17:00:38.141 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_10
+2022-06-03 17:00:38.141 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_10
+2022-06-03 17:00:38.145 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_11
+2022-06-03 17:00:38.145 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_11
+2022-06-03 17:00:38.146 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_11
+2022-06-03 17:00:38.148 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_11
+2022-06-03 17:00:38.151 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_12
+2022-06-03 17:00:38.152 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_12
+2022-06-03 17:00:38.153 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_12
+2022-06-03 17:00:38.153 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_12
+2022-06-03 17:00:38.155 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_13
+2022-06-03 17:00:38.156 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_13
+2022-06-03 17:00:38.157 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_13
+2022-06-03 17:00:38.157 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_13
+2022-06-03 17:00:38.174 [main] INFO  c.m.zhihuicunwu.MainApplication - Started MainApplication in 4.257 seconds (JVM running for 5.425)
+2022-06-03 20:43:49.624 [main] INFO  c.m.zhihuicunwu.MainApplication - Starting MainApplication using Java 1.8.0_112 on DESKTOP-8FE0ETM with PID 16824 (D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND\target\classes started by 22160 in D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND)
+2022-06-03 20:43:49.626 [main] INFO  c.m.zhihuicunwu.MainApplication - No active profile set, falling back to default profiles: default
+2022-06-03 20:43:49.658 [background-preinit] WARN  o.s.h.c.j.Jackson2ObjectMapperBuilder - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2022-06-03 20:43:51.500 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8999"]
+2022-06-03 20:43:51.500 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-06-03 20:43:51.500 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.43]
+2022-06-03 20:43:51.577 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-06-03 20:43:51.680 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2022-06-03 20:43:51.776 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2022-06-03 20:43:52.819 [main] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-06-03 20:43:52.895 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-06-03 20:43:53.065 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-06-03 20:43:53.089 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8999"]
+2022-06-03 20:43:53.103 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - Context refreshed
+2022-06-03 20:43:53.115 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+2022-06-03 20:43:53.148 [main] INFO  s.d.s.w.s.ApiListingReferenceScanner - Scanning for api listing references
+2022-06-03 20:43:53.242 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_1
+2022-06-03 20:43:53.242 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_1
+2022-06-03 20:43:53.243 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_1
+2022-06-03 20:43:53.245 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_1
+2022-06-03 20:43:53.246 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_2
+2022-06-03 20:43:53.247 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_2
+2022-06-03 20:43:53.248 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_2
+2022-06-03 20:43:53.248 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_2
+2022-06-03 20:43:53.251 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_3
+2022-06-03 20:43:53.252 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_3
+2022-06-03 20:43:53.253 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_3
+2022-06-03 20:43:53.253 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_3
+2022-06-03 20:43:53.256 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_4
+2022-06-03 20:43:53.256 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_4
+2022-06-03 20:43:53.257 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_4
+2022-06-03 20:43:53.258 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_4
+2022-06-03 20:43:53.261 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_5
+2022-06-03 20:43:53.261 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_5
+2022-06-03 20:43:53.262 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_5
+2022-06-03 20:43:53.263 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_5
+2022-06-03 20:43:53.266 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_6
+2022-06-03 20:43:53.266 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_6
+2022-06-03 20:43:53.267 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_6
+2022-06-03 20:43:53.268 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_6
+2022-06-03 20:43:53.271 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_7
+2022-06-03 20:43:53.272 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_7
+2022-06-03 20:43:53.272 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_7
+2022-06-03 20:43:53.273 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_7
+2022-06-03 20:43:53.298 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_8
+2022-06-03 20:43:53.298 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_8
+2022-06-03 20:43:53.299 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_8
+2022-06-03 20:43:53.300 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_8
+2022-06-03 20:43:53.302 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_9
+2022-06-03 20:43:53.303 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_9
+2022-06-03 20:43:53.303 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_9
+2022-06-03 20:43:53.304 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_9
+2022-06-03 20:43:53.306 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_10
+2022-06-03 20:43:53.307 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_10
+2022-06-03 20:43:53.308 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_10
+2022-06-03 20:43:53.308 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_10
+2022-06-03 20:43:53.311 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_11
+2022-06-03 20:43:53.312 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_11
+2022-06-03 20:43:53.313 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_11
+2022-06-03 20:43:53.315 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_11
+2022-06-03 20:43:53.319 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_12
+2022-06-03 20:43:53.320 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_12
+2022-06-03 20:43:53.321 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_12
+2022-06-03 20:43:53.321 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_12
+2022-06-03 20:43:53.323 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_13
+2022-06-03 20:43:53.324 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_13
+2022-06-03 20:43:53.325 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_13
+2022-06-03 20:43:53.325 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_13
+2022-06-03 20:43:53.341 [main] INFO  c.m.zhihuicunwu.MainApplication - Started MainApplication in 4.403 seconds (JVM running for 5.624)
+2022-06-03 20:45:27.601 [http-nio-8999-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-06-03 20:45:27.602 [http-nio-8999-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-06-03 20:45:27.604 [http-nio-8999-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2022-06-03 20:46:09.905 [http-nio-8999-exec-3] WARN  c.m.z.e.GlobalExceptionHandler - 请求方式错误:Request method 'GET' not supported
+2022-06-03 20:46:11.640 [http-nio-8999-exec-6] WARN  c.m.z.e.GlobalExceptionHandler - 请求方式错误:Request method 'GET' not supported
+2022-06-03 20:48:09.641 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - ====================start====================
+2022-06-03 20:48:09.641 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - IP   ：0:0:0:0:0:0:0:1
+2022-06-03 20:48:09.641 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - URL  ：http://localhost:8999/feedback
+2022-06-03 20:48:09.642 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - HTTP Method   ：POST
+2022-06-03 20:48:09.643 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - Class Method  ：ResponseEntity com.miniprogram.zhihuicunwu.controller.FeedbackController.add(Feedback)
+2022-06-03 20:48:09.643 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - Request Args  ：[com.miniprogram.zhihuicunwu.entity.Feedback@408c7e6a]
+2022-06-03 20:48:09.643 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - =====================End=====================
+2022-06-03 20:48:09.793 [http-nio-8999-exec-5] WARN  c.m.z.e.GlobalExceptionHandler - 未知异常:
+### Error updating database.  Cause: java.sql.SQLException: Field 'uid' doesn't have a default value
+### The error may exist in file [D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND\target\classes\mapper\FeedbackDao.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: insert into feedback(fTime, fContent, fReturn)         values (?, ?, ?)
+### Cause: java.sql.SQLException: Field 'uid' doesn't have a default value
+; Field 'uid' doesn't have a default value; nested exception is java.sql.SQLException: Field 'uid' doesn't have a default value
+2022-06-03 20:48:09.794 [http-nio-8999-exec-5] ERROR c.m.z.e.GlobalExceptionHandler - 未知异常:{}
+org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: java.sql.SQLException: Field 'uid' doesn't have a default value
+### The error may exist in file [D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND\target\classes\mapper\FeedbackDao.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: insert into feedback(fTime, fContent, fReturn)         values (?, ?, ?)
+### Cause: java.sql.SQLException: Field 'uid' doesn't have a default value
+; Field 'uid' doesn't have a default value; nested exception is java.sql.SQLException: Field 'uid' doesn't have a default value
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:251)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:70)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
+	at com.sun.proxy.$Proxy83.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:278)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:58)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:62)
+	at com.sun.proxy.$Proxy89.insert(Unknown Source)
+	at com.miniprogram.zhihuicunwu.service.impl.FeedbackServiceImpl.insert(FeedbackServiceImpl.java:56)
+	at com.miniprogram.zhihuicunwu.controller.FeedbackController.add(FeedbackController.java:57)
+	at com.miniprogram.zhihuicunwu.controller.FeedbackController$$FastClassBySpringCGLIB$$6fba4d10.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:58)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692)
+	at com.miniprogram.zhihuicunwu.controller.FeedbackController$$EnhancerBySpringCGLIB$$f6227824.add(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:887)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1684)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.sql.SQLException: Field 'uid' doesn't have a default value
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:497)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
+	at com.sun.proxy.$Proxy127.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doUpdate(MybatisSimpleExecutor.java:54)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	... 70 common frames omitted
+2022-06-03 20:50:25.258 [http-nio-8999-exec-8] WARN  c.m.z.e.GlobalExceptionHandler - 请确认数据已经以JSON格式封装至Http请求Body字段中！:Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported
+2022-06-03 20:51:14.458 [http-nio-8999-exec-1] WARN  c.m.z.e.GlobalExceptionHandler - 请确认数据已经以JSON格式封装至Http请求Body字段中！:Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported
+2022-06-03 20:52:03.509 [http-nio-8999-exec-2] INFO  c.m.zhihuicunwu.config.LogAspect - ====================start====================
+2022-06-03 20:52:03.509 [http-nio-8999-exec-2] INFO  c.m.zhihuicunwu.config.LogAspect - IP   ：0:0:0:0:0:0:0:1
+2022-06-03 20:52:03.509 [http-nio-8999-exec-2] INFO  c.m.zhihuicunwu.config.LogAspect - URL  ：http://localhost:8999/feedback
+2022-06-03 20:52:03.509 [http-nio-8999-exec-2] INFO  c.m.zhihuicunwu.config.LogAspect - HTTP Method   ：POST
+2022-06-03 20:52:03.509 [http-nio-8999-exec-2] INFO  c.m.zhihuicunwu.config.LogAspect - Class Method  ：ResponseEntity com.miniprogram.zhihuicunwu.controller.FeedbackController.add(Feedback)
+2022-06-03 20:52:03.509 [http-nio-8999-exec-2] INFO  c.m.zhihuicunwu.config.LogAspect - Request Args  ：[com.miniprogram.zhihuicunwu.entity.Feedback@13292441]
+2022-06-03 20:52:03.509 [http-nio-8999-exec-2] INFO  c.m.zhihuicunwu.config.LogAspect - =====================End=====================
+2022-06-03 20:52:03.514 [http-nio-8999-exec-2] WARN  c.m.z.e.GlobalExceptionHandler - 未知异常:
+### Error updating database.  Cause: java.sql.SQLException: Field 'uid' doesn't have a default value
+### The error may exist in file [D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND\target\classes\mapper\FeedbackDao.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: insert into feedback(fTime, fContent, fReturn)         values (?, ?, ?)
+### Cause: java.sql.SQLException: Field 'uid' doesn't have a default value
+; Field 'uid' doesn't have a default value; nested exception is java.sql.SQLException: Field 'uid' doesn't have a default value
+2022-06-03 20:52:03.515 [http-nio-8999-exec-2] ERROR c.m.z.e.GlobalExceptionHandler - 未知异常:{}
+org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: java.sql.SQLException: Field 'uid' doesn't have a default value
+### The error may exist in file [D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND\target\classes\mapper\FeedbackDao.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: insert into feedback(fTime, fContent, fReturn)         values (?, ?, ?)
+### Cause: java.sql.SQLException: Field 'uid' doesn't have a default value
+; Field 'uid' doesn't have a default value; nested exception is java.sql.SQLException: Field 'uid' doesn't have a default value
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:251)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:70)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
+	at com.sun.proxy.$Proxy83.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:278)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:58)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:62)
+	at com.sun.proxy.$Proxy89.insert(Unknown Source)
+	at com.miniprogram.zhihuicunwu.service.impl.FeedbackServiceImpl.insert(FeedbackServiceImpl.java:56)
+	at com.miniprogram.zhihuicunwu.controller.FeedbackController.add(FeedbackController.java:57)
+	at com.miniprogram.zhihuicunwu.controller.FeedbackController$$FastClassBySpringCGLIB$$6fba4d10.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:58)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692)
+	at com.miniprogram.zhihuicunwu.controller.FeedbackController$$EnhancerBySpringCGLIB$$f6227824.add(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:887)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1684)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.sql.SQLException: Field 'uid' doesn't have a default value
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:497)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
+	at com.sun.proxy.$Proxy127.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doUpdate(MybatisSimpleExecutor.java:54)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	... 70 common frames omitted
+2022-06-03 20:55:06.720 [http-nio-8999-exec-6] INFO  o.a.tomcat.util.http.parser.Cookie - A cookie header was received [1626956721,1627018088] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+2022-06-03 20:55:06.723 [http-nio-8999-exec-6] WARN  c.m.z.e.GlobalExceptionHandler - 请求方式错误:Request method 'GET' not supported
+2022-06-03 20:55:41.889 [http-nio-8999-exec-5] WARN  c.m.z.e.GlobalExceptionHandler - 请求方式错误:Request method 'GET' not supported
+2022-06-03 20:55:46.664 [http-nio-8999-exec-10] WARN  c.m.z.e.GlobalExceptionHandler - 未知异常:Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "login"
+2022-06-03 20:55:46.664 [http-nio-8999-exec-10] ERROR c.m.z.e.GlobalExceptionHandler - 未知异常:{}
+org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "login"
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:133)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:121)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:170)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:887)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1684)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.NumberFormatException: For input string: "login"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.valueOf(Integer.java:766)
+	at org.springframework.util.NumberUtils.parseNumber(NumberUtils.java:211)
+	at org.springframework.beans.propertyeditors.CustomNumberEditor.setAsText(CustomNumberEditor.java:115)
+	at org.springframework.beans.TypeConverterDelegate.doConvertTextValue(TypeConverterDelegate.java:429)
+	at org.springframework.beans.TypeConverterDelegate.doConvertValue(TypeConverterDelegate.java:402)
+	at org.springframework.beans.TypeConverterDelegate.convertIfNecessary(TypeConverterDelegate.java:155)
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:73)
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:53)
+	at org.springframework.validation.DataBinder.convertIfNecessary(DataBinder.java:696)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:125)
+	... 47 common frames omitted
+2022-06-03 20:56:14.366 [http-nio-8999-exec-8] WARN  c.m.z.e.GlobalExceptionHandler - 请求方式错误:Request method 'GET' not supported
+2022-06-03 21:25:00.571 [http-nio-8999-exec-3] WARN  c.m.z.e.GlobalExceptionHandler - 未知异常:Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "login"
+2022-06-03 21:25:00.571 [http-nio-8999-exec-3] ERROR c.m.z.e.GlobalExceptionHandler - 未知异常:{}
+org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "login"
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:133)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:121)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:170)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:887)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1684)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.NumberFormatException: For input string: "login"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.valueOf(Integer.java:766)
+	at org.springframework.util.NumberUtils.parseNumber(NumberUtils.java:211)
+	at org.springframework.beans.propertyeditors.CustomNumberEditor.setAsText(CustomNumberEditor.java:115)
+	at org.springframework.beans.TypeConverterDelegate.doConvertTextValue(TypeConverterDelegate.java:429)
+	at org.springframework.beans.TypeConverterDelegate.doConvertValue(TypeConverterDelegate.java:402)
+	at org.springframework.beans.TypeConverterDelegate.convertIfNecessary(TypeConverterDelegate.java:155)
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:73)
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:53)
+	at org.springframework.validation.DataBinder.convertIfNecessary(DataBinder.java:696)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:125)
+	... 47 common frames omitted
+2022-06-03 21:28:08.442 [main] INFO  c.m.zhihuicunwu.MainApplication - Starting MainApplication using Java 1.8.0_112 on DESKTOP-8FE0ETM with PID 15656 (D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND\target\classes started by 22160 in D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND)
+2022-06-03 21:28:08.444 [main] INFO  c.m.zhihuicunwu.MainApplication - No active profile set, falling back to default profiles: default
+2022-06-03 21:28:08.500 [background-preinit] WARN  o.s.h.c.j.Jackson2ObjectMapperBuilder - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2022-06-03 21:28:09.599 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8999"]
+2022-06-03 21:28:09.600 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-06-03 21:28:09.600 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.43]
+2022-06-03 21:28:09.674 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-06-03 21:28:09.774 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2022-06-03 21:28:09.851 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2022-06-03 21:28:10.566 [main] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-06-03 21:28:10.636 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-06-03 21:28:10.752 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-06-03 21:28:10.775 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8999"]
+2022-06-03 21:28:10.790 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - Context refreshed
+2022-06-03 21:28:10.801 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+2022-06-03 21:28:10.835 [main] INFO  s.d.s.w.s.ApiListingReferenceScanner - Scanning for api listing references
+2022-06-03 21:28:10.923 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_1
+2022-06-03 21:28:10.923 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_1
+2022-06-03 21:28:10.924 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_1
+2022-06-03 21:28:10.925 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_1
+2022-06-03 21:28:10.927 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_2
+2022-06-03 21:28:10.928 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_2
+2022-06-03 21:28:10.929 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_2
+2022-06-03 21:28:10.930 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_2
+2022-06-03 21:28:10.932 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_3
+2022-06-03 21:28:10.933 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_3
+2022-06-03 21:28:10.934 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_3
+2022-06-03 21:28:10.935 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_3
+2022-06-03 21:28:10.937 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_4
+2022-06-03 21:28:10.937 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_4
+2022-06-03 21:28:10.938 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_4
+2022-06-03 21:28:10.938 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_4
+2022-06-03 21:28:10.941 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_5
+2022-06-03 21:28:10.942 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_5
+2022-06-03 21:28:10.943 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_5
+2022-06-03 21:28:10.943 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_5
+2022-06-03 21:28:10.946 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_6
+2022-06-03 21:28:10.947 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_6
+2022-06-03 21:28:10.947 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_6
+2022-06-03 21:28:10.948 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_6
+2022-06-03 21:28:10.950 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_7
+2022-06-03 21:28:10.950 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_7
+2022-06-03 21:28:10.951 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_7
+2022-06-03 21:28:10.952 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_7
+2022-06-03 21:28:10.962 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_8
+2022-06-03 21:28:10.963 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_8
+2022-06-03 21:28:10.964 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_8
+2022-06-03 21:28:10.964 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_8
+2022-06-03 21:28:10.966 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_9
+2022-06-03 21:28:10.967 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_9
+2022-06-03 21:28:10.967 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_9
+2022-06-03 21:28:10.968 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_9
+2022-06-03 21:28:10.969 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_10
+2022-06-03 21:28:10.970 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_10
+2022-06-03 21:28:10.971 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_10
+2022-06-03 21:28:10.971 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_10
+2022-06-03 21:28:10.974 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_11
+2022-06-03 21:28:10.975 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_11
+2022-06-03 21:28:10.975 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_11
+2022-06-03 21:28:10.977 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_11
+2022-06-03 21:28:10.980 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_12
+2022-06-03 21:28:10.981 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_12
+2022-06-03 21:28:10.982 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_12
+2022-06-03 21:28:10.982 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_12
+2022-06-03 21:28:10.984 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_13
+2022-06-03 21:28:10.985 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_13
+2022-06-03 21:28:10.986 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_13
+2022-06-03 21:28:10.986 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_13
+2022-06-03 21:28:11.002 [main] INFO  c.m.zhihuicunwu.MainApplication - Started MainApplication in 2.97 seconds (JVM running for 3.96)
+2022-06-03 21:28:13.297 [http-nio-8999-exec-1] INFO  o.a.tomcat.util.http.parser.Cookie - A cookie header was received [1626956721,1627018088] that contained an invalid cookie. That cookie will be ignored.
+ Note: further occurrences of this error will be logged at DEBUG level.
+2022-06-03 21:28:13.305 [http-nio-8999-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-06-03 21:28:13.305 [http-nio-8999-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-06-03 21:28:13.306 [http-nio-8999-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2022-06-03 21:28:13.334 [http-nio-8999-exec-1] WARN  c.m.z.e.GlobalExceptionHandler - 未知异常:Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "login"
+2022-06-03 21:28:13.337 [http-nio-8999-exec-1] ERROR c.m.z.e.GlobalExceptionHandler - 未知异常:{}
+org.springframework.web.method.annotation.MethodArgumentTypeMismatchException: Failed to convert value of type 'java.lang.String' to required type 'java.lang.Integer'; nested exception is java.lang.NumberFormatException: For input string: "login"
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:133)
+	at org.springframework.web.method.support.HandlerMethodArgumentResolverComposite.resolveArgument(HandlerMethodArgumentResolverComposite.java:121)
+	at org.springframework.web.method.support.InvocableHandlerMethod.getMethodArgumentValues(InvocableHandlerMethod.java:170)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:137)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:898)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:626)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:887)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1684)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.NumberFormatException: For input string: "login"
+	at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+	at java.lang.Integer.parseInt(Integer.java:580)
+	at java.lang.Integer.valueOf(Integer.java:766)
+	at org.springframework.util.NumberUtils.parseNumber(NumberUtils.java:211)
+	at org.springframework.beans.propertyeditors.CustomNumberEditor.setAsText(CustomNumberEditor.java:115)
+	at org.springframework.beans.TypeConverterDelegate.doConvertTextValue(TypeConverterDelegate.java:429)
+	at org.springframework.beans.TypeConverterDelegate.doConvertValue(TypeConverterDelegate.java:402)
+	at org.springframework.beans.TypeConverterDelegate.convertIfNecessary(TypeConverterDelegate.java:155)
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:73)
+	at org.springframework.beans.TypeConverterSupport.convertIfNecessary(TypeConverterSupport.java:53)
+	at org.springframework.validation.DataBinder.convertIfNecessary(DataBinder.java:696)
+	at org.springframework.web.method.annotation.AbstractNamedValueMethodArgumentResolver.resolveArgument(AbstractNamedValueMethodArgumentResolver.java:125)
+	... 47 common frames omitted
+2022-06-03 21:28:41.748 [http-nio-8999-exec-2] WARN  c.m.z.e.GlobalExceptionHandler - 请求方式错误:Request method 'GET' not supported
+2022-06-03 21:30:46.736 [http-nio-8999-exec-7] WARN  c.m.z.e.GlobalExceptionHandler - 请求方式错误:Request method 'GET' not supported
+2022-06-03 21:32:23.601 [http-nio-8999-exec-10] INFO  c.m.zhihuicunwu.config.LogAspect - ====================start====================
+2022-06-03 21:32:23.601 [http-nio-8999-exec-10] INFO  c.m.zhihuicunwu.config.LogAspect - IP   ：0:0:0:0:0:0:0:1
+2022-06-03 21:32:23.601 [http-nio-8999-exec-10] INFO  c.m.zhihuicunwu.config.LogAspect - URL  ：http://localhost:8999/feedback/1
+2022-06-03 21:32:23.601 [http-nio-8999-exec-10] INFO  c.m.zhihuicunwu.config.LogAspect - HTTP Method   ：GET
+2022-06-03 21:32:23.603 [http-nio-8999-exec-10] INFO  c.m.zhihuicunwu.config.LogAspect - Class Method  ：ResponseEntity com.miniprogram.zhihuicunwu.controller.FeedbackController.queryById(Integer)
+2022-06-03 21:32:23.603 [http-nio-8999-exec-10] INFO  c.m.zhihuicunwu.config.LogAspect - Request Args  ：[1]
+2022-06-03 21:32:23.603 [http-nio-8999-exec-10] INFO  c.m.zhihuicunwu.config.LogAspect - =====================End=====================
+2022-06-03 21:35:46.997 [http-nio-8999-exec-3] WARN  c.m.z.e.GlobalExceptionHandler - 请求方式错误:Request method 'GET' not supported
+2022-06-03 21:35:51.274 [http-nio-8999-exec-4] WARN  c.m.z.e.GlobalExceptionHandler - 请求方式错误:Request method 'GET' not supported
+2022-06-03 21:35:58.200 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - ====================start====================
+2022-06-03 21:35:58.200 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - IP   ：0:0:0:0:0:0:0:1
+2022-06-03 21:35:58.200 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - URL  ：http://localhost:8999/feedback/2
+2022-06-03 21:35:58.201 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - HTTP Method   ：GET
+2022-06-03 21:35:58.201 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - Class Method  ：ResponseEntity com.miniprogram.zhihuicunwu.controller.FeedbackController.queryById(Integer)
+2022-06-03 21:35:58.201 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - Request Args  ：[2]
+2022-06-03 21:35:58.201 [http-nio-8999-exec-5] INFO  c.m.zhihuicunwu.config.LogAspect - =====================End=====================
+2022-06-03 21:36:07.043 [http-nio-8999-exec-7] WARN  c.m.z.e.GlobalExceptionHandler - 请确认数据已经以JSON格式封装至Http请求Body字段中！:Content type 'application/x-www-form-urlencoded;charset=UTF-8' not supported
+2022-06-03 21:39:34.227 [http-nio-8999-exec-2] WARN  c.m.z.e.GlobalExceptionHandler - 请求Body不能为空:JSON parse error: Cannot deserialize value of type `java.util.Date` from String "2022-02-02 15:15:15": not a valid representation (error: Failed to parse Date value '2022-02-02 15:15:15': Cannot parse date "2022-02-02 15:15:15": while it seems to fit format 'yyyy-MM-dd'T'HH:mm:ss.SSSX', parsing fails (leniency? null)); nested exception is com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.util.Date` from String "2022-02-02 15:15:15": not a valid representation (error: Failed to parse Date value '2022-02-02 15:15:15': Cannot parse date "2022-02-02 15:15:15": while it seems to fit format 'yyyy-MM-dd'T'HH:mm:ss.SSSX', parsing fails (leniency? null))
+ at [Source: (PushbackInputStream); line: 4, column: 15] (through reference chain: com.miniprogram.zhihuicunwu.entity.Feedback["ftime"])
+2022-06-03 21:42:15.008 [http-nio-8999-exec-5] WARN  c.m.z.e.GlobalExceptionHandler - 请求Body不能为空:JSON parse error: Unexpected character ('-' (code 45)): was expecting comma to separate Object entries; nested exception is com.fasterxml.jackson.core.JsonParseException: Unexpected character ('-' (code 45)): was expecting comma to separate Object entries
+ at [Source: (PushbackInputStream); line: 4, column: 20]
+2022-06-03 21:56:15.976 [main] INFO  c.m.zhihuicunwu.MainApplication - Starting MainApplication using Java 1.8.0_112 on DESKTOP-8FE0ETM with PID 9688 (D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND\target\classes started by 22160 in D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND)
+2022-06-03 21:56:15.979 [main] INFO  c.m.zhihuicunwu.MainApplication - No active profile set, falling back to default profiles: default
+2022-06-03 21:56:16.034 [background-preinit] WARN  o.s.h.c.j.Jackson2ObjectMapperBuilder - For Jackson Kotlin classes support please add "com.fasterxml.jackson.module:jackson-module-kotlin" to the classpath
+2022-06-03 21:56:17.219 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8999"]
+2022-06-03 21:56:17.220 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2022-06-03 21:56:17.220 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.43]
+2022-06-03 21:56:17.297 [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2022-06-03 21:56:17.401 [main] INFO  c.a.d.s.b.a.DruidDataSourceAutoConfigure - Init DruidDataSource
+2022-06-03 21:56:17.482 [main] INFO  c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+2022-06-03 21:56:18.262 [main] INFO  s.d.s.w.PropertySourcedRequestMappingHandlerMapping - Mapped URL path [/v2/api-docs] onto method [springfox.documentation.swagger2.web.Swagger2Controller#getDocumentation(String, HttpServletRequest)]
+2022-06-03 21:56:18.350 [main] INFO  o.s.s.c.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2022-06-03 21:56:18.480 [main] INFO  o.s.s.c.ThreadPoolTaskScheduler - Initializing ExecutorService 'taskScheduler'
+2022-06-03 21:56:18.506 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8999"]
+2022-06-03 21:56:18.520 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - Context refreshed
+2022-06-03 21:56:18.532 [main] INFO  s.d.s.w.p.DocumentationPluginsBootstrapper - Found 1 custom documentation plugin(s)
+2022-06-03 21:56:18.568 [main] INFO  s.d.s.w.s.ApiListingReferenceScanner - Scanning for api listing references
+2022-06-03 21:56:18.667 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_1
+2022-06-03 21:56:18.667 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_1
+2022-06-03 21:56:18.668 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_1
+2022-06-03 21:56:18.669 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_1
+2022-06-03 21:56:18.671 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_2
+2022-06-03 21:56:18.671 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_2
+2022-06-03 21:56:18.672 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_2
+2022-06-03 21:56:18.673 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_2
+2022-06-03 21:56:18.676 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_3
+2022-06-03 21:56:18.676 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_3
+2022-06-03 21:56:18.677 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_3
+2022-06-03 21:56:18.678 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_3
+2022-06-03 21:56:18.680 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_4
+2022-06-03 21:56:18.681 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_4
+2022-06-03 21:56:18.681 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_4
+2022-06-03 21:56:18.682 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_4
+2022-06-03 21:56:18.690 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_5
+2022-06-03 21:56:18.691 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_5
+2022-06-03 21:56:18.693 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_5
+2022-06-03 21:56:18.694 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_5
+2022-06-03 21:56:18.696 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_6
+2022-06-03 21:56:18.697 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_6
+2022-06-03 21:56:18.698 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_6
+2022-06-03 21:56:18.698 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_6
+2022-06-03 21:56:18.701 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_7
+2022-06-03 21:56:18.701 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_7
+2022-06-03 21:56:18.702 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_7
+2022-06-03 21:56:18.703 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_7
+2022-06-03 21:56:18.708 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_8
+2022-06-03 21:56:18.709 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_8
+2022-06-03 21:56:18.710 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_8
+2022-06-03 21:56:18.711 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_8
+2022-06-03 21:56:18.712 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_9
+2022-06-03 21:56:18.713 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_9
+2022-06-03 21:56:18.714 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_9
+2022-06-03 21:56:18.714 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_9
+2022-06-03 21:56:18.716 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_10
+2022-06-03 21:56:18.717 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_10
+2022-06-03 21:56:18.717 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_10
+2022-06-03 21:56:18.718 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_10
+2022-06-03 21:56:18.721 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_11
+2022-06-03 21:56:18.722 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_11
+2022-06-03 21:56:18.723 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_11
+2022-06-03 21:56:18.724 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_11
+2022-06-03 21:56:18.727 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_12
+2022-06-03 21:56:18.727 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_12
+2022-06-03 21:56:18.728 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_12
+2022-06-03 21:56:18.729 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_12
+2022-06-03 21:56:18.731 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: addUsingPOST_13
+2022-06-03 21:56:18.732 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: deleteByIdUsingDELETE_13
+2022-06-03 21:56:18.732 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: editUsingPUT_13
+2022-06-03 21:56:18.733 [main] INFO  s.d.s.w.r.o.CachingOperationNameGenerator - Generating unique operation named: queryByIdUsingGET_13
+2022-06-03 21:56:18.747 [main] INFO  c.m.zhihuicunwu.MainApplication - Started MainApplication in 3.165 seconds (JVM running for 4.252)
+2022-06-03 21:56:21.690 [http-nio-8999-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-06-03 21:56:21.690 [http-nio-8999-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2022-06-03 21:56:21.691 [http-nio-8999-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2022-06-03 21:56:21.750 [http-nio-8999-exec-2] WARN  c.m.z.e.GlobalExceptionHandler - 请求Body不能为空:JSON parse error: Unexpected character ('-' (code 45)): was expecting comma to separate Object entries; nested exception is com.fasterxml.jackson.core.JsonParseException: Unexpected character ('-' (code 45)): was expecting comma to separate Object entries
+ at [Source: (PushbackInputStream); line: 4, column: 20]
+2022-06-03 21:56:32.243 [http-nio-8999-exec-3] INFO  c.m.zhihuicunwu.config.LogAspect - ====================start====================
+2022-06-03 21:56:32.244 [http-nio-8999-exec-3] INFO  c.m.zhihuicunwu.config.LogAspect - IP   ：0:0:0:0:0:0:0:1
+2022-06-03 21:56:32.244 [http-nio-8999-exec-3] INFO  c.m.zhihuicunwu.config.LogAspect - URL  ：http://localhost:8999/feedback
+2022-06-03 21:56:32.244 [http-nio-8999-exec-3] INFO  c.m.zhihuicunwu.config.LogAspect - HTTP Method   ：POST
+2022-06-03 21:56:32.245 [http-nio-8999-exec-3] INFO  c.m.zhihuicunwu.config.LogAspect - Class Method  ：ResponseEntity com.miniprogram.zhihuicunwu.controller.FeedbackController.add(JSONObject)
+2022-06-03 21:56:32.268 [http-nio-8999-exec-3] INFO  c.m.zhihuicunwu.config.LogAspect - Request Args  ：[{"ftime":"2022-02-02 15:15:15","uid":1,"pid":1,"fcontent":"abcdefg","freturn":"123"}]
+2022-06-03 21:56:32.268 [http-nio-8999-exec-3] INFO  c.m.zhihuicunwu.config.LogAspect - =====================End=====================
+2022-06-03 21:56:32.338 [http-nio-8999-exec-3] WARN  c.m.z.e.GlobalExceptionHandler - 未知异常:
+### Error updating database.  Cause: java.sql.SQLException: Field 'uid' doesn't have a default value
+### The error may exist in file [D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND\target\classes\mapper\FeedbackDao.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: insert into feedback(fTime, fContent, fReturn)         values (?, ?, ?)
+### Cause: java.sql.SQLException: Field 'uid' doesn't have a default value
+; Field 'uid' doesn't have a default value; nested exception is java.sql.SQLException: Field 'uid' doesn't have a default value
+2022-06-03 21:56:32.340 [http-nio-8999-exec-3] ERROR c.m.z.e.GlobalExceptionHandler - 未知异常:{}
+org.springframework.dao.DataIntegrityViolationException: 
+### Error updating database.  Cause: java.sql.SQLException: Field 'uid' doesn't have a default value
+### The error may exist in file [D:\杂七杂八的项目\2022微信小程序\AffairCode\SMART-COUNTRY-WECHAT-APPLET-BACKEND\target\classes\mapper\FeedbackDao.xml]
+### The error may involve defaultParameterMap
+### The error occurred while setting parameters
+### SQL: insert into feedback(fTime, fContent, fReturn)         values (?, ?, ?)
+### Cause: java.sql.SQLException: Field 'uid' doesn't have a default value
+; Field 'uid' doesn't have a default value; nested exception is java.sql.SQLException: Field 'uid' doesn't have a default value
+	at org.springframework.jdbc.support.SQLErrorCodeSQLExceptionTranslator.doTranslate(SQLErrorCodeSQLExceptionTranslator.java:251)
+	at org.springframework.jdbc.support.AbstractFallbackSQLExceptionTranslator.translate(AbstractFallbackSQLExceptionTranslator.java:70)
+	at org.mybatis.spring.MyBatisExceptionTranslator.translateExceptionIfPossible(MyBatisExceptionTranslator.java:73)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:446)
+	at com.sun.proxy.$Proxy83.insert(Unknown Source)
+	at org.mybatis.spring.SqlSessionTemplate.insert(SqlSessionTemplate.java:278)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperMethod.execute(MybatisMapperMethod.java:58)
+	at com.baomidou.mybatisplus.core.override.MybatisMapperProxy.invoke(MybatisMapperProxy.java:62)
+	at com.sun.proxy.$Proxy89.insert(Unknown Source)
+	at com.miniprogram.zhihuicunwu.service.impl.FeedbackServiceImpl.insert(FeedbackServiceImpl.java:56)
+	at com.miniprogram.zhihuicunwu.controller.FeedbackController.add(FeedbackController.java:81)
+	at com.miniprogram.zhihuicunwu.controller.FeedbackController$$FastClassBySpringCGLIB$$6fba4d10.invoke(<generated>)
+	at org.springframework.cglib.proxy.MethodProxy.invoke(MethodProxy.java:218)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.invokeJoinpoint(CglibAopProxy.java:779)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.adapter.MethodBeforeAdviceInterceptor.invoke(MethodBeforeAdviceInterceptor.java:58)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:186)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:750)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:692)
+	at com.miniprogram.zhihuicunwu.controller.FeedbackController$$EnhancerBySpringCGLIB$$f6227824.add(<generated>)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:197)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:141)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:106)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:894)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:808)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1060)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:962)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1006)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:909)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:652)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:883)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:733)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:227)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:119)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:189)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:162)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:202)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:97)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:542)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:143)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:78)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:346)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:374)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:65)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:887)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1684)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.sql.SQLException: Field 'uid' doesn't have a default value
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:129)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:953)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.execute(ClientPreparedStatement.java:370)
+	at com.alibaba.druid.pool.DruidPooledPreparedStatement.execute(DruidPooledPreparedStatement.java:497)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.apache.ibatis.logging.jdbc.PreparedStatementLogger.invoke(PreparedStatementLogger.java:59)
+	at com.sun.proxy.$Proxy128.execute(Unknown Source)
+	at org.apache.ibatis.executor.statement.PreparedStatementHandler.update(PreparedStatementHandler.java:47)
+	at org.apache.ibatis.executor.statement.RoutingStatementHandler.update(RoutingStatementHandler.java:74)
+	at com.baomidou.mybatisplus.core.executor.MybatisSimpleExecutor.doUpdate(MybatisSimpleExecutor.java:54)
+	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:117)
+	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:76)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:197)
+	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:184)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.mybatis.spring.SqlSessionTemplate$SqlSessionInterceptor.invoke(SqlSessionTemplate.java:433)
+	... 70 common frames omitted

@@ -3,6 +3,8 @@ package com.miniprogram.zhihuicunwu.dao;
 import com.miniprogram.zhihuicunwu.entity.Feedback;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
+
 import java.util.List;
 
 /**
@@ -29,6 +31,15 @@ public interface FeedbackDao {
      * @return 对象列表
      */
     List<Feedback> queryAllByLimit(Feedback feedback, @Param("pageable") Pageable pageable);
+
+    //查询所有的数据
+    List<Feedback> queryAll();
+
+    //模糊查询
+    List<Feedback> queryFuzzyByContent(String content);
+
+    //查询我的反馈（根据uid查询）
+    List<Feedback> queryFeedbackByUid(int uid);
 
     /**
      * 统计总行数
