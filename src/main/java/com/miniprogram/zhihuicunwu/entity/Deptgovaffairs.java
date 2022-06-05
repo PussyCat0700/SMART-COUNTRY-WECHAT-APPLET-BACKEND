@@ -6,14 +6,16 @@ import java.io.Serializable;
  * (Deptgovaffairs)实体类
  *
  * @author makejava
- * @since 2022-06-02 22:26:09
+ * @since 2022-06-05 15:53:28
  */
 public class Deptgovaffairs implements Serializable {
-    private static final long serialVersionUID = 879437842991231414L;
+    private static final long serialVersionUID = 487797785456756144L;
     
     private Integer gaid;
     
     private Integer did;
+    
+    private Integer deptgovid;
 
 
     public Integer getGaid() {
@@ -30,6 +32,14 @@ public class Deptgovaffairs implements Serializable {
 
     public void setDid(Integer did) {
         this.did = did;
+    }
+
+    public Integer getDeptgovid() {
+        return deptgovid;
+    }
+
+    public void setDeptgovid(Integer deptgovid) {
+        this.deptgovid = deptgovid;
     }
 
 }

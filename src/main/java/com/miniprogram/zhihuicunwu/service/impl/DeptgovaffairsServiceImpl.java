@@ -6,12 +6,13 @@ import com.miniprogram.zhihuicunwu.service.DeptgovaffairsService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Deptgovaffairs)表服务实现类
  *
  * @author makejava
- * @since 2022-06-02 22:26:09
+ * @since 2022-06-05 15:53:28
  */
 @Service("deptgovaffairsService")
 public class DeptgovaffairsServiceImpl implements DeptgovaffairsService {
@@ -21,12 +22,23 @@ public class DeptgovaffairsServiceImpl implements DeptgovaffairsService {
     /**
      * 通过ID查询单条数据
      *
-     * @param gaid 主键
+     * @param deptgovid 主键
      * @return 实例对象
      */
     @Override
-    public Deptgovaffairs queryById(Integer gaid) {
-        return this.deptgovaffairsDao.queryById(gaid);
+    public Deptgovaffairs queryById(Integer deptgovid) {
+        return this.deptgovaffairsDao.queryById(deptgovid);
+    }
+    
+    /**
+     * 通过任意字段查询数据列表
+     *
+     * @param deptgovaffairs 实例对象
+     * @return 实例对象列表
+     */
+     @Override
+    public List<Deptgovaffairs> queryAllByAny(Deptgovaffairs deptgovaffairs){
+        return this.deptgovaffairsDao.queryAllByAny(deptgovaffairs);
     }
 
     /**
@@ -50,17 +62,17 @@ public class DeptgovaffairsServiceImpl implements DeptgovaffairsService {
     @Override
     public Deptgovaffairs update(Deptgovaffairs deptgovaffairs) {
         this.deptgovaffairsDao.update(deptgovaffairs);
-        return this.queryById(deptgovaffairs.getGaid());
+        return this.queryById(deptgovaffairs.getDeptgovid());
     }
 
     /**
      * 通过主键删除数据
      *
-     * @param gaid 主键
+     * @param deptgovid 主键
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer gaid) {
-        return this.deptgovaffairsDao.deleteById(gaid) > 0;
+    public boolean deleteById(Integer deptgovid) {
+        return this.deptgovaffairsDao.deleteById(deptgovid) > 0;
     }
 }

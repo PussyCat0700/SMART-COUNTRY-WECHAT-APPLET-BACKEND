@@ -5,20 +5,21 @@
     <resultMap type="com.miniprogram.zhihuicunwu.entity.Deptgovaffairs" id="DeptgovaffairsMap">
         <result property="gaid" column="GAid" jdbcType="INTEGER"/>
         <result property="did" column="did" jdbcType="INTEGER"/>
+        <result property="deptgovid" column="deptGovid" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="DeptgovaffairsMap">
         select
-          GAid, did
+          GAid, did, deptGovid
         from deptgovaffairs
-        where GAid = #{gaid}
+        where deptGovid = #{deptgovid}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DeptgovaffairsMap">
         select
-          GAid, did
+          GAid, did, deptGovid
         from deptgovaffairs
         <where>
             <if test="gaid != null">
@@ -27,10 +28,30 @@
             <if test="did != null">
                 and did = #{did}
             </if>
+            <if test="deptgovid != null">
+                and deptGovid = #{deptgovid}
+            </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
-
+    <!--任意查询（返回列表）-->
+    <select id="queryAllByAny" resultMap="DeptgovaffairsMap">
+        select
+          GAid, did, deptGovid
+        from deptgovaffairs
+        <where>
+            <if test="gaid != null">
+                and GAid = #{gaid}
+            </if>
+            <if test="did != null">
+                and did = #{did}
+            </if>
+            <if test="deptgovid != null">
+                and deptGovid = #{deptgovid}
+            </if>
+        </where>
+    </select>
+    
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
@@ -42,44 +63,54 @@
             <if test="did != null">
                 and did = #{did}
             </if>
+            <if test="deptgovid != null">
+                and deptGovid = #{deptgovid}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="gaid" useGeneratedKeys="true">
-        insert into deptgovaffairs()
-        values ()
+    <insert id="insert" keyProperty="deptgovid" useGeneratedKeys="true">
+        insert into deptgovaffairs(GAid, did)
+        values (#{gaid}, #{did})
     </insert>
 
-    <insert id="insertBatch" keyProperty="gaid" useGeneratedKeys="true">
-        insert into deptgovaffairs()
+    <insert id="insertBatch" keyProperty="deptgovid" useGeneratedKeys="true">
+        insert into deptgovaffairs(GAid, did)
         values
         <foreach collection="entities" item="entity" separator=",">
-        ()
+        (#{entity.gaid}, #{entity.did})
         </foreach>
     </insert>
 
-    <insert id="insertOrUpdateBatch" keyProperty="gaid" useGeneratedKeys="true">
-        insert into deptgovaffairs()
+    <insert id="insertOrUpdateBatch" keyProperty="deptgovid" useGeneratedKeys="true">
+        insert into deptgovaffairs(GAid, did)
         values
         <foreach collection="entities" item="entity" separator=",">
-            ()
+            (#{entity.gaid}, #{entity.did})
         </foreach>
         on duplicate key update
-        
+        GAid = values(GAid),
+        did = values(did)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update deptgovaffairs
         <set>
+            <if test="gaid != null">
+                GAid = #{gaid},
+            </if>
+            <if test="did != null">
+                did = #{did},
+            </if>
         </set>
-        where GAid = #{gaid}
+        where deptGovid = #{deptgovid}
     </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from deptgovaffairs where GAid = #{gaid}
+        delete from deptgovaffairs where deptGovid = #{deptgovid}
     </delete>
 
 </mapper>

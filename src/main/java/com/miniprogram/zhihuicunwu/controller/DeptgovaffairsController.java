@@ -11,7 +11,7 @@ import javax.annotation.Resource;
  * (Deptgovaffairs)表控制层
  *
  * @author makejava
- * @since 2022-06-02 22:26:09
+ * @since 2022-06-05 15:53:28
  */
 @RestController
 @RequestMapping("deptgovaffairs")
