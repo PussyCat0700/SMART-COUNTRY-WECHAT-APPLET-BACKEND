@@ -1,17 +1,22 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.entity.Work;
+import com.miniprogram.zhihuicunwu.service.UserService;
 import com.miniprogram.zhihuicunwu.service.WorkService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * (Work)表控制层
  *
  * @author makejava
- * @since 2022-06-01 14:39:27
+ * @since 2022-06-05 17:03:30
  */
 @RestController
 @RequestMapping("work")
@@ -21,16 +26,29 @@ public class WorkController {
      */
     @Resource
     private WorkService workService;
+    @Resource
+    private UserService userService;
 
     /**
      * 通过主键查询单条数据
      *
-     * @param id 主键
+     * @param did 部门主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
-    public ResponseEntity<Work> queryById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(this.workService.queryById(id));
+    @GetMapping("/employees/{did}")
+    public ResponseEntity<List> queryById(@PathVariable("did") Integer did) {
+        Work work = new Work();
+        work.setDid(did);
+        List<Work> worklist = this.workService.queryAllByAny(work);
+        List<JSONObject> ret = new ArrayList<>();
+        for(Work work1:worklist){
+            User user = this.userService.queryById(work1.getUid());
+            JSONObject userInfo = user.getBriefInfo();
+            userInfo.put("field", work1.getWname());
+            userInfo.put("jointime", work1.getWtime());
+            ret.add(userInfo);
+        }
+        return ResponseEntity.ok(ret);
     }
 
     /**

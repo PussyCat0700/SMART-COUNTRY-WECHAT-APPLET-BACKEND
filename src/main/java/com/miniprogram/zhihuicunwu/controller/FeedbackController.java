@@ -2,7 +2,9 @@ package com.miniprogram.zhihuicunwu.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Feedback;
+import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.service.FeedbackService;
+import com.miniprogram.zhihuicunwu.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +28,8 @@ public class FeedbackController {
      */
     @Resource
     private FeedbackService feedbackService;
+    @Resource
+    private UserService userService;
 
     /**
      * 通过主键查询单条数据
@@ -34,8 +38,21 @@ public class FeedbackController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public ResponseEntity<Feedback> queryById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(this.feedbackService.queryById(id));
+    public ResponseEntity<JSONObject> queryById(@PathVariable("id") Integer id) {
+        JSONObject jsonObject = new JSONObject();
+        Feedback feedback = this.feedbackService.queryById(id);
+        if(feedback!=null) {
+            jsonObject.put("content", feedback.getFcontent());
+            jsonObject.put("date", feedback.getFtime());
+            jsonObject.put("related_article", feedback.getPid());
+            User user = this.userService.queryById(feedback.getUid());
+            JSONObject userInfo = new JSONObject();
+            if (user != null) {
+                userInfo.put("userName", user.getUname());
+            }
+            jsonObject.put("userInfo", userInfo);
+        }
+        return ResponseEntity.ok(jsonObject);
     }
 
     //查询所有数据

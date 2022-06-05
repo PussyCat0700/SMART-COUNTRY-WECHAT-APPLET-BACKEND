@@ -9,7 +9,7 @@ import java.util.List;
  * (Work)表数据库访问层
  *
  * @author makejava
- * @since 2022-06-01 14:39:27
+ * @since 2022-06-05 17:03:30
  */
 public interface WorkDao {
 
@@ -32,6 +32,13 @@ public interface WorkDao {
      */
     List<Work> queryAllByLimit(Work work, @Param("pageable") Pageable pageable);
 
+    /**
+     * 任意查询（列表）
+     * @param work 查询条件
+     * @return 对象列表
+     */
+    List<Work> queryAllByAny(Work work);
+     
     /**
      * 统计总行数
      *

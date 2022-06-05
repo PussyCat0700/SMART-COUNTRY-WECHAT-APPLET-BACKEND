@@ -91,6 +91,12 @@ public class User implements Serializable {
         user.uaddress = jsonObject.getString("city");
         return user;
     }
+    public JSONObject getBriefInfo(){
+        JSONObject ret = new JSONObject();
+        ret.put("userId", uid);
+        ret.put("userName", uname);
+        return ret;
+    }
 
 }
 

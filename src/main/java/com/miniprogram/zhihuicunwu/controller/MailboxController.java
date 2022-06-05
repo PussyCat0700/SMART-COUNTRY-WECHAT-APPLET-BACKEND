@@ -2,7 +2,11 @@ package com.miniprogram.zhihuicunwu.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Mailbox;
+import com.miniprogram.zhihuicunwu.entity.Mailboximg;
+import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.service.MailboxService;
+import com.miniprogram.zhihuicunwu.service.MailboximgService;
+import com.miniprogram.zhihuicunwu.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +26,10 @@ public class MailboxController {
      */
     @Resource
     private MailboxService mailboxService;
+    @Resource
+    private UserService userService;
+    @Resource
+    private MailboximgService mailboximgService;
 
     /**
      * 通过主键查询单条数据
@@ -30,8 +38,18 @@ public class MailboxController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public ResponseEntity<Mailbox> queryById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(this.mailboxService.queryById(id));
+    public ResponseEntity<JSONObject> queryById(@PathVariable("id") Integer id) {
+        Mailbox mailbox = this.mailboxService.queryById(id);
+        JSONObject jsonObject = new JSONObject();
+        if(mailbox!=null) {
+            jsonObject.put("content", mailbox.getMailcontent());
+            jsonObject.put("id", mailbox.getMid());
+            User user = this.userService.queryById(mailbox.getUid());
+            if (user != null) {
+                jsonObject.put("userInfo", user.getBriefInfo());
+            }
+        }
+        return ResponseEntity.ok(jsonObject);
     }
 
     /**

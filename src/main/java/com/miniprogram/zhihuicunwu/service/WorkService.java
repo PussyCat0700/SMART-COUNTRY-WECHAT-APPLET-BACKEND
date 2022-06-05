@@ -1,12 +1,13 @@
 package com.miniprogram.zhihuicunwu.service;
 
 import com.miniprogram.zhihuicunwu.entity.Work;
+import java.util.List;
 
 /**
  * (Work)表服务接口
  *
  * @author makejava
- * @since 2022-06-01 14:39:27
+ * @since 2022-06-05 17:03:30
  */
 public interface WorkService {
 
@@ -18,8 +19,14 @@ public interface WorkService {
      */
     Work queryById(Integer did);
 
-    Work queryByUid(Integer uid);
-
+    /**
+     * 通过任意字段查询数据列表
+     *
+     * @param work 实例对象
+     * @return 实例对象列表
+     */
+    List<Work> queryAllByAny(Work work);
+    
     /**
      * 新增数据
      *
