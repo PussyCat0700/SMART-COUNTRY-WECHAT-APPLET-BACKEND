@@ -9,17 +9,17 @@ import java.util.List;
  * (Usergovaffairs)表数据库访问层
  *
  * @author makejava
- * @since 2022-06-02 22:26:12
+ * @since 2022-06-05 15:31:37
  */
 public interface UsergovaffairsDao {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param gaid 主键
+     * @param usergaid 主键
      * @return 实例对象
      */
-    Usergovaffairs queryById(Integer gaid);
+    Usergovaffairs queryById(Integer usergaid);
 
     /**
      * 查询指定行数据
@@ -30,6 +30,13 @@ public interface UsergovaffairsDao {
      */
     List<Usergovaffairs> queryAllByLimit(Usergovaffairs usergovaffairs, @Param("pageable") Pageable pageable);
 
+    /**
+     * 任意查询（列表）
+     * @param usergovaffairs 查询条件
+     * @return 对象列表
+     */
+    List<Usergovaffairs> queryAllByAny(Usergovaffairs usergovaffairs);
+     
     /**
      * 统计总行数
      *
@@ -74,10 +81,10 @@ public interface UsergovaffairsDao {
     /**
      * 通过主键删除数据
      *
-     * @param gaid 主键
+     * @param usergaid 主键
      * @return 影响行数
      */
-    int deleteById(Integer gaid);
+    int deleteById(Integer usergaid);
 
 }
 

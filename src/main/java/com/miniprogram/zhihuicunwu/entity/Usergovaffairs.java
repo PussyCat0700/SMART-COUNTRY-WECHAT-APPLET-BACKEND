@@ -7,10 +7,10 @@ import java.io.Serializable;
  * (Usergovaffairs)实体类
  *
  * @author makejava
- * @since 2022-06-02 22:26:12
+ * @since 2022-06-05 15:31:42
  */
 public class Usergovaffairs implements Serializable {
-    private static final long serialVersionUID = 959462957680546158L;
+    private static final long serialVersionUID = -11787923720562849L;
     
     private Integer gaid;
     
@@ -29,8 +29,10 @@ public class Usergovaffairs implements Serializable {
     private String comment;
     
     private Date createTime;
-
+    
     private String content;
+    
+    private Integer usergaid;
 
 
     public Integer getGaid() {
@@ -111,6 +113,14 @@ public class Usergovaffairs implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getUsergaid() {
+        return usergaid;
+    }
+
+    public void setUsergaid(Integer usergaid) {
+        this.usergaid = usergaid;
     }
 
 }

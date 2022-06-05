@@ -2,22 +2,32 @@ package com.miniprogram.zhihuicunwu.service;
 
 import com.miniprogram.zhihuicunwu.entity.Usergovaffairs;
 
+import java.util.List;
+
 /**
  * (Usergovaffairs)表服务接口
  *
  * @author makejava
- * @since 2022-06-02 22:26:12
+ * @since 2022-06-05 15:31:43
  */
 public interface UsergovaffairsService {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param gaid 主键
+     * @param usergaid 主键
      * @return 实例对象
      */
-    Usergovaffairs queryById(Integer gaid);
+    Usergovaffairs queryById(Integer usergaid);
 
+    /**
+     * 通过任意字段查询数据列表
+     *
+     * @param usergovaffairs 实例对象
+     * @return 实例对象列表
+     */
+    List<Usergovaffairs> queryAllByAny(Usergovaffairs usergovaffairs);
+    
     /**
      * 新增数据
      *
@@ -37,9 +47,9 @@ public interface UsergovaffairsService {
     /**
      * 通过主键删除数据
      *
-     * @param gaid 主键
+     * @param usergaid 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer gaid);
+    boolean deleteById(Integer usergaid);
 
 }
