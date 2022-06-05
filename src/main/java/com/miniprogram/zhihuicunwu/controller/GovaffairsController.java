@@ -24,14 +24,6 @@ public class GovaffairsController {
      */
     @Resource
     private GovaffairsService govaffairsService;
-    @Resource
-    private UsergovaffairsService usergovaffairsService;
-    @Resource
-    private DeptgovaffairsService deptgovaffairsService;
-    @Resource
-    private DepartmentService departmentService;
-    @Resource
-    private GovaffairneedService govaffairneedService;
 
     /**
      * 通过主键查询单条数据
@@ -40,40 +32,8 @@ public class GovaffairsController {
      * @return 单条数据
      */
     @GetMapping(value = "{id}", produces="application/json;charset=UTF-8")
-    public ResponseEntity<JSONObject> queryById(@PathVariable("id") Integer id) {
-        Govaffairs govaffairs = this.govaffairsService.queryById(id);
-        Usergovaffairs usergovaffairs = this.usergovaffairsService.queryById(id);
-        Deptgovaffairs deptgovaffairs = this.deptgovaffairsService.queryById(id);
-        Govaffairneed govaffairneed = this.govaffairneedService.queryById(id);
-        JSONObject ret = new JSONObject();
-        if(govaffairs!=null){
-            ret.put("ganame", govaffairs.getGaname());
-            ret.put("desc", govaffairs.getGadescription());
-            ret.put("type", govaffairs.getIsarrival()==0?"spot":"arrival");
-        }
-        if(usergovaffairs!=null){
-            ret.put("place", usergovaffairs.getAddress());
-            ret.put("comment", usergovaffairs.getComment());
-            ret.put("rate", usergovaffairs.getRate());
-            Date date = usergovaffairs.getAppointTime();
-            if(date!=null){
-                DateFormat dateFormat = DateFormat.getDateInstance();
-                DateFormat timeFormat = DateFormat.getTimeInstance();
-                ret.put("showCurrentDate", dateFormat.format(date));
-                ret.put("currentTime", timeFormat.format(date));
-            }
-        }
-        if(deptgovaffairs!=null){
-            Department department = departmentService.queryById(deptgovaffairs.getDid());
-            if(department!=null){
-                ret.put("address", department.getDaddress());
-            }
-        }
-        if(govaffairneed!=null){
-            ret.put("needs", govaffairneed.getNeed());
-        }
-        ret.put("result",!ret.isEmpty());
-        return ResponseEntity.ok(ret);
+    public ResponseEntity<Govaffairs> queryById(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(this.govaffairsService.queryById(id));
     }
 
     /**

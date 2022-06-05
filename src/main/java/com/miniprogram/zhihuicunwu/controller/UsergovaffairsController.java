@@ -1,12 +1,14 @@
 package com.miniprogram.zhihuicunwu.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.miniprogram.zhihuicunwu.entity.Usergovaffairs;
-import com.miniprogram.zhihuicunwu.service.UsergovaffairsService;
+import com.miniprogram.zhihuicunwu.entity.*;
+import com.miniprogram.zhihuicunwu.service.*;
+import com.miniprogram.zhihuicunwu.util.DateUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,7 +26,15 @@ public class UsergovaffairsController {
      * 服务对象
      */
     @Resource
+    private GovaffairsService govaffairsService;
+    @Resource
     private UsergovaffairsService usergovaffairsService;
+    @Resource
+    private DeptgovaffairsService deptgovaffairsService;
+    @Resource
+    private DepartmentService departmentService;
+    @Resource
+    private GovaffairneedService govaffairneedService;
 
     /**
      * 通过主键查询单条数据
@@ -33,29 +43,59 @@ public class UsergovaffairsController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public ResponseEntity<Usergovaffairs> queryById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(this.usergovaffairsService.queryById(id));
+    public ResponseEntity<JSONObject> queryById(@PathVariable("id") Integer id) {
+        Govaffairs govaffairs = this.govaffairsService.queryById(id);
+        Usergovaffairs usergovaffairs = this.usergovaffairsService.queryById(id);
+        Deptgovaffairs deptgovaffairs = this.deptgovaffairsService.queryById(id);
+        Govaffairneed govaffairneed = this.govaffairneedService.queryById(id);
+        JSONObject ret = new JSONObject();
+        if(govaffairs!=null){
+            ret.put("ganame", govaffairs.getGaname());
+            ret.put("desc", govaffairs.getGadescription());
+            ret.put("type", govaffairs.getIsarrival()==0?"spot":"arrival");
+        }
+        if(usergovaffairs!=null){
+            ret.put("place", usergovaffairs.getAddress());
+            ret.put("comment", usergovaffairs.getComment());
+            ret.put("rate", usergovaffairs.getRate());
+            Date date = usergovaffairs.getAppointTime();
+            if(date!=null){
+                DateFormat dateFormat = DateFormat.getDateInstance();
+                DateFormat timeFormat = DateFormat.getTimeInstance();
+                ret.put("showCurrentDate", dateFormat.format(date));
+                ret.put("currentTime", timeFormat.format(date));
+            }
+        }
+        if(deptgovaffairs!=null){
+            Department department = departmentService.queryById(deptgovaffairs.getDid());
+            if(department!=null){
+                ret.put("address", department.getDaddress());
+            }
+        }
+        if(govaffairneed!=null){
+            ret.put("needs", govaffairneed.getNeed());
+        }
+        ret.put("result",!ret.isEmpty());
+        return ResponseEntity.ok(ret);
     }
 
     /**
      * 新增数据
      *
-     * @param usergovaffairs 实体
+     * @param params 实体
      * @return 新增结果
      */
     @PostMapping
     public ResponseEntity<Usergovaffairs> add(@RequestBody JSONObject params) throws ParseException {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Usergovaffairs usergovaffairs = new Usergovaffairs();
 
         String appoint_time_str = params.getString("appoint_time");
-        Date appoint_time = simpleDateFormat.parse(appoint_time_str);
 
         //TODO:改成前端的字段名
         usergovaffairs.setGaid(params.getInteger("affairId"));
         usergovaffairs.setUid(params.getInteger("uid"));
         usergovaffairs.setAddress(params.getString("arrival_location"));
-        usergovaffairs.setAppointTime(appoint_time);
+        usergovaffairs.setAppointTime(DateUtil.Companion.dateFromString(appoint_time_str));
         usergovaffairs.setGaname(params.getString("service"));
         usergovaffairs.setStatus(0);  //默认
         usergovaffairs.setRate(0);  //默认
