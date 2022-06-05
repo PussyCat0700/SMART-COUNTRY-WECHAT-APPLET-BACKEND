@@ -7,7 +7,7 @@ import java.util.List;
  * (Deptgovaffairs)表服务接口
  *
  * @author makejava
- * @since 2022-06-05 15:53:28
+ * @since 2022-06-05 16:04:31
  */
 public interface DeptgovaffairsService {
 

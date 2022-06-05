@@ -34,50 +34,43 @@ public class UsergovaffairsController {
     private DeptgovaffairsService deptgovaffairsService;
     @Resource
     private DepartmentService departmentService;
-    @Resource
-    private GovaffairneedService govaffairneedService;
 
     /**
      * 通过主键查询单条数据
      *
-     * @param gaid 主键
+     * @param usergaid 主键
      * @return 单条数据
      */
-    @GetMapping("{gaid}")
-    public ResponseEntity<JSONObject> queryById(@PathVariable("gaid") Integer gaid) {
-        Govaffairs govaffairs = this.govaffairsService.queryById(gaid);
-        Deptgovaffairs deptgovaffairs = this.deptgovaffairsService.queryById(gaid);
-        Govaffairneed govaffairneed = this.govaffairneedService.queryById(gaid);
+    @GetMapping("{usergaid}")
+    public ResponseEntity<JSONObject> queryById(@PathVariable("usergaid") Integer usergaid) {
+        Usergovaffairs usergovaffairs = this.usergovaffairsService.queryById(usergaid);
         JSONObject ret = new JSONObject();
-        if(govaffairs!=null){
-            Usergovaffairs u = new Usergovaffairs();
-            u.setGaid(gaid);
-            ret.put("ganame", govaffairs.getGaname());
-            ret.put("desc", govaffairs.getGadescription());
-            ret.put("type", govaffairs.getIsarrival() == 0 ? "spot" : "arrival");
-            List<Usergovaffairs> usergovaffairs = this.usergovaffairsService.queryAllByAny(u);
-            if(!usergovaffairs.isEmpty()) {
-                Usergovaffairs usergovaffair = usergovaffairs.get(0);
-                ret.put("place", usergovaffair.getAddress());
-                ret.put("comment", usergovaffair.getComment());
-                ret.put("rate", usergovaffair.getRate());
-                Date date = usergovaffair.getAppointTime();
-                if(date!=null){
-                    DateFormat dateFormat = DateFormat.getDateInstance();
-                    DateFormat timeFormat = DateFormat.getTimeInstance();
-                    ret.put("showCurrentDate", dateFormat.format(date));
-                    ret.put("currentTime", timeFormat.format(date));
+        if(usergovaffairs!=null){
+            ret.put("place", usergovaffairs.getAddress());
+            ret.put("comment", usergovaffairs.getComment());
+            ret.put("rate", usergovaffairs.getRate());
+            Date date = usergovaffairs.getAppointTime();
+            if(date!=null){
+                DateFormat dateFormat = DateFormat.getDateInstance();
+                DateFormat timeFormat = DateFormat.getTimeInstance();
+                ret.put("showCurrentDate", dateFormat.format(date));
+                ret.put("currentTime", timeFormat.format(date));
+            }
+            Govaffairs govaffairs = this.govaffairsService.queryById(usergovaffairs.getGaid());
+            if(govaffairs!=null) {
+                ret.put("ganame", govaffairs.getGaname());
+                ret.put("desc", govaffairs.getGadescription());
+                ret.put("type", govaffairs.getIsarrival() == 0 ? "spot" : "arrival");
+            }
+            Deptgovaffairs t_deptgovaffairs = new Deptgovaffairs();
+            t_deptgovaffairs.setGaid(usergovaffairs.getGaid());
+            List<Deptgovaffairs> deptgovaffairs = this.deptgovaffairsService.queryAllByAny(t_deptgovaffairs);
+            if(deptgovaffairs!=null&&!deptgovaffairs.isEmpty()){
+                Department department = departmentService.queryById(deptgovaffairs.get(0).getDid());
+                if(department!=null){
+                    ret.put("address", department.getDaddress());
                 }
             }
-        }
-        if(deptgovaffairs!=null){
-            Department department = departmentService.queryById(deptgovaffairs.getDid());
-            if(department!=null){
-                ret.put("address", department.getDaddress());
-            }
-        }
-        if(govaffairneed!=null){
-            ret.put("needs", govaffairneed.getNeed());
         }
         ret.put("result",!ret.isEmpty());
         return ResponseEntity.ok(ret);
