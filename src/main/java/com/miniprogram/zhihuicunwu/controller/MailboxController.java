@@ -44,7 +44,6 @@ public class MailboxController {
     public ResponseEntity<Mailbox> add(@RequestBody JSONObject params) {
         //存到mailbox
         Mailbox mailbox = new Mailbox();
-        mailbox.setDid(params.getInteger("did"));
         mailbox.setUid(params.getInteger("uid"));
         mailbox.setMailcontent(params.getString("content"));
         this.mailboxService.insert(mailbox);

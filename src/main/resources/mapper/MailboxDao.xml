@@ -4,7 +4,6 @@
 
     <resultMap type="com.miniprogram.zhihuicunwu.entity.Mailbox" id="MailboxMap">
         <result property="mid" column="mid" jdbcType="INTEGER"/>
-        <result property="did" column="did" jdbcType="INTEGER"/>
         <result property="uid" column="uid" jdbcType="INTEGER"/>
         <result property="mailcontent" column="mailContent" jdbcType="VARCHAR"/>
     </resultMap>
@@ -12,7 +11,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="MailboxMap">
         select
-          mid, did, uid, mailContent
+          mid, uid, mailContent
         from mailbox
         where mid = #{mid}
     </select>
@@ -20,14 +19,11 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="MailboxMap">
         select
-          mid, did, uid, mailContent
+          mid, uid, mailContent
         from mailbox
         <where>
             <if test="mid != null">
                 and mid = #{mid}
-            </if>
-            <if test="did != null">
-                and did = #{did}
             </if>
             <if test="uid != null">
                 and uid = #{uid}
@@ -47,9 +43,6 @@
             <if test="mid != null">
                 and mid = #{mid}
             </if>
-            <if test="did != null">
-                and did = #{did}
-            </if>
             <if test="uid != null">
                 and uid = #{uid}
             </if>
@@ -61,26 +54,25 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="mid" useGeneratedKeys="true">
-        insert into mailbox(did, uid, mailContent)
-        values (#{did}, #{uid}, #{mailcontent})
+        insert into mailbox(uid, mailContent)
+        values (#{uid}, #{mailcontent})
     </insert>
 
     <insert id="insertBatch" keyProperty="mid" useGeneratedKeys="true">
-        insert into mailbox(did, uid, mailContent)
+        insert into mailbox(uid, mailContent)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.did}, #{entity.uid}, #{entity.mailcontent})
+        (#{entity.uid}, #{entity.mailcontent})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="mid" useGeneratedKeys="true">
-        insert into mailbox(did, uid, mailContent)
+        insert into mailbox(uid, mailContent)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.did}, #{entity.uid}, #{entity.mailcontent})
+            (#{entity.uid}, #{entity.mailcontent})
         </foreach>
         on duplicate key update
-        did = values(did),
         uid = values(uid),
         mailContent = values(mailContent)
     </insert>
@@ -89,9 +81,6 @@
     <update id="update">
         update mailbox
         <set>
-            <if test="did != null">
-                did = #{did},
-            </if>
             <if test="uid != null">
                 uid = #{uid},
             </if>

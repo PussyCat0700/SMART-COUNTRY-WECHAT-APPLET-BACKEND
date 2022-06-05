@@ -1,83 +1,83 @@
 package com.miniprogram.zhihuicunwu.dao;
 
-import com.miniprogram.zhihuicunwu.entity.Mailbox;
+import com.miniprogram.zhihuicunwu.entity.Comment;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 /**
- * (Mailbox)表数据库访问层
+ * (Comment)表数据库访问层
  *
  * @author makejava
- * @since 2022-06-05 14:25:59
+ * @since 2022-06-05 14:30:12
  */
-public interface MailboxDao {
+public interface CommentDao {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param mid 主键
+     * @param commentId 主键
      * @return 实例对象
      */
-    Mailbox queryById(Integer mid);
+    Comment queryById(Integer commentId);
 
     /**
      * 查询指定行数据
      *
-     * @param mailbox 查询条件
+     * @param comment 查询条件
      * @param pageable         分页对象
      * @return 对象列表
      */
-    List<Mailbox> queryAllByLimit(Mailbox mailbox, @Param("pageable") Pageable pageable);
+    List<Comment> queryAllByLimit(Comment comment, @Param("pageable") Pageable pageable);
 
     /**
      * 统计总行数
      *
-     * @param mailbox 查询条件
+     * @param comment 查询条件
      * @return 总行数
      */
-    long count(Mailbox mailbox);
+    long count(Comment comment);
 
     /**
      * 新增数据
      *
-     * @param mailbox 实例对象
+     * @param comment 实例对象
      * @return 影响行数
      */
-    int insert(Mailbox mailbox);
+    int insert(Comment comment);
 
     /**
      * 批量新增数据（MyBatis原生foreach方法）
      *
-     * @param entities List<Mailbox> 实例对象列表
+     * @param entities List<Comment> 实例对象列表
      * @return 影响行数
      */
-    int insertBatch(@Param("entities") List<Mailbox> entities);
+    int insertBatch(@Param("entities") List<Comment> entities);
 
     /**
      * 批量新增或按主键更新数据（MyBatis原生foreach方法）
      *
-     * @param entities List<Mailbox> 实例对象列表
+     * @param entities List<Comment> 实例对象列表
      * @return 影响行数
      * @throws org.springframework.jdbc.BadSqlGrammarException 入参是空List的时候会抛SQL语句错误的异常，请自行校验入参
      */
-    int insertOrUpdateBatch(@Param("entities") List<Mailbox> entities);
+    int insertOrUpdateBatch(@Param("entities") List<Comment> entities);
 
     /**
      * 修改数据
      *
-     * @param mailbox 实例对象
+     * @param comment 实例对象
      * @return 影响行数
      */
-    int update(Mailbox mailbox);
+    int update(Comment comment);
 
     /**
      * 通过主键删除数据
      *
-     * @param mid 主键
+     * @param commentId 主键
      * @return 影响行数
      */
-    int deleteById(Integer mid);
+    int deleteById(Integer commentId);
 
 }
 

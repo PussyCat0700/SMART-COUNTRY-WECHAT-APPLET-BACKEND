@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miniprogram.zhihuicunwu.dao.CommentDao">
+
+    <resultMap type="com.miniprogram.zhihuicunwu.entity.Comment" id="CommentMap">
+        <result property="commentId" column="comment_id" jdbcType="INTEGER"/>
+        <result property="mid" column="mid" jdbcType="INTEGER"/>
+        <result property="uid" column="uid" jdbcType="INTEGER"/>
+        <result property="replyUid" column="reply_uid" jdbcType="INTEGER"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="CommentMap">
+        select
+          comment_id, mid, uid, reply_uid, content
+        from comment
+        where comment_id = #{commentId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="CommentMap">
+        select
+          comment_id, mid, uid, reply_uid, content
+        from comment
+        <where>
+            <if test="commentId != null">
+                and comment_id = #{commentId}
+            </if>
+            <if test="mid != null">
+                and mid = #{mid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="replyUid != null">
+                and reply_uid = #{replyUid}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from comment
+        <where>
+            <if test="commentId != null">
+                and comment_id = #{commentId}
+            </if>
+            <if test="mid != null">
+                and mid = #{mid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="replyUid != null">
+                and reply_uid = #{replyUid}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="commentId" useGeneratedKeys="true">
+        insert into comment(mid, uid, reply_uid, content)
+        values (#{mid}, #{uid}, #{replyUid}, #{content})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="commentId" useGeneratedKeys="true">
+        insert into comment(mid, uid, reply_uid, content)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.mid}, #{entity.uid}, #{entity.replyUid}, #{entity.content})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="commentId" useGeneratedKeys="true">
+        insert into comment(mid, uid, reply_uid, content)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.mid}, #{entity.uid}, #{entity.replyUid}, #{entity.content})
+        </foreach>
+        on duplicate key update
+        mid = values(mid),
+        uid = values(uid),
+        reply_uid = values(reply_uid),
+        content = values(content)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update comment
+        <set>
+            <if test="mid != null">
+                mid = #{mid},
+            </if>
+            <if test="uid != null">
+                uid = #{uid},
+            </if>
+            <if test="replyUid != null">
+                reply_uid = #{replyUid},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+        </set>
+        where comment_id = #{commentId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from comment where comment_id = #{commentId}
+    </delete>
+
+</mapper>
+

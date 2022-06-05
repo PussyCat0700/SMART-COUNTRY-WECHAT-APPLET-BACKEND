@@ -6,15 +6,13 @@ import java.io.Serializable;
  * (Mailbox)实体类
  *
  * @author makejava
- * @since 2022-06-01 14:39:27
+ * @since 2022-06-05 14:26:30
  */
 public class Mailbox implements Serializable {
-    private static final long serialVersionUID = -17191864294625044L;
+    private static final long serialVersionUID = -69521182436785941L;
     
     private Integer mid;
-    
-    private Integer did;
-    
+
     private Integer uid;
     
     private String mailcontent;
@@ -26,14 +24,6 @@ public class Mailbox implements Serializable {
 
     public void setMid(Integer mid) {
         this.mid = mid;
-    }
-
-    public Integer getDid() {
-        return did;
-    }
-
-    public void setDid(Integer did) {
-        this.did = did;
     }
 
     public Integer getUid() {
