@@ -55,7 +55,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(org.springframework.http.converter.HttpMessageNotReadableException.class)
     public Result handleEmptyBodyException(HttpMessageNotReadableException e){
-        return handleGeneralException(e.getMessage(), "请求Body不能为空");
+        return handleGeneralException(e.getMessage(), "请求Body格式错误或为空");
     }
 
     /**

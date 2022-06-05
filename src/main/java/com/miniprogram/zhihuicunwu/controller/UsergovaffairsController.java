@@ -1,6 +1,7 @@
 package com.miniprogram.zhihuicunwu.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.miniprogram.zhihuicunwu.config.AffairStatus;
 import com.miniprogram.zhihuicunwu.entity.*;
 import com.miniprogram.zhihuicunwu.service.*;
 import com.miniprogram.zhihuicunwu.util.DateUtil;
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -94,7 +94,7 @@ public class UsergovaffairsController {
         usergovaffairs.setAddress(params.getString("arrival_location"));
         usergovaffairs.setAppointTime(DateUtil.Companion.dateFromString(appoint_time_str));
         usergovaffairs.setGaname(params.getString("service"));
-        usergovaffairs.setStatus(0);  //默认
+        usergovaffairs.setStatus(AffairStatus.JUST_REGISTERED.ordinal());  //默认
         usergovaffairs.setRate(0);  //默认
         usergovaffairs.setComment("");  //默认
         usergovaffairs.setContent(params.getString("content"));
@@ -109,8 +109,16 @@ public class UsergovaffairsController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<Usergovaffairs> edit(@RequestBody Usergovaffairs usergovaffairs) {
-        return ResponseEntity.ok(this.usergovaffairsService.update(usergovaffairs));
+    public ResponseEntity<JSONObject> edit(@RequestBody Usergovaffairs usergovaffairs) {
+        JSONObject jsonObject = new JSONObject();
+        if(usergovaffairs.finished){
+            usergovaffairs.setStatus(AffairStatus.FINISHED.ordinal());
+        }
+        if(usergovaffairs.unsatisfied){
+            usergovaffairs.setStatus(AffairStatus.REBOOTED.ordinal());
+        }
+        jsonObject.put("result", this.usergovaffairsService.update(usergovaffairs)!=null);
+        return ResponseEntity.ok(jsonObject);
     }
 
     /**

@@ -4,6 +4,9 @@ server:
 
 #Mysql¡¨Ω”≥ÿ
 spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
