@@ -7,10 +7,10 @@ import java.io.Serializable;
  * (Usergovaffairs)实体类
  *
  * @author makejava
- * @since 2022-06-05 15:31:42
+ * @since 2022-06-05 15:49:47
  */
 public class Usergovaffairs implements Serializable {
-    private static final long serialVersionUID = -11787923720562849L;
+    private static final long serialVersionUID = -21502300697049037L;
     
     private Integer gaid;
     

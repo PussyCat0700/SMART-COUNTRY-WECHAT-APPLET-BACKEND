@@ -1,14 +1,13 @@
 package com.miniprogram.zhihuicunwu.service;
 
 import com.miniprogram.zhihuicunwu.entity.Usergovaffairs;
-
 import java.util.List;
 
 /**
  * (Usergovaffairs)表服务接口
  *
  * @author makejava
- * @since 2022-06-05 15:31:43
+ * @since 2022-06-05 15:49:47
  */
 public interface UsergovaffairsService {
 

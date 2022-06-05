@@ -12,7 +12,7 @@ import java.util.List;
  * (Usergovaffairs)表服务实现类
  *
  * @author makejava
- * @since 2022-06-05 15:31:44
+ * @since 2022-06-05 15:49:48
  */
 @Service("usergovaffairsService")
 public class UsergovaffairsServiceImpl implements UsergovaffairsService {
