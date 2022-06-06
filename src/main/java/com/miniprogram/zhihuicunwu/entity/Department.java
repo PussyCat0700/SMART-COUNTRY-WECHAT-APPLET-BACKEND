@@ -12,6 +12,8 @@ public class Department implements Serializable {
     private static final long serialVersionUID = 660357713065666914L;
     
     private Integer did;
+
+    private Integer cid;
     
     private String dname;
     
@@ -22,12 +24,16 @@ public class Department implements Serializable {
     private String dphone;
 
 
-    public Integer getDid() {
-        return did;
+    public Integer getDid() { return did; }
+
+    public void setDid(Integer did) { this.did = did; }
+
+    public Integer getCid() {
+        return cid;
     }
 
-    public void setDid(Integer did) {
-        this.did = did;
+    public void setCid(Integer cid) {
+        this.cid = cid;
     }
 
     public String getDname() {

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miniprogram.zhihuicunwu.dao.ApplicationDao">
+
+    <resultMap type="com.miniprogram.zhihuicunwu.entity.Application" id="ApplicationMap">
+        <result property="applicationId" column="application_id" jdbcType="INTEGER"/>
+        <result property="usergaid" column="userGAid" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="gender" column="gender" jdbcType="INTEGER"/>
+        <result property="phone" column="phone" jdbcType="VARCHAR"/>
+        <result property="address" column="address" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="ApplicationMap">
+        select
+          application_id, userGAid, name, gender, phone, address
+        from application
+        where application_id = #{applicationId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="ApplicationMap">
+        select
+          application_id, userGAid, name, gender, phone, address
+        from application
+        <where>
+            <if test="applicationId != null">
+                and application_id = #{applicationId}
+            </if>
+            <if test="usergaid != null">
+                and userGAid = #{usergaid}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from application
+        <where>
+            <if test="applicationId != null">
+                and application_id = #{applicationId}
+            </if>
+            <if test="usergaid != null">
+                and userGAid = #{usergaid}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="applicationId" useGeneratedKeys="true">
+        insert into application(userGAid, name, gender, phone, address)
+        values (#{usergaid}, #{name}, #{gender}, #{phone}, #{address})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="applicationId" useGeneratedKeys="true">
+        insert into application(userGAid, name, gender, phone, address)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.usergaid}, #{entity.name}, #{entity.gender}, #{entity.phone}, #{entity.address})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="applicationId" useGeneratedKeys="true">
+        insert into application(userGAid, name, gender, phone, address)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.usergaid}, #{entity.name}, #{entity.gender}, #{entity.phone}, #{entity.address})
+        </foreach>
+        on duplicate key update
+        userGAid = values(userGAid),
+        name = values(name),
+        gender = values(gender),
+        phone = values(phone),
+        address = values(address)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update application
+        <set>
+            <if test="usergaid != null">
+                userGAid = #{usergaid},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="phone != null and phone != ''">
+                phone = #{phone},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+        </set>
+        where application_id = #{applicationId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from application where application_id = #{applicationId}
+    </delete>
+
+</mapper>
+

@@ -3,6 +3,7 @@
 <mapper namespace="com.miniprogram.zhihuicunwu.dao.MailboximgDao">
 
     <resultMap type="com.miniprogram.zhihuicunwu.entity.Mailboximg" id="MailboximgMap">
+        <result property="imgId" column="img_id" jdbcType="INTEGER"/>
         <result property="mailboxid" column="mailboxId" jdbcType="INTEGER"/>
         <result property="imagebase64" column="imageBase64" jdbcType="VARCHAR"/>
     </resultMap>
@@ -10,17 +11,20 @@
     <!--查询单个-->
     <select id="queryById" resultMap="MailboximgMap">
         select
-          mailboxId, imageBase64
+          img_id, mailboxId, imageBase64
         from mailboximg
-        where mailboxId = #{mailboxid}
+        where img_id = #{imgId}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="MailboximgMap">
         select
-          mailboxId, imageBase64
+          img_id, mailboxId, imageBase64
         from mailboximg
         <where>
+            <if test="imgId != null">
+                and img_id = #{imgId}
+            </if>
             <if test="mailboxid != null">
                 and mailboxId = #{mailboxid}
             </if>
@@ -36,6 +40,9 @@
         select count(1)
         from mailboximg
         <where>
+            <if test="imgId != null">
+                and img_id = #{imgId}
+            </if>
             <if test="mailboxid != null">
                 and mailboxId = #{mailboxid}
             </if>
@@ -46,26 +53,27 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="mailboxid" useGeneratedKeys="true">
-        insert into mailboximg(imageBase64)
-        values (#{imagebase64})
+    <insert id="insert" keyProperty="imgId" useGeneratedKeys="true">
+        insert into mailboximg(mailboxId, imageBase64)
+        values (#{mailboxid}, #{imagebase64})
     </insert>
 
-    <insert id="insertBatch" keyProperty="mailboxid" useGeneratedKeys="true">
-        insert into mailboximg(imageBase64)
+    <insert id="insertBatch" keyProperty="imgId" useGeneratedKeys="true">
+        insert into mailboximg(mailboxId, imageBase64)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.imagebase64})
+        (#{entity.mailboxid}, #{entity.imagebase64})
         </foreach>
     </insert>
 
-    <insert id="insertOrUpdateBatch" keyProperty="mailboxid" useGeneratedKeys="true">
-        insert into mailboximg(imageBase64)
+    <insert id="insertOrUpdateBatch" keyProperty="imgId" useGeneratedKeys="true">
+        insert into mailboximg(mailboxId, imageBase64)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.imagebase64})
+            (#{entity.mailboxid}, #{entity.imagebase64})
         </foreach>
         on duplicate key update
+        mailboxId = values(mailboxId),
         imageBase64 = values(imageBase64)
     </insert>
 
@@ -73,16 +81,19 @@
     <update id="update">
         update mailboximg
         <set>
+            <if test="mailboxid != null">
+                mailboxId = #{mailboxid},
+            </if>
             <if test="imagebase64 != null and imagebase64 != ''">
                 imageBase64 = #{imagebase64},
             </if>
         </set>
-        where mailboxId = #{mailboxid}
+        where img_id = #{imgId}
     </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from mailboximg where mailboxId = #{mailboxid}
+        delete from mailboximg where img_id = #{imgId}
     </delete>
 
 </mapper>

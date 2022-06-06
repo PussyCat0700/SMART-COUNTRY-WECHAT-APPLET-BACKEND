@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miniprogram.zhihuicunwu.dao.PublicationpicDao">
+
+    <resultMap type="com.miniprogram.zhihuicunwu.entity.Publicationpic" id="PublicationpicMap">
+        <result property="imgId" column="img_id" jdbcType="INTEGER"/>
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="ppic" column="Ppic" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PublicationpicMap">
+        select
+          img_id, pid, Ppic
+        from publicationpic
+        where img_id = #{imgId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PublicationpicMap">
+        select
+          img_id, pid, Ppic
+        from publicationpic
+        <where>
+            <if test="imgId != null">
+                and img_id = #{imgId}
+            </if>
+            <if test="pid != null">
+                and pid = #{pid}
+            </if>
+            <if test="ppic != null and ppic != ''">
+                and Ppic = #{ppic}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from publicationpic
+        <where>
+            <if test="imgId != null">
+                and img_id = #{imgId}
+            </if>
+            <if test="pid != null">
+                and pid = #{pid}
+            </if>
+            <if test="ppic != null and ppic != ''">
+                and Ppic = #{ppic}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="imgId" useGeneratedKeys="true">
+        insert into publicationpic(pid, Ppic)
+        values (#{pid}, #{ppic})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="imgId" useGeneratedKeys="true">
+        insert into publicationpic(pid, Ppic)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.pid}, #{entity.ppic})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="imgId" useGeneratedKeys="true">
+        insert into publicationpic(pid, Ppic)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.pid}, #{entity.ppic})
+        </foreach>
+        on duplicate key update
+        pid = values(pid),
+        Ppic = values(Ppic)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update publicationpic
+        <set>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
+            <if test="ppic != null and ppic != ''">
+                Ppic = #{ppic},
+            </if>
+        </set>
+        where img_id = #{imgId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from publicationpic where img_id = #{imgId}
+    </delete>
+
+</mapper>
+

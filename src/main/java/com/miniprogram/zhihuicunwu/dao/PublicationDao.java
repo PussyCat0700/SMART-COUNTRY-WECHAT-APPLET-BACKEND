@@ -9,7 +9,7 @@ import java.util.List;
  * (Publication)表数据库访问层
  *
  * @author makejava
- * @since 2022-06-01 14:39:27
+ * @since 2022-06-06 16:54:55
  */
 public interface PublicationDao {
 

@@ -4,6 +4,9 @@ import com.miniprogram.zhihuicunwu.entity.Publication;
 import com.miniprogram.zhihuicunwu.dao.PublicationDao;
 import com.miniprogram.zhihuicunwu.service.PublicationService;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
 
@@ -11,7 +14,7 @@ import javax.annotation.Resource;
  * (Publication)表服务实现类
  *
  * @author makejava
- * @since 2022-06-01 14:39:27
+ * @since 2022-06-06 16:54:56
  */
 @Service("publicationService")
 public class PublicationServiceImpl implements PublicationService {
@@ -27,6 +30,19 @@ public class PublicationServiceImpl implements PublicationService {
     @Override
     public Publication queryById(Integer pid) {
         return this.publicationDao.queryById(pid);
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param publication 筛选条件
+     * @param pageRequest      分页对象
+     * @return 查询结果
+     */
+    @Override
+    public Page<Publication> queryByPage(Publication publication, PageRequest pageRequest) {
+        long total = this.publicationDao.count(publication);
+        return new PageImpl<>(this.publicationDao.queryAllByLimit(publication, pageRequest), pageRequest, total);
     }
 
     /**

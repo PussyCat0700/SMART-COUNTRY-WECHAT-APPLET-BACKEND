@@ -3,6 +3,7 @@ package com.miniprogram.zhihuicunwu.entity;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 /**
  * (User)实体类
@@ -26,6 +27,8 @@ public class User implements Serializable {
     private String uaddress;
     
     private String uwxid;
+
+    private String uphoto;
 
 
     public Integer getUid() {
@@ -82,6 +85,14 @@ public class User implements Serializable {
 
     public void setUwxid(String uwxid) {
         this.uwxid = uwxid;
+    }
+
+    public String getUphoto() {
+        return uphoto;
+    }
+
+    public void setUphoto(String uphoto) {
+        this.uphoto = uphoto;
     }
 
     static public User parseFromJSON(JSONObject jsonObject){

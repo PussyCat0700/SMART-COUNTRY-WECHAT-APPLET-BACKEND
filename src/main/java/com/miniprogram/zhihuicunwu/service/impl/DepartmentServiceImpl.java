@@ -6,6 +6,7 @@ import com.miniprogram.zhihuicunwu.service.DepartmentService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Department)表服务实现类
@@ -28,6 +29,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Department queryById(Integer did) {
         return this.departmentDao.queryById(did);
     }
+
+    @Override
+    public List<Department> queryByCid(Integer cid) { return this.departmentDao.queryByCid(cid); }
 
     /**
      * 新增数据

@@ -4,6 +4,9 @@ import com.miniprogram.zhihuicunwu.entity.Govaffairneed;
 import com.miniprogram.zhihuicunwu.dao.GovaffairneedDao;
 import com.miniprogram.zhihuicunwu.service.GovaffairneedService;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
 
@@ -11,7 +14,7 @@ import javax.annotation.Resource;
  * (Govaffairneed)表服务实现类
  *
  * @author makejava
- * @since 2022-06-03 11:40:55
+ * @since 2022-06-06 17:19:04
  */
 @Service("govaffairneedService")
 public class GovaffairneedServiceImpl implements GovaffairneedService {
@@ -21,12 +24,25 @@ public class GovaffairneedServiceImpl implements GovaffairneedService {
     /**
      * 通过ID查询单条数据
      *
-     * @param needgovaffairid 主键
+     * @param needId 主键
      * @return 实例对象
      */
     @Override
-    public Govaffairneed queryById(Integer needgovaffairid) {
-        return this.govaffairneedDao.queryById(needgovaffairid);
+    public Govaffairneed queryById(Integer needId) {
+        return this.govaffairneedDao.queryById(needId);
+    }
+
+    /**
+     * 分页查询
+     *
+     * @param govaffairneed 筛选条件
+     * @param pageRequest      分页对象
+     * @return 查询结果
+     */
+    @Override
+    public Page<Govaffairneed> queryByPage(Govaffairneed govaffairneed, PageRequest pageRequest) {
+        long total = this.govaffairneedDao.count(govaffairneed);
+        return new PageImpl<>(this.govaffairneedDao.queryAllByLimit(govaffairneed, pageRequest), pageRequest, total);
     }
 
     /**
@@ -50,17 +66,17 @@ public class GovaffairneedServiceImpl implements GovaffairneedService {
     @Override
     public Govaffairneed update(Govaffairneed govaffairneed) {
         this.govaffairneedDao.update(govaffairneed);
-        return this.queryById(govaffairneed.getNeedgovaffairid());
+        return this.queryById(govaffairneed.getNeedId());
     }
 
     /**
      * 通过主键删除数据
      *
-     * @param needgovaffairid 主键
+     * @param needId 主键
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer needgovaffairid) {
-        return this.govaffairneedDao.deleteById(needgovaffairid) > 0;
+    public boolean deleteById(Integer needId) {
+        return this.govaffairneedDao.deleteById(needId) > 0;
     }
 }

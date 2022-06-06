@@ -11,7 +11,9 @@ import java.io.Serializable;
  */
 public class Feedback implements Serializable {
     private static final long serialVersionUID = -44440946822638501L;
-    
+
+    private Integer fid;
+
     private Integer uid;
     
     private Integer pid;
@@ -22,6 +24,12 @@ public class Feedback implements Serializable {
     
     private String freturn;
 
+
+    public Integer getFid() { return fid; }
+
+    public void setFid(Integer fid) {
+        this.fid = fid;
+    }
 
     public Integer getUid() {
         return uid;

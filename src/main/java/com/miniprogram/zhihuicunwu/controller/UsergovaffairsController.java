@@ -34,6 +34,8 @@ public class UsergovaffairsController {
     private DeptgovaffairsService deptgovaffairsService;
     @Resource
     private DepartmentService departmentService;
+    @Resource
+    private ApplicationService applicationService;
 
     /**
      * 通过主键查询单条数据
@@ -85,10 +87,12 @@ public class UsergovaffairsController {
     @PostMapping
     public ResponseEntity<Usergovaffairs> add(@RequestBody JSONObject params) throws ParseException {
         Usergovaffairs usergovaffairs = new Usergovaffairs();
+        Application application = new Application();
+        JSONObject applicant_info = new JSONObject();
 
         String appoint_time_str = params.getString("appoint_time");
 
-        //TODO:改成前端的字段名
+        //存入到Usergovaffairs实体中
         usergovaffairs.setGaid(params.getInteger("affairId"));
         usergovaffairs.setUid(params.getInteger("uid"));
         usergovaffairs.setAddress(params.getString("arrival_location"));
@@ -98,8 +102,20 @@ public class UsergovaffairsController {
         usergovaffairs.setRate(0);  //默认
         usergovaffairs.setComment("");  //默认
         usergovaffairs.setContent(params.getString("content"));
+        this.usergovaffairsService.insert(usergovaffairs);
 
-        return ResponseEntity.ok(this.usergovaffairsService.insert(usergovaffairs));
+        //System.out.println(usergovaffairs.getUsergaid());
+
+        //存入到Application实体中
+        applicant_info = params.getJSONObject("application_info");
+        application.setName(applicant_info.getString("name"));
+        application.setGender(applicant_info.getInteger("gender"));
+        application.setPhone(applicant_info.getString("phone"));
+        application.setAddress(applicant_info.getString("address"));
+        application.setUsergaid(usergovaffairs.getUsergaid());
+        applicationService.insert(application);
+
+        return ResponseEntity.ok(usergovaffairs);
     }
 
     /**

@@ -9,8 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Base64;
+import java.util.Base64.Encoder;
 import java.util.Date;
 import java.util.List;
 
@@ -57,9 +62,30 @@ public class FeedbackController {
 
     //查询所有数据
     @GetMapping("/all")
-    public ResponseEntity<List> queryAll()
+    public ResponseEntity<List> queryAll() throws SQLException
     {
-        return ResponseEntity.ok(this.feedbackService.queryAll());
+        List<JSONObject> ret = new ArrayList<JSONObject>();
+        List<Feedback> feedbacks = this.feedbackService.queryAll();
+
+        for(int i = 0; i < feedbacks.size(); i++)
+        {
+            User user = userService.queryById(feedbacks.get(i).getUid());
+            JSONObject user_info = new JSONObject();
+            String avartar = user.getUphoto();
+
+            user_info.put("avatarUrl", avartar);
+
+            JSONObject temp = new JSONObject();
+            temp.put("id", feedbacks.get(i).getFid());
+            temp.put("content", feedbacks.get(i).getFcontent());
+            temp.put("related_article", feedbacks.get(i).getPid());
+            temp.put("date", feedbacks.get(i).getFtime());
+            temp.put("userInfo", user_info);
+
+            ret.add(temp);
+        }
+
+        return ResponseEntity.ok(ret);
     }
 
 //    public List<Feedback> queryAll()
@@ -71,7 +97,29 @@ public class FeedbackController {
     @GetMapping("/fuzzy/{content}")
     public ResponseEntity<List> queryFuzzyByContent(@PathVariable("content") String content)
     {
-        return ResponseEntity.ok(this.feedbackService.queryFuzzyByContent(content));
+        List<JSONObject> ret = new ArrayList<JSONObject>();
+        List<Feedback> feedbacks = this.feedbackService.queryFuzzyByContent(content);
+
+        for(int i = 0; i < feedbacks.size(); i++)
+        {
+            User user = userService.queryById(feedbacks.get(i).getUid());
+            JSONObject user_info = new JSONObject();
+            String avartar = user.getUphoto();
+
+            user_info.put("avatarUrl", avartar);
+            user_info.put("nickName", user.getUname());
+
+            JSONObject temp = new JSONObject();
+            temp.put("id", feedbacks.get(i).getFid());
+            temp.put("content", feedbacks.get(i).getFcontent());
+            temp.put("related_article", feedbacks.get(i).getPid());
+            temp.put("date", feedbacks.get(i).getFtime());
+            temp.put("userInfo", user_info);
+
+            ret.add(temp);
+        }
+
+        return ResponseEntity.ok(ret);
     }
 
 //    public List<Feedback> queryFuzzyByContent(String content)
@@ -83,7 +131,20 @@ public class FeedbackController {
     @GetMapping("/myfeedback/{uid}")
     public ResponseEntity<List> queryFeedbackByUid(@PathVariable("uid") int uid)
     {
-        return ResponseEntity.ok(this.feedbackService.queryFeedbackByUid(uid));
+        List<JSONObject> ret = new ArrayList<JSONObject>();
+        List<Feedback> feedbacks = this.feedbackService.queryFeedbackByUid(uid);
+
+        for(int i = 0; i < feedbacks.size(); i++)
+        {
+            JSONObject temp = new JSONObject();
+            temp.put("feedback_id", feedbacks.get(i).getFid());
+            temp.put("content", feedbacks.get(i).getFcontent());
+            temp.put("create_time", feedbacks.get(i).getFtime());
+
+            ret.add(temp);
+        }
+
+        return ResponseEntity.ok(ret);
     }
 
 
@@ -91,11 +152,11 @@ public class FeedbackController {
     /**
      * 新增数据
      *
-     * @param feedback 实体
+     * @param params 实体
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Feedback> add(@RequestBody JSONObject params) throws ParseException {
+    public ResponseEntity<Feedback> add(@RequestBody JSONObject params) {
         Feedback feedback = new Feedback();
         feedback.setUid(params.getInteger("uid"));
         feedback.setPid(params.getInteger("related_article"));

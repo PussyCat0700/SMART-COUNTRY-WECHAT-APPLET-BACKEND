@@ -21,6 +21,8 @@ public interface DepartmentDao {
      */
     Department queryById(Integer did);
 
+    List<Department> queryByCid(Integer cid);
+
     /**
      * 查询指定行数据
      *

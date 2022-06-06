@@ -7,12 +7,13 @@
         <result property="score" column="score" jdbcType="INTEGER"/>
         <result property="location" column="location" jdbcType="VARCHAR"/>
         <result property="cname" column="cname" jdbcType="VARCHAR"/>
+        <result property="ccode" column="ccode" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="CountryMap">
         select
-          cid, score, location, cname
+          cid, score, location, cname, ccode
         from country
         where cid = #{cid}
     </select>
@@ -20,7 +21,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CountryMap">
         select
-          cid, score, location, cname
+          cid, score, location, cname, ccode
         from country
         <where>
             <if test="cid != null">
@@ -34,6 +35,9 @@
             </if>
             <if test="cname != null and cname != ''">
                 and cname = #{cname}
+            </if>
+            <if test="ccode != null and ccode != ''">
+                and ccode = #{ccode}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -56,33 +60,37 @@
             <if test="cname != null and cname != ''">
                 and cname = #{cname}
             </if>
+            <if test="ccode != null and ccode != ''">
+                and ccode = #{ccode}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="cid" useGeneratedKeys="true">
-        insert into country(score, location, cname)
-        values (#{score}, #{location}, #{cname})
+        insert into country(score, location, cname, ccode)
+        values (#{score}, #{location}, #{cname}, #{ccode})
     </insert>
 
     <insert id="insertBatch" keyProperty="cid" useGeneratedKeys="true">
-        insert into country(score, location, cname)
+        insert into country(score, location, cname, ccode)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.score}, #{entity.location}, #{entity.cname})
+        (#{entity.score}, #{entity.location}, #{entity.cname}, #{ccode})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="cid" useGeneratedKeys="true">
-        insert into country(score, location, cname)
+        insert into country(score, location, cname, ccode)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.score}, #{entity.location}, #{entity.cname})
+            (#{entity.score}, #{entity.location}, #{entity.cname}, #{entity.ccode})
         </foreach>
         on duplicate key update
         score = values(score),
         location = values(location),
-        cname = values(cname)
+        cname = values(cname),
+        ccode = values(ccode)
     </insert>
 
     <!--通过主键修改数据-->
@@ -97,6 +105,9 @@
             </if>
             <if test="cname != null and cname != ''">
                 cname = #{cname},
+            </if>
+            <if test="ccode != null and ccode != ''">
+                and ccode = #{ccode}
             </if>
         </set>
         where cid = #{cid}

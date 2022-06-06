@@ -2,6 +2,8 @@ package com.miniprogram.zhihuicunwu.controller;
 
 import com.miniprogram.zhihuicunwu.entity.Govaffairneed;
 import com.miniprogram.zhihuicunwu.service.GovaffairneedService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +13,7 @@ import javax.annotation.Resource;
  * (Govaffairneed)表控制层
  *
  * @author makejava
- * @since 2022-06-03 11:40:55
+ * @since 2022-06-06 17:19:02
  */
 @RestController
 @RequestMapping("govaffairneed")
@@ -21,6 +23,18 @@ public class GovaffairneedController {
      */
     @Resource
     private GovaffairneedService govaffairneedService;
+
+    /**
+     * 分页查询
+     *
+     * @param govaffairneed 筛选条件
+     * @param pageRequest      分页对象
+     * @return 查询结果
+     */
+    @GetMapping
+    public ResponseEntity<Page<Govaffairneed>> queryByPage(Govaffairneed govaffairneed, PageRequest pageRequest) {
+        return ResponseEntity.ok(this.govaffairneedService.queryByPage(govaffairneed, pageRequest));
+    }
 
     /**
      * 通过主键查询单条数据
@@ -40,7 +54,7 @@ public class GovaffairneedController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Govaffairneed> add(@RequestBody Govaffairneed govaffairneed) {
+    public ResponseEntity<Govaffairneed> add(Govaffairneed govaffairneed) {
         return ResponseEntity.ok(this.govaffairneedService.insert(govaffairneed));
     }
 
@@ -51,7 +65,7 @@ public class GovaffairneedController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<Govaffairneed> edit(@RequestBody Govaffairneed govaffairneed) {
+    public ResponseEntity<Govaffairneed> edit(Govaffairneed govaffairneed) {
         return ResponseEntity.ok(this.govaffairneedService.update(govaffairneed));
     }
 
