@@ -1,9 +1,7 @@
 package com.miniprogram.zhihuicunwu.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.miniprogram.zhihuicunwu.entity.Countrydepartment;
 import com.miniprogram.zhihuicunwu.entity.Department;
-import com.miniprogram.zhihuicunwu.service.CountrydepartmentService;
 import com.miniprogram.zhihuicunwu.service.DepartmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +24,8 @@ public class DepartmentController {
      */
     @Resource
     private DepartmentService departmentService;
-    @Resource
-    private CountrydepartmentService countrydepartmentService;
+//    @Resource
+//    private CountrydepartmentService countrydepartmentService;
 
     /**
      * 通过主键查询单条数据
@@ -43,14 +41,14 @@ public class DepartmentController {
     //查询某个村下所有的部门信息
     @GetMapping("/country/{cid}")
     public ResponseEntity<List> queryByCid(@PathVariable("cid") Integer cid) {
-        List<Countrydepartment> countrydepartments = this.countrydepartmentService.queryByCid(cid);
+//        List<Countrydepartment> countrydepartments = this.countrydepartmentService.queryByCid(cid);
         List<Department> departments = new ArrayList<>();
-
-        for(int i = 0; i < countrydepartments.size(); i++)
-        {
-            departments.add(this.departmentService.queryById(countrydepartments.get(i).getDid()));
-        }
-
+//
+//        for(int i = 0; i < countrydepartments.size(); i++)
+//        {
+//            departments.add(this.departmentService.queryById(countrydepartments.get(i).getDid()));
+//        }
+//
         return ResponseEntity.ok(departments);
     }
 
@@ -70,11 +68,11 @@ public class DepartmentController {
         department.setDphone(params.getString("phone"));
         this.departmentService.insert(department);
 
-        //再在CountryDepartment表里添加关系
-        Countrydepartment countrydepartment = new Countrydepartment();
-        countrydepartment.setCid(params.getInteger("cid"));
-        //TODO: 获取新增数据的did countrydepartment.setDid(this.);
-        this.countrydepartmentService.insert(countrydepartment);
+//        //再在CountryDepartment表里添加关系
+//        Countrydepartment countrydepartment = new Countrydepartment();
+//        countrydepartment.setCid(params.getInteger("cid"));
+//        //TODO: 获取新增数据的did countrydepartment.setDid(this.);
+//        this.countrydepartmentService.insert(countrydepartment);
 
         return ResponseEntity.ok(this.departmentService.insert(department));
     }

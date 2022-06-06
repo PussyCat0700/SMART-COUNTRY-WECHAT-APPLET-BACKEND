@@ -3,6 +3,7 @@
 <mapper namespace="com.miniprogram.zhihuicunwu.dao.FeedbackDao">
 
     <resultMap type="com.miniprogram.zhihuicunwu.entity.Feedback" id="FeedbackMap">
+        <result property="fid" column="fid" jdbcType="INTEGER"/>
         <result property="uid" column="uid" jdbcType="INTEGER"/>
         <result property="pid" column="pid" jdbcType="INTEGER"/>
         <result property="ftime" column="fTime" jdbcType="TIMESTAMP"/>
@@ -13,22 +14,22 @@
     <!--查询单个-->
     <select id="queryById" resultMap="FeedbackMap">
         select
-          uid, pid, fTime, fContent, fReturn
+          fid, uid, pid, fTime, fContent, fReturn
         from feedback
-        where uid = #{uid}
+        where fid = #{fid}
     </select>
 
     <!--查询所有数据-->
     <select id="queryAll" resultMap="FeedbackMap">
         select
-          uid, pid, fTime, fContent, fReturn
+          fid, uid, pid, fTime, fContent, fReturn
         from feedback
     </select>
     
     <!--根据内容模糊查询-->
     <select id="queryFuzzyByContent" resultMap="FeedbackMap">
         select
-          uid, pid, fTime, fContent, fReturn
+          fid, uid, pid, fTime, fContent, fReturn
         from feedback
         where fContent REGEXP #{content}
     </select>
@@ -36,7 +37,7 @@
     <!--根据uid查询 我的反馈-->
     <select id="queryFeedbackByUid" resultMap="FeedbackMap">
         select
-          uid, pid, fTime, fContent, fReturn
+          fid, uid, pid, fTime, fContent, fReturn
         from feedback
         where uid = #{uid}
     </select>
@@ -44,9 +45,12 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="FeedbackMap">
         select
-          uid, pid, fTime, fContent, fReturn
+        fid, uid, pid, fTime, fContent, fReturn
         from feedback
         <where>
+            <if test="fid != null">
+                and fid = #{fid}
+            </if>
             <if test="uid != null">
                 and uid = #{uid}
             </if>
@@ -71,6 +75,9 @@
         select count(1)
         from feedback
         <where>
+            <if test="fid != null">
+                and fid = #{fid}
+            </if>
             <if test="uid != null">
                 and uid = #{uid}
             </if>
@@ -120,6 +127,12 @@
     <update id="update">
         update feedback
         <set>
+            <if test="uid != null">
+                uid = #{uid},
+            </if>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
             <if test="ftime != null">
                 fTime = #{ftime},
             </if>
@@ -130,12 +143,12 @@
                 fReturn = #{freturn},
             </if>
         </set>
-        where uid = #{uid}
+        where fid = #{fid}
     </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from feedback where uid = #{uid}
+        delete from feedback where fid = #{fid}
     </delete>
 
 </mapper>

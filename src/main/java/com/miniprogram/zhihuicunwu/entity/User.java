@@ -27,6 +27,8 @@ public class User implements Serializable {
     
     private String uwxid;
 
+    private String uphoto;
+
 
     public Integer getUid() {
         return uid;
@@ -82,6 +84,14 @@ public class User implements Serializable {
 
     public void setUwxid(String uwxid) {
         this.uwxid = uwxid;
+    }
+
+    public String getUphoto() {
+        return uphoto;
+    }
+
+    public void setUphoto(String uphoto) {
+        this.uphoto = uphoto;
     }
 
     static public User parseFromJSON(JSONObject jsonObject){

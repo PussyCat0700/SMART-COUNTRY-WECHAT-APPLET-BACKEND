@@ -47,9 +47,7 @@ public class Usergovaffairs implements Serializable {
         this.gaid = gaid;
     }
 
-    public Integer getUid() {
-        return uid;
-    }
+    public Integer getUid() { return uid; }
 
     public void setUid(Integer uid) {
         this.uid = uid;
