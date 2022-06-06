@@ -4,17 +4,15 @@ import com.miniprogram.zhihuicunwu.entity.Comment;
 import com.miniprogram.zhihuicunwu.dao.CommentDao;
 import com.miniprogram.zhihuicunwu.service.CommentService;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Comment)表服务实现类
  *
  * @author makejava
- * @since 2022-06-05 14:30:15
+ * @since 2022-06-06 21:32:17
  */
 @Service("commentService")
 public class CommentServiceImpl implements CommentService {
@@ -31,18 +29,16 @@ public class CommentServiceImpl implements CommentService {
     public Comment queryById(Integer commentId) {
         return this.commentDao.queryById(commentId);
     }
-
+    
     /**
-     * 分页查询
+     * 通过任意字段查询数据列表
      *
-     * @param comment 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
+     * @param comment 实例对象
+     * @return 实例对象列表
      */
-    @Override
-    public Page<Comment> queryByPage(Comment comment, PageRequest pageRequest) {
-        long total = this.commentDao.count(comment);
-        return new PageImpl<>(this.commentDao.queryAllByLimit(comment, pageRequest), pageRequest, total);
+     @Override
+    public List<Comment> queryAllByAny(Comment comment){
+        return this.commentDao.queryAllByAny(comment);
     }
 
     /**

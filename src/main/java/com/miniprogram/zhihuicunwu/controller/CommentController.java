@@ -1,19 +1,22 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Comment;
+import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.service.CommentService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import com.miniprogram.zhihuicunwu.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * (Comment)表控制层
  *
  * @author makejava
- * @since 2022-06-05 14:30:12
+ * @since 2022-06-06 21:32:13
  */
 @RestController
 @RequestMapping("comment")
@@ -23,38 +26,49 @@ public class CommentController {
      */
     @Resource
     private CommentService commentService;
-
-    /**
-     * 分页查询
-     *
-     * @param comment 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
-     */
-    @GetMapping
-    public ResponseEntity<Page<Comment>> queryByPage(Comment comment, PageRequest pageRequest) {
-        return ResponseEntity.ok(this.commentService.queryByPage(comment, pageRequest));
-    }
+    @Resource
+    private UserService userService;
 
     /**
      * 通过主键查询单条数据
      *
-     * @param id 主键
+     * @param mid 主键
      * @return 单条数据
      */
-    @GetMapping("{id}")
-    public ResponseEntity<Comment> queryById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(this.commentService.queryById(id));
+    @GetMapping("{mid}")
+    public ResponseEntity<List> queryById(@PathVariable("mid") Integer mid) {
+        Comment c1 = new Comment();
+        c1.setMid(mid);
+        List<Comment> comments = this.commentService.queryAllByAny(c1);
+        List<JSONObject> ret = new ArrayList<>();
+        for(Comment comment:comments){
+            JSONObject item = new JSONObject();
+            item.put("replyContent", comment.getContent());
+            User u = this.userService.queryById(comment.getUid());
+            if(u!=null) {
+                item.put("userInfo", u.getBriefInfo());
+            }
+            if(comment.getReplyUid()!=null){
+                User u2 = this.userService.queryById(comment.getReplyUid());
+                item.put("replyUserInfo", u2.getBriefInfo());
+            }
+            ret.add(item);
+        }
+        return ResponseEntity.ok(ret);
     }
 
     /**
      * 新增数据
      *
-     * @param comment 实体
+     * @param jsonObject 实体
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Comment> add(Comment comment) {
+    public ResponseEntity<Comment> add(@RequestBody JSONObject jsonObject) {
+        Comment comment = new Comment();
+        comment.setContent(jsonObject.getString("replyContent"));
+        comment.setUid(jsonObject.getInteger("userID"));
+        comment.setReplyUid(jsonObject.getInteger("replyUserID"));
         return ResponseEntity.ok(this.commentService.insert(comment));
     }
 
@@ -65,7 +79,7 @@ public class CommentController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<Comment> edit(Comment comment) {
+    public ResponseEntity<Comment> edit(@RequestBody Comment comment) {
         return ResponseEntity.ok(this.commentService.update(comment));
     }
 

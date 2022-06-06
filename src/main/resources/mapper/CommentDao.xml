@@ -42,7 +42,30 @@
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
-
+    <!--任意查询（返回列表）-->
+    <select id="queryAllByAny" resultMap="CommentMap">
+        select
+          comment_id, mid, uid, reply_uid, content
+        from comment
+        <where>
+            <if test="commentId != null">
+                and comment_id = #{commentId}
+            </if>
+            <if test="mid != null">
+                and mid = #{mid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="replyUid != null">
+                and reply_uid = #{replyUid}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+        </where>
+    </select>
+    
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

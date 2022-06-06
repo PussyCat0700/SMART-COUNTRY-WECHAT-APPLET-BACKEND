@@ -1,14 +1,13 @@
 package com.miniprogram.zhihuicunwu.service;
 
 import com.miniprogram.zhihuicunwu.entity.Comment;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import java.util.List;
 
 /**
  * (Comment)表服务接口
  *
  * @author makejava
- * @since 2022-06-05 14:30:15
+ * @since 2022-06-06 21:32:17
  */
 public interface CommentService {
 
@@ -21,14 +20,13 @@ public interface CommentService {
     Comment queryById(Integer commentId);
 
     /**
-     * 分页查询
+     * 通过任意字段查询数据列表
      *
-     * @param comment 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
+     * @param comment 实例对象
+     * @return 实例对象列表
      */
-    Page<Comment> queryByPage(Comment comment, PageRequest pageRequest);
-
+    List<Comment> queryAllByAny(Comment comment);
+    
     /**
      * 新增数据
      *
