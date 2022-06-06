@@ -9,7 +9,7 @@ import java.util.List;
  * (Application)表数据库访问层
  *
  * @author makejava
- * @since 2022-06-06 11:42:26
+ * @since 2022-06-06 22:55:45
  */
 public interface ApplicationDao {
 
@@ -30,6 +30,13 @@ public interface ApplicationDao {
      */
     List<Application> queryAllByLimit(Application application, @Param("pageable") Pageable pageable);
 
+    /**
+     * 任意查询（列表）
+     * @param application 查询条件
+     * @return 对象列表
+     */
+    List<Application> queryAllByAny(Application application);
+     
     /**
      * 统计总行数
      *
