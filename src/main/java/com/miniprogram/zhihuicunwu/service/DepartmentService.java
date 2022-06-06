@@ -2,6 +2,8 @@ package com.miniprogram.zhihuicunwu.service;
 
 import com.miniprogram.zhihuicunwu.entity.Department;
 
+import java.util.List;
+
 /**
  * (Department)表服务接口
  *
@@ -17,6 +19,8 @@ public interface DepartmentService {
      * @return 实例对象
      */
     Department queryById(Integer did);
+
+    List<Department> queryByCid(Integer cid);
 
     /**
      * 新增数据

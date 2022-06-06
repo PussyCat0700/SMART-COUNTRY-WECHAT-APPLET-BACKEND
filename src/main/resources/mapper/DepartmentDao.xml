@@ -19,6 +19,14 @@
         where did = #{did}
     </select>
 
+    <!--查询多个-->
+    <select id="queryByCid" resultMap="DepartmentMap">
+        select
+            did, cid, dname, ddescription, daddress, dphone
+        from department
+        where cid = #{cid}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DepartmentMap">
         select

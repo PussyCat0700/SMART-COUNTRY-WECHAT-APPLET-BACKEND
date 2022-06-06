@@ -7,24 +7,20 @@ import java.io.Serializable;
  * (Publication)实体类
  *
  * @author makejava
- * @since 2022-06-01 14:39:27
+ * @since 2022-06-06 16:54:56
  */
 public class Publication implements Serializable {
-    private static final long serialVersionUID = 608459715559115507L;
+    private static final long serialVersionUID = 260287893606375194L;
     
     private Integer pid;
-
+    
     private Integer did;
     
     private Integer ptype;
     
     private String pcontent;
     
-    private Object pattach;
-    
     private Date ptime;
-    
-    private Object ppic;
 
 
     public Integer getPid() {
@@ -40,7 +36,7 @@ public class Publication implements Serializable {
     }
 
     public void setDid(Integer did) {
-        this.pid = did;
+        this.did = did;
     }
 
     public Integer getPtype() {
@@ -59,28 +55,12 @@ public class Publication implements Serializable {
         this.pcontent = pcontent;
     }
 
-    public Object getPattach() {
-        return pattach;
-    }
-
-    public void setPattach(Object pattach) {
-        this.pattach = pattach;
-    }
-
     public Date getPtime() {
         return ptime;
     }
 
     public void setPtime(Date ptime) {
         this.ptime = ptime;
-    }
-
-    public Object getPpic() {
-        return ppic;
-    }
-
-    public void setPpic(Object ppic) {
-        this.ppic = ppic;
     }
 
 }

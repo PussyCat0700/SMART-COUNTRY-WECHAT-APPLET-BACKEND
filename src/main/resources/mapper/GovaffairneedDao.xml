@@ -3,6 +3,7 @@
 <mapper namespace="com.miniprogram.zhihuicunwu.dao.GovaffairneedDao">
 
     <resultMap type="com.miniprogram.zhihuicunwu.entity.Govaffairneed" id="GovaffairneedMap">
+        <result property="needId" column="need_id" jdbcType="INTEGER"/>
         <result property="needgovaffairid" column="needGovAffairID" jdbcType="INTEGER"/>
         <result property="need" column="need" jdbcType="VARCHAR"/>
     </resultMap>
@@ -10,17 +11,20 @@
     <!--查询单个-->
     <select id="queryById" resultMap="GovaffairneedMap">
         select
-          needGovAffairID, need
+          need_id, needGovAffairID, need
         from govaffairneed
-        where needGovAffairID = #{needgovaffairid}
+        where need_id = #{needId}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="GovaffairneedMap">
         select
-          needGovAffairID, need
+          need_id, needGovAffairID, need
         from govaffairneed
         <where>
+            <if test="needId != null">
+                and need_id = #{needId}
+            </if>
             <if test="needgovaffairid != null">
                 and needGovAffairID = #{needgovaffairid}
             </if>
@@ -36,6 +40,9 @@
         select count(1)
         from govaffairneed
         <where>
+            <if test="needId != null">
+                and need_id = #{needId}
+            </if>
             <if test="needgovaffairid != null">
                 and needGovAffairID = #{needgovaffairid}
             </if>
@@ -46,26 +53,27 @@
     </select>
 
     <!--新增所有列-->
-    <insert id="insert" keyProperty="needgovaffairid" useGeneratedKeys="true">
-        insert into govaffairneed(need)
-        values (#{need})
+    <insert id="insert" keyProperty="needId" useGeneratedKeys="true">
+        insert into govaffairneed(needGovAffairID, need)
+        values (#{needgovaffairid}, #{need})
     </insert>
 
-    <insert id="insertBatch" keyProperty="needgovaffairid" useGeneratedKeys="true">
-        insert into govaffairneed(need)
+    <insert id="insertBatch" keyProperty="needId" useGeneratedKeys="true">
+        insert into govaffairneed(needGovAffairID, need)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.need})
+        (#{entity.needgovaffairid}, #{entity.need})
         </foreach>
     </insert>
 
-    <insert id="insertOrUpdateBatch" keyProperty="needgovaffairid" useGeneratedKeys="true">
-        insert into govaffairneed(need)
+    <insert id="insertOrUpdateBatch" keyProperty="needId" useGeneratedKeys="true">
+        insert into govaffairneed(needGovAffairID, need)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.need})
+            (#{entity.needgovaffairid}, #{entity.need})
         </foreach>
         on duplicate key update
+        needGovAffairID = values(needGovAffairID),
         need = values(need)
     </insert>
 
@@ -73,16 +81,19 @@
     <update id="update">
         update govaffairneed
         <set>
+            <if test="needgovaffairid != null">
+                needGovAffairID = #{needgovaffairid},
+            </if>
             <if test="need != null and need != ''">
                 need = #{need},
             </if>
         </set>
-        where needGovAffairID = #{needgovaffairid}
+        where need_id = #{needId}
     </update>
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from govaffairneed where needGovAffairID = #{needgovaffairid}
+        delete from govaffairneed where need_id = #{needId}
     </delete>
 
 </mapper>

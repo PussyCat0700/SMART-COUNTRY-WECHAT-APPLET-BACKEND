@@ -3,6 +3,7 @@ package com.miniprogram.zhihuicunwu.entity;
 import com.alibaba.fastjson.JSONObject;
 
 import java.io.Serializable;
+import java.sql.Blob;
 
 /**
  * (User)实体类

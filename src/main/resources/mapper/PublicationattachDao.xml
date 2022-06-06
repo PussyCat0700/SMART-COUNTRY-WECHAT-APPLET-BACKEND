@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miniprogram.zhihuicunwu.dao.PublicationattachDao">
+
+    <resultMap type="com.miniprogram.zhihuicunwu.entity.Publicationattach" id="PublicationattachMap">
+        <result property="attachId" column="attach_id" jdbcType="INTEGER"/>
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="pattach" column="pAttach" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PublicationattachMap">
+        select
+          attach_id, pid, pAttach
+        from publicationattach
+        where attach_id = #{attachId}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PublicationattachMap">
+        select
+          attach_id, pid, pAttach
+        from publicationattach
+        <where>
+            <if test="attachId != null">
+                and attach_id = #{attachId}
+            </if>
+            <if test="pid != null">
+                and pid = #{pid}
+            </if>
+            <if test="pattach != null and pattach != ''">
+                and pAttach = #{pattach}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from publicationattach
+        <where>
+            <if test="attachId != null">
+                and attach_id = #{attachId}
+            </if>
+            <if test="pid != null">
+                and pid = #{pid}
+            </if>
+            <if test="pattach != null and pattach != ''">
+                and pAttach = #{pattach}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="attachId" useGeneratedKeys="true">
+        insert into publicationattach(pid, pAttach)
+        values (#{pid}, #{pattach})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="attachId" useGeneratedKeys="true">
+        insert into publicationattach(pid, pAttach)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.pid}, #{entity.pattach})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="attachId" useGeneratedKeys="true">
+        insert into publicationattach(pid, pAttach)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.pid}, #{entity.pattach})
+        </foreach>
+        on duplicate key update
+        pid = values(pid),
+        pAttach = values(pAttach)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update publicationattach
+        <set>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
+            <if test="pattach != null and pattach != ''">
+                pAttach = #{pattach},
+            </if>
+        </set>
+        where attach_id = #{attachId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from publicationattach where attach_id = #{attachId}
+    </delete>
+
+</mapper>
+

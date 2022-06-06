@@ -124,6 +124,5 @@ public class Usergovaffairs implements Serializable {
     public void setUsergaid(Integer usergaid) {
         this.usergaid = usergaid;
     }
-
 }
 

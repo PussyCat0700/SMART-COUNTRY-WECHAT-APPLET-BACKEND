@@ -2,6 +2,8 @@ package com.miniprogram.zhihuicunwu.controller;
 
 import com.miniprogram.zhihuicunwu.entity.Mailboximg;
 import com.miniprogram.zhihuicunwu.service.MailboximgService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +13,7 @@ import javax.annotation.Resource;
  * (Mailboximg)表控制层
  *
  * @author makejava
- * @since 2022-06-03 11:26:26
+ * @since 2022-06-06 16:09:15
  */
 @RestController
 @RequestMapping("mailboximg")
@@ -21,6 +23,18 @@ public class MailboximgController {
      */
     @Resource
     private MailboximgService mailboximgService;
+
+    /**
+     * 分页查询
+     *
+     * @param mailboximg 筛选条件
+     * @param pageRequest      分页对象
+     * @return 查询结果
+     */
+    @GetMapping
+    public ResponseEntity<Page<Mailboximg>> queryByPage(Mailboximg mailboximg, PageRequest pageRequest) {
+        return ResponseEntity.ok(this.mailboximgService.queryByPage(mailboximg, pageRequest));
+    }
 
     /**
      * 通过主键查询单条数据
@@ -40,7 +54,7 @@ public class MailboximgController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Mailboximg> add(@RequestBody Mailboximg mailboximg) {
+    public ResponseEntity<Mailboximg> add(Mailboximg mailboximg) {
         return ResponseEntity.ok(this.mailboximgService.insert(mailboximg));
     }
 
@@ -51,7 +65,7 @@ public class MailboximgController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<Mailboximg> edit(@RequestBody Mailboximg mailboximg) {
+    public ResponseEntity<Mailboximg> edit(Mailboximg mailboximg) {
         return ResponseEntity.ok(this.mailboximgService.update(mailboximg));
     }
 

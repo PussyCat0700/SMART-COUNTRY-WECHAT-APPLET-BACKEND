@@ -9,17 +9,17 @@ import java.util.List;
  * (Govaffairneed)表数据库访问层
  *
  * @author makejava
- * @since 2022-06-03 11:40:55
+ * @since 2022-06-06 17:19:03
  */
 public interface GovaffairneedDao {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param needgovaffairid 主键
+     * @param needId 主键
      * @return 实例对象
      */
-    Govaffairneed queryById(Integer needgovaffairid);
+    Govaffairneed queryById(Integer needId);
 
     /**
      * 查询指定行数据
@@ -74,10 +74,10 @@ public interface GovaffairneedDao {
     /**
      * 通过主键删除数据
      *
-     * @param needgovaffairid 主键
+     * @param needId 主键
      * @return 影响行数
      */
-    int deleteById(Integer needgovaffairid);
+    int deleteById(Integer needId);
 
 }
 

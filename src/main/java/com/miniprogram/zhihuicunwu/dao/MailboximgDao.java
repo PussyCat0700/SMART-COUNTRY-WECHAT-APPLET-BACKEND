@@ -9,17 +9,17 @@ import java.util.List;
  * (Mailboximg)表数据库访问层
  *
  * @author makejava
- * @since 2022-06-03 11:26:26
+ * @since 2022-06-06 16:09:18
  */
 public interface MailboximgDao {
 
     /**
      * 通过ID查询单条数据
      *
-     * @param mailboxid 主键
+     * @param imgId 主键
      * @return 实例对象
      */
-    Mailboximg queryById(Integer mailboxid);
+    Mailboximg queryById(Integer imgId);
 
     /**
      * 查询指定行数据
@@ -74,10 +74,10 @@ public interface MailboximgDao {
     /**
      * 通过主键删除数据
      *
-     * @param mailboxid 主键
+     * @param imgId 主键
      * @return 影响行数
      */
-    int deleteById(Integer mailboxid);
+    int deleteById(Integer imgId);
 
 }
 

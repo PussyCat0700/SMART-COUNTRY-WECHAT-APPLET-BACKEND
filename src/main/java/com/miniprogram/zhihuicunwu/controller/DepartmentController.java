@@ -33,23 +33,39 @@ public class DepartmentController {
      * @param did 主键
      * @return 单条数据
      */
-    @GetMapping("/{did}")
-    public ResponseEntity<Department> queryById(@PathVariable("did") Integer did) {
-        return ResponseEntity.ok(this.departmentService.queryById(did));
+    @GetMapping("/department/{did}")
+    public ResponseEntity<JSONObject> queryById(@PathVariable("did") Integer did) {
+        Department department = this.departmentService.queryById(did);
+
+        JSONObject temp = new JSONObject();
+        temp.put("department_address", department.getDaddress());
+        temp.put("department_desc", department.getDdescription());
+        temp.put("department_id", department.getDid());
+        temp.put("department_name", department.getDname());
+        temp.put("department_phone", department.getDphone());
+
+        return ResponseEntity.ok(temp);
     }
 
     //查询某个村下所有的部门信息
     @GetMapping("/country/{cid}")
     public ResponseEntity<List> queryByCid(@PathVariable("cid") Integer cid) {
-//        List<Countrydepartment> countrydepartments = this.countrydepartmentService.queryByCid(cid);
-        List<Department> departments = new ArrayList<>();
-//
-//        for(int i = 0; i < countrydepartments.size(); i++)
-//        {
-//            departments.add(this.departmentService.queryById(countrydepartments.get(i).getDid()));
-//        }
-//
-        return ResponseEntity.ok(departments);
+        List<Department> departments = this.departmentService.queryByCid(cid);
+        List<JSONObject> ret = new ArrayList<JSONObject>();
+
+        for(int i = 0; i < departments.size(); i++)
+        {
+            JSONObject temp = new JSONObject();
+            temp.put("department_address", departments.get(i).getDaddress());
+            temp.put("department_desc", departments.get(i).getDdescription());
+            temp.put("department_id", departments.get(i).getDid());
+            temp.put("department_name", departments.get(i).getDname());
+            temp.put("department_phone", departments.get(i).getDphone());
+
+            ret.add(temp);
+        }
+
+        return ResponseEntity.ok(ret);
     }
 
     /**
@@ -62,17 +78,12 @@ public class DepartmentController {
     public ResponseEntity<Department> add(@RequestBody JSONObject params) {
         //先在Department表中添加
         Department department = new Department();
+        department.setCid(params.getInteger("cid"));
         department.setDaddress(params.getString("address"));
         department.setDdescription(params.getString("desc"));
         department.setDname(params.getString("name"));
         department.setDphone(params.getString("phone"));
         this.departmentService.insert(department);
-
-//        //再在CountryDepartment表里添加关系
-//        Countrydepartment countrydepartment = new Countrydepartment();
-//        countrydepartment.setCid(params.getInteger("cid"));
-//        //TODO: 获取新增数据的did countrydepartment.setDid(this.);
-//        this.countrydepartmentService.insert(countrydepartment);
 
         return ResponseEntity.ok(this.departmentService.insert(department));
     }

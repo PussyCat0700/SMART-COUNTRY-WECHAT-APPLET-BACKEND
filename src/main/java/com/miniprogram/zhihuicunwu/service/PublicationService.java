@@ -1,12 +1,14 @@
 package com.miniprogram.zhihuicunwu.service;
 
 import com.miniprogram.zhihuicunwu.entity.Publication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 /**
  * (Publication)表服务接口
  *
  * @author makejava
- * @since 2022-06-01 14:39:27
+ * @since 2022-06-06 16:54:56
  */
 public interface PublicationService {
 
@@ -17,6 +19,15 @@ public interface PublicationService {
      * @return 实例对象
      */
     Publication queryById(Integer pid);
+
+    /**
+     * 分页查询
+     *
+     * @param publication 筛选条件
+     * @param pageRequest      分页对象
+     * @return 查询结果
+     */
+    Page<Publication> queryByPage(Publication publication, PageRequest pageRequest);
 
     /**
      * 新增数据

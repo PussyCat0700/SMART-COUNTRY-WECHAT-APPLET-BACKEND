@@ -151,23 +151,23 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="usergaid" useGeneratedKeys="true">
-        insert into usergovaffairs(GAid, uid, address, Appoint_time, GAName, status, rate, comment, create_time, content)
-        values (#{gaid}, #{uid}, #{address}, #{appointTime}, #{ganame}, #{status}, #{rate}, #{comment}, #{createTime}, #{content})
+        insert into usergovaffairs(GAid, uid, address, Appoint_time, GAName, status, rate, comment, content)
+        values (#{gaid}, #{uid}, #{address}, #{appointTime}, #{ganame}, #{status}, #{rate}, #{comment}, #{content})
     </insert>
 
     <insert id="insertBatch" keyProperty="usergaid" useGeneratedKeys="true">
-        insert into usergovaffairs(GAid, uid, address, Appoint_time, GAName, status, rate, comment, create_time, content)
+        insert into usergovaffairs(GAid, uid, address, Appoint_time, GAName, status, rate, comment, content)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.gaid}, #{entity.uid}, #{entity.address}, #{entity.appointTime}, #{entity.ganame}, #{entity.status}, #{entity.rate}, #{entity.comment}, #{entity.createTime}, #{entity.content})
+        (#{entity.gaid}, #{entity.uid}, #{entity.address}, #{entity.appointTime}, #{entity.ganame}, #{entity.status}, #{entity.rate}, #{entity.comment}, #{entity.content})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="usergaid" useGeneratedKeys="true">
-        insert into usergovaffairs(GAid, uid, address, Appoint_time, GAName, status, rate, comment, create_time, content)
+        insert into usergovaffairs(GAid, uid, address, Appoint_time, GAName, status, rate, comment, content)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.gaid}, #{entity.uid}, #{entity.address}, #{entity.appointTime}, #{entity.ganame}, #{entity.status}, #{entity.rate}, #{entity.comment}, #{entity.createTime}, #{entity.content})
+            (#{entity.gaid}, #{entity.uid}, #{entity.address}, #{entity.appointTime}, #{entity.ganame}, #{entity.status}, #{entity.rate}, #{entity.comment} #{entity.content})
         </foreach>
         on duplicate key update
         GAid = values(GAid),
@@ -178,7 +178,6 @@
         status = values(status),
         rate = values(rate),
         comment = values(comment),
-        create_time = values(create_time),
         content = values(content)
     </insert>
 
@@ -209,9 +208,6 @@
             </if>
             <if test="comment != null and comment != ''">
                 comment = #{comment},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime},
             </if>
             <if test="content != null and content != ''">
                 content = #{content},
