@@ -36,15 +36,7 @@ public class DepartmentController {
     @GetMapping("/department/{did}")
     public ResponseEntity<JSONObject> queryById(@PathVariable("did") Integer did) {
         Department department = this.departmentService.queryById(did);
-
-        JSONObject temp = new JSONObject();
-        temp.put("department_address", department.getDaddress());
-        temp.put("department_desc", department.getDdescription());
-        temp.put("department_id", department.getDid());
-        temp.put("department_name", department.getDname());
-        temp.put("department_phone", department.getDphone());
-
-        return ResponseEntity.ok(temp);
+        return ResponseEntity.ok(department.getBriefInfo());
     }
 
     //查询某个村下所有的部门信息
@@ -53,16 +45,9 @@ public class DepartmentController {
         List<Department> departments = this.departmentService.queryByCid(cid);
         List<JSONObject> ret = new ArrayList<JSONObject>();
 
-        for(int i = 0; i < departments.size(); i++)
+        for(Department department:departments)
         {
-            JSONObject temp = new JSONObject();
-            temp.put("department_address", departments.get(i).getDaddress());
-            temp.put("department_desc", departments.get(i).getDdescription());
-            temp.put("department_id", departments.get(i).getDid());
-            temp.put("department_name", departments.get(i).getDname());
-            temp.put("department_phone", departments.get(i).getDphone());
-
-            ret.add(temp);
+            ret.add(department.getBriefInfo());
         }
 
         return ResponseEntity.ok(ret);
