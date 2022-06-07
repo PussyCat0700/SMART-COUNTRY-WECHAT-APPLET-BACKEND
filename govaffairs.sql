@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80023
 File Encoding         : 65001
 
-Date: 2022-06-07 12:38:47
+Date: 2022-06-07 12:41:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -287,11 +287,13 @@ CREATE TABLE `publicationattach` (
   PRIMARY KEY (`attach_id`),
   KEY `attach_pid` (`pid`),
   CONSTRAINT `attach_pid` FOREIGN KEY (`pid`) REFERENCES `publication` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of publicationattach
 -- ----------------------------
+INSERT INTO `publicationattach` VALUES ('1', '1', null);
+INSERT INTO `publicationattach` VALUES ('2', '1', null);
 
 -- ----------------------------
 -- Table structure for publicationpic
@@ -304,11 +306,12 @@ CREATE TABLE `publicationpic` (
   PRIMARY KEY (`img_id`),
   KEY `pic_pid` (`pid`),
   CONSTRAINT `pic_pid` FOREIGN KEY (`pid`) REFERENCES `publication` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of publicationpic
 -- ----------------------------
+INSERT INTO `publicationpic` VALUES ('1', '1', null);
 
 -- ----------------------------
 -- Table structure for resident
