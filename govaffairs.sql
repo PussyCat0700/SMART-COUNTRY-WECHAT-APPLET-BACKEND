@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80023
 File Encoding         : 65001
 
-Date: 2022-06-07 12:19:48
+Date: 2022-06-07 12:38:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -158,7 +158,7 @@ CREATE TABLE `feedback` (
   `fid` int NOT NULL AUTO_INCREMENT,
   `uid` int NOT NULL,
   `pid` int NOT NULL,
-  `fTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `fTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `fContent` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `fReturn` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`fid`) USING BTREE,
@@ -264,7 +264,7 @@ CREATE TABLE `publication` (
   `did` int DEFAULT NULL,
   `pType` int DEFAULT NULL,
   `pContent` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `pTime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `pTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `pTitle` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`pid`) USING BTREE,
   KEY `publication_did` (`did`) USING BTREE,
@@ -369,7 +369,7 @@ CREATE TABLE `usergovaffairs` (
   `status` int DEFAULT NULL,
   `rate` int DEFAULT NULL,
   `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
-  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   PRIMARY KEY (`userGAid`) USING BTREE,
   KEY `GAuid` (`uid`) USING BTREE,

@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,9 +60,27 @@ public class PublicationController {
         List<Publicationattach> publicationattaches = this.publicationattachService.queryByPid(pid);
         List<Publicationpic> publicationpics = this.publicationpicService.queryByPid(pid);
 
+        List<String> images = new ArrayList<>();
+        List<String> attaches = new ArrayList<>();
+
+        for(int i = 0; i < publicationpics.size(); i++)
+        {
+            images.add(publicationpics.get(i).getPpic());
+        }
+        for(int i = 0; i < publicationattaches.size(); i++)
+        {
+            attaches.add(publicationattaches.get(i).getPattach());
+        }
+
         JSONObject ret = new JSONObject();
 
         ret.put("result", true);
+        ret.put("title", publication.getPtitle());
+        ret.put("content", publication.getPcontent());
+        ret.put("from", publication.getDid());
+        ret.put("create_time", publication.getPtime());
+        ret.put("pic", images);
+        ret.put("attachment", attaches);
 
         return ResponseEntity.ok(ret);
     }
