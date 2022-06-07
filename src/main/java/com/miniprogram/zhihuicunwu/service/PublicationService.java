@@ -4,6 +4,8 @@ import com.miniprogram.zhihuicunwu.entity.Publication;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (Publication)表服务接口
  *
@@ -19,6 +21,9 @@ public interface PublicationService {
      * @return 实例对象
      */
     Publication queryById(Integer pid);
+
+    //根据标题模糊查询
+    List<Publication> queryFuzzyByTitle(String keywords);
 
     /**
      * 分页查询

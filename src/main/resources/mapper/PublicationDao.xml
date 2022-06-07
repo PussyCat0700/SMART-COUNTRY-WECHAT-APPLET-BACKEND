@@ -19,6 +19,15 @@
         where pid = #{pid}
     </select>
 
+    <!--根据标题模糊查询-->
+    <select id="queryFuzzyByTitle" resultMap="PublicationMap">
+        select
+            pid, did, pType, pContent, pTime, pTitle
+        from publication
+        where pTitle like #{keywords}
+        ORDER BY pTime desc, pid desc
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PublicationMap">
         select

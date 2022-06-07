@@ -16,6 +16,14 @@
         where deptGovid = #{deptgovid}
     </select>
 
+    <!--根据did查询多个-->
+    <select id="queryByDid" resultMap="DeptgovaffairsMap">
+        select
+          GAid, did, deptGovid
+        from deptgovaffairs
+        where did = #{did}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DeptgovaffairsMap">
         select

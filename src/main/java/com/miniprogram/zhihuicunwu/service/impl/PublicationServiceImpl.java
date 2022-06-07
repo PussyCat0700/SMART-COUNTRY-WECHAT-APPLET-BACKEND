@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Publication)表服务实现类
@@ -31,6 +32,9 @@ public class PublicationServiceImpl implements PublicationService {
     public Publication queryById(Integer pid) {
         return this.publicationDao.queryById(pid);
     }
+
+    @Override
+    public List<Publication> queryFuzzyByTitle(String keywords) { return this.publicationDao.queryFuzzyByTitle(keywords); }
 
     /**
      * 分页查询

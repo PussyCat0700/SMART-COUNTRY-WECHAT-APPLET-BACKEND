@@ -21,6 +21,9 @@ public interface DeptgovaffairsDao {
      */
     Deptgovaffairs queryById(Integer deptgovid);
 
+    //通过did获取数据
+    List<Deptgovaffairs> queryByDid(Integer did);
+
     /**
      * 查询指定行数据
      *
