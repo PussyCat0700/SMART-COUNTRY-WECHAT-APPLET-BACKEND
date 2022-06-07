@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80023
 File Encoding         : 65001
 
-Date: 2022-06-07 12:41:45
+Date: 2022-06-07 12:50:01
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -343,20 +343,21 @@ CREATE TABLE `user` (
   `uaddress` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `uwxid` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL COMMENT 'alias = uwxopenId\r',
   `uphoto` varchar(1024) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `uphone` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`uid`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '1', 'asd', '0', '10', 'guess', '6', null);
-INSERT INTO `user` VALUES ('2', '2', 'abc', '0', '10', 'you guess', '1', null);
-INSERT INTO `user` VALUES ('3', '2', '123', '0', '10', 'you guess', '1', null);
-INSERT INTO `user` VALUES ('4', '2', '456', '0', '10', 'you guess', '1', null);
-INSERT INTO `user` VALUES ('5', '2', 'qwe', '0', '10', 'you guess', '1', null);
-INSERT INTO `user` VALUES ('6', '2', 'rty', '0', '10', 'you guess', '1', null);
-INSERT INTO `user` VALUES ('7', '2', 'gbn', '0', '10', 'you guess', '1', null);
-INSERT INTO `user` VALUES ('8', '2', '333', '0', '10', 'you guess', '1', null);
+INSERT INTO `user` VALUES ('1', '1', 'asd', '0', '10', 'guess', '6', null, null);
+INSERT INTO `user` VALUES ('2', '2', 'abc', '0', '10', 'you guess', '1', null, null);
+INSERT INTO `user` VALUES ('3', '2', '123', '0', '10', 'you guess', '1', null, null);
+INSERT INTO `user` VALUES ('4', '2', '456', '0', '10', 'you guess', '1', null, null);
+INSERT INTO `user` VALUES ('5', '2', 'qwe', '0', '10', 'you guess', '1', null, null);
+INSERT INTO `user` VALUES ('6', '2', 'rty', '0', '10', 'you guess', '1', null, null);
+INSERT INTO `user` VALUES ('7', '2', 'gbn', '0', '10', 'you guess', '1', null, null);
+INSERT INTO `user` VALUES ('8', '2', '333', '0', '10', 'you guess', '1', null, null);
 
 -- ----------------------------
 -- Table structure for usergovaffairs

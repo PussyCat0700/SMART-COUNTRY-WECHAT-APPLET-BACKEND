@@ -11,12 +11,13 @@
         <result property="uaddress" column="uaddress" jdbcType="VARCHAR"/>
         <result property="uwxid" column="uwxid" jdbcType="VARCHAR"/>
         <result property="uphoto" column="uphoto" jdbcType="VARCHAR"/>
+        <result property="uphone" column="uphone" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
         select
-          uid, status, uname, ugender, uage, uaddress, uwxid, uphoto
+          uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone
         from user
         where uid = #{uid}
     </select>
@@ -24,7 +25,7 @@
     <!--Query By OpenID-->
     <select id="queryByOpenID" resultMap="UserMap">
         select
-            uid, status, uname, ugender, uage, uaddress, uwxid, uphoto
+            uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone
         from user
         where uwxid = #{openID}
     </select>
@@ -32,7 +33,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="UserMap">
         select
-          uid, status, uname, ugender, uage, uaddress, uwxid, uphoto
+          uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone
         from user
         <where>
             <if test="uid != null">
@@ -58,6 +59,9 @@
             </if>
             <if test="uphoto != null and uphoto != ''">
                 uphoto = #{uphoto},
+            </if>
+            <if test="uphone != null and uphone != ''">
+                uphone = #{uphone},
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -92,28 +96,31 @@
             <if test="uphoto != null and uphoto != ''">
                 uphoto = #{uphoto},
             </if>
+            <if test="uphone != null and uphone != ''">
+                uphone = #{uphone},
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="uid" useGeneratedKeys="true">
-        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto)
-        values (#{status}, #{uname}, #{ugender}, #{uage}, #{uaddress}, #{uwxid}, #{uphoto})
+        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone)
+        values (#{status}, #{uname}, #{ugender}, #{uage}, #{uaddress}, #{uwxid}, #{uphoto}, #{uphone})
     </insert>
 
     <insert id="insertBatch" keyProperty="uid" useGeneratedKeys="true">
-        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto)
+        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid}, #{entity.uphoto})
+        (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid}, #{entity.uphoto}, #{entity.uphone})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="uid" useGeneratedKeys="true">
-        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto)
+        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid}, #{entity.uphoto})
+            (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid}, #{entity.uphoto}, #{entity.uphone})
         </foreach>
         on duplicate key update
         status = values(status),
@@ -122,7 +129,8 @@
         uage = values(uage),
         uaddress = values(uaddress),
         uwxid = values(uwxid),
-        uphoto = values(uphoto)
+        uphoto = values(uphoto),
+        uphone = values(uphone)
     </insert>
 
     <!--通过主键修改数据-->
@@ -149,6 +157,9 @@
             </if>
             <if test="uphoto != null and uphoto != ''">
                 uphoto = #{uphoto},
+            </if>
+            <if test="uphone != null and uphone != ''">
+                uphone = #{uphone},
             </if>
         </set>
         where uid = #{uid}
