@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80023
 File Encoding         : 65001
 
-Date: 2022-06-07 17:04:54
+Date: 2022-06-07 21:31:50
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -417,6 +417,7 @@ CREATE TABLE `usergovaffairs` (
   `userGAid` int NOT NULL AUTO_INCREMENT,
   `GAid` int NOT NULL,
   `uid` int NOT NULL,
+  `did` int DEFAULT NULL,
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `Appoint_time` datetime DEFAULT NULL,
   `GAName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
@@ -428,15 +429,17 @@ CREATE TABLE `usergovaffairs` (
   PRIMARY KEY (`userGAid`) USING BTREE,
   KEY `GAuid` (`uid`) USING BTREE,
   KEY `userGAGA` (`GAid`) USING BTREE,
-  CONSTRAINT `userGAGA` FOREIGN KEY (`GAid`) REFERENCES `govaffairs` (`GAid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `userGAuser` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `userGAdid` (`did`),
+  CONSTRAINT `userGAdid` FOREIGN KEY (`did`) REFERENCES `department` (`did`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `userGAGA` FOREIGN KEY (`GAid`) REFERENCES `govaffairs` (`GAid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `userGAuser` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of usergovaffairs
 -- ----------------------------
-INSERT INTO `usergovaffairs` VALUES ('1', '1', '1', 'hahahaha', '2022-02-02 15:15:15', 'aaaaaa', '0', '0', '', '2022-06-04 17:23:16', 'nothing');
-INSERT INTO `usergovaffairs` VALUES ('4', '1', '2', 'asdbgg', '2022-06-04 09:00:00', 'wo budong', '0', '0', '', '2022-06-06 11:55:17', '???');
+INSERT INTO `usergovaffairs` VALUES ('1', '1', '1', '1', 'hahahaha', '2022-02-02 15:15:15', 'aaaaaa', '0', '0', '', '2022-06-04 17:23:16', 'nothing');
+INSERT INTO `usergovaffairs` VALUES ('4', '1', '2', '1', 'asdbgg', '2022-06-04 09:00:00', 'wo budong', '0', '0', '', '2022-06-06 11:55:17', '???');
 
 -- ----------------------------
 -- Table structure for work

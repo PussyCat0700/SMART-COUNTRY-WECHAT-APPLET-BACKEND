@@ -3,6 +3,7 @@ package com.miniprogram.zhihuicunwu.service;
 import com.miniprogram.zhihuicunwu.entity.Publication;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -25,14 +26,15 @@ public interface PublicationService {
     //根据标题模糊查询
     List<Publication> queryFuzzyByTitle(String keywords);
 
+    int countAll();
+
     /**
      * 分页查询
      *
-     * @param publication 筛选条件
      * @param pageRequest      分页对象
      * @return 查询结果
      */
-    Page<Publication> queryByPage(Publication publication, PageRequest pageRequest);
+    Page<Publication> queryByPage(Pageable pageRequest);
 
     /**
      * 新增数据

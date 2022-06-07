@@ -33,30 +33,11 @@
         select
           pid, did, pType, pContent, pTime, pTitle
         from publication
-        <where>
-            <if test="pid != null">
-                and pid = #{pid}
-            </if>
-            <if test="did != null">
-                and did = #{did}
-            </if>
-            <if test="ptype != null">
-                and pType = #{ptype}
-            </if>
-            <if test="pcontent != null and pcontent != ''">
-                and pContent = #{pcontent}
-            </if>
-            <if test="ptime != null">
-                and pTime = #{ptime}
-            </if>
-            <if test="ptitle != null and ptitle != ''">
-                pTitle = #{ptitle},
-            </if>
-        </where>
+        order by ptime desc, pid desc
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
 
-    <!--统计总行数-->
+    <!--根据条件统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
         from publication
@@ -80,6 +61,12 @@
                 pTitle = #{ptitle},
             </if>
         </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(1)
+        from publication
     </select>
 
     <!--新增所有列-->

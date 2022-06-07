@@ -29,7 +29,13 @@ public class UsergovaffairsServiceImpl implements UsergovaffairsService {
     public Usergovaffairs queryById(Integer usergaid) {
         return this.usergovaffairsDao.queryById(usergaid);
     }
-    
+
+    @Override
+    public List<Usergovaffairs> queryByDid(Integer did) { return this.usergovaffairsDao.queryByDid(did); }
+
+    @Override
+    public List<Usergovaffairs> queryByUid(Integer uid) { return this.usergovaffairsDao.queryByUid(uid); }
+
     /**
      * 通过任意字段查询数据列表
      *

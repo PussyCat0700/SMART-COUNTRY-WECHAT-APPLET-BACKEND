@@ -19,6 +19,10 @@ public interface UsergovaffairsService {
      */
     Usergovaffairs queryById(Integer usergaid);
 
+    List<Usergovaffairs> queryByDid(Integer did);
+
+    List<Usergovaffairs> queryByUid(Integer uid);
+
     /**
      * 通过任意字段查询数据列表
      *

@@ -10,6 +10,7 @@ import com.miniprogram.zhihuicunwu.service.PublicationattachService;
 import com.miniprogram.zhihuicunwu.service.PublicationpicService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,13 +40,48 @@ public class PublicationController {
     /**
      * 分页查询
      *
-     * @param publication 筛选条件
-     * @param pageRequest      分页对象
      * @return 查询结果
      */
     @GetMapping
-    public ResponseEntity<Page<Publication>> queryByPage(Publication publication, PageRequest pageRequest) {
-        return ResponseEntity.ok(this.publicationService.queryByPage(publication, pageRequest));
+    public ResponseEntity<JSONObject> queryByPage() {
+        JSONObject ret = new JSONObject();
+        int pagesize_max = this.publicationService.countAll();
+        int size = pagesize_max >= 16 ? 16 : pagesize_max;
+        int page = 0;
+
+        Pageable pageable = new PageRequest(page,size);
+        Page<Publication> pages = this.publicationService.queryByPage(pageable);
+
+        List<Publication> publications = pages.getContent();
+        List<JSONObject> news = new ArrayList<JSONObject>();
+        for(int i = 0; i < publications.size(); i++)
+        {
+            List<Publicationattach> publicationattaches = this.publicationattachService.queryByPid(publications.get(i).getPid());
+            List<String> attatches = new ArrayList<>();
+            for(int j = 0; j < publicationattaches.size(); j++)
+            {
+                attatches.add(publicationattaches.get(j).getPattach());
+            }
+
+            List<Publicationpic> publicationpics = this.publicationpicService.queryByPid(publications.get(i).getPid());
+            List<String> images = new ArrayList<>();
+            for(int j = 0; j < publicationpics.size(); j++)
+            {
+                images.add(publicationpics.get(j).getPpic());
+            }
+
+            JSONObject temp = new JSONObject();
+            temp.put("title", publications.get(i).getPtitle());
+            temp.put("pid", publications.get(i).getPid());
+            temp.put("type", publications.get(i).getPtype());
+            temp.put("headPic", images);
+            news.add(temp);
+        }
+
+        ret.put("result", true);
+        ret.put("news", news);
+
+        return ResponseEntity.ok(ret);
     }
 
     /**
