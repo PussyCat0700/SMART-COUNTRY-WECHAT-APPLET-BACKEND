@@ -1,5 +1,6 @@
 #端口配置
 server:
+  url: localhost
   port: 8999
 
 #Mysql连接池
@@ -23,6 +24,10 @@ mybatis-plus:
 #日志打印
 logging:
   config: classpath:logback-spring.xml
+
+#存放路径
+absoluteImgPath: D:/images_zhihuicuiwu
+sonImgPath: /images/
 
 
 
