@@ -85,6 +85,42 @@ public class PublicationController {
         return ResponseEntity.ok(ret);
     }
 
+    @GetMapping("/fuzzy/{keywords}")
+    public ResponseEntity<JSONObject> queryFuzzyByTitle(@PathVariable("keywords") String keywords)
+    {
+        JSONObject ret = new JSONObject();
+        List<JSONObject> news = new ArrayList<JSONObject>();
+        List<Publication> publications = this.publicationService.queryFuzzyByTitle("%" + keywords + "%");
+        for(int i = 0; i < publications.size(); i++)
+        {
+            List<Publicationattach> publicationattaches = this.publicationattachService.queryByPid(publications.get(i).getPid());
+            List<String> attatches = new ArrayList<>();
+            for(int j = 0; j < publicationattaches.size(); j++)
+            {
+                attatches.add(publicationattaches.get(j).getPattach());
+            }
+
+            List<Publicationpic> publicationpics = this.publicationpicService.queryByPid(publications.get(i).getPid());
+            List<String> images = new ArrayList<>();
+            for(int j = 0; j < publicationpics.size(); j++)
+            {
+                images.add(publicationpics.get(j).getPpic());
+            }
+
+            JSONObject temp = new JSONObject();
+            temp.put("title", publications.get(i).getPtitle());
+            temp.put("pid", publications.get(i).getPid());
+            temp.put("type", publications.get(i).getPtype());
+            temp.put("headPic", images);
+            news.add(temp);
+        }
+
+        ret.put("result", true);
+        ret.put("news", news);
+
+        return ResponseEntity.ok(ret);
+    }
+
     /**
      * 新增数据
      *

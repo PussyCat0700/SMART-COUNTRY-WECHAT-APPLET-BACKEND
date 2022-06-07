@@ -19,6 +19,9 @@ public interface DeptgovaffairsService {
      */
     Deptgovaffairs queryById(Integer deptgovid);
 
+    //通过did获取数据
+    List<Deptgovaffairs> queryByDid(Integer did);
+
     /**
      * 通过任意字段查询数据列表
      *

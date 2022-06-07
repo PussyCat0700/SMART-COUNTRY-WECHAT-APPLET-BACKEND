@@ -29,6 +29,10 @@ public class DeptgovaffairsServiceImpl implements DeptgovaffairsService {
     public Deptgovaffairs queryById(Integer deptgovid) {
         return this.deptgovaffairsDao.queryById(deptgovid);
     }
+
+    @Override
+    //通过did获取数据
+    public List<Deptgovaffairs> queryByDid(Integer did) { return this.deptgovaffairsDao.queryByDid(did); }
     
     /**
      * 通过任意字段查询数据列表

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80023
 File Encoding         : 65001
 
-Date: 2022-06-07 14:01:08
+Date: 2022-06-07 17:04:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -182,11 +182,14 @@ CREATE TABLE `deptgovaffairs` (
   KEY `deptGAdept` (`did`) USING BTREE,
   CONSTRAINT `deptGAdept` FOREIGN KEY (`did`) REFERENCES `department` (`did`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `deptGAGA` FOREIGN KEY (`GAid`) REFERENCES `govaffairs` (`GAid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of deptgovaffairs
 -- ----------------------------
+INSERT INTO `deptgovaffairs` VALUES ('1', '1', '1');
+INSERT INTO `deptgovaffairs` VALUES ('2', '1', '2');
+INSERT INTO `deptgovaffairs` VALUES ('3', '1', '3');
 
 -- ----------------------------
 -- Table structure for feedback
@@ -249,12 +252,14 @@ CREATE TABLE `govaffairs` (
   KEY `GASName` (`GAName`) USING BTREE,
   KEY `GAid` (`GAid`) USING BTREE,
   KEY `GAid_2` (`GAid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of govaffairs
 -- ----------------------------
 INSERT INTO `govaffairs` VALUES ('1', '2005-03-18 09:58:31', 'ads', 'zhdt', '1');
+INSERT INTO `govaffairs` VALUES ('2', '2022-06-07 16:48:02', '444', '666', '0');
+INSERT INTO `govaffairs` VALUES ('3', '2022-05-12 16:48:09', '666', '999', '1');
 
 -- ----------------------------
 -- Table structure for mailbox
@@ -308,12 +313,14 @@ CREATE TABLE `publication` (
   PRIMARY KEY (`pid`) USING BTREE,
   KEY `publication_did` (`did`) USING BTREE,
   CONSTRAINT `publication_did` FOREIGN KEY (`did`) REFERENCES `department` (`did`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of publication
 -- ----------------------------
-INSERT INTO `publication` VALUES ('1', '1', '1', 'wrong!', '2022-06-07 12:14:32', '震惊！');
+INSERT INTO `publication` VALUES ('1', '1', '1', 'wrong!', '2022-06-07 12:14:32', 'amazing!');
+INSERT INTO `publication` VALUES ('2', '1', '2', 'true!!!', '2022-06-07 15:59:00', 'unbelievable!');
+INSERT INTO `publication` VALUES ('3', '1', '1', '??', '2022-06-08 16:08:41', '!!!');
 
 -- ----------------------------
 -- Table structure for publicationattach
@@ -326,13 +333,15 @@ CREATE TABLE `publicationattach` (
   PRIMARY KEY (`attach_id`),
   KEY `attach_pid` (`pid`),
   CONSTRAINT `attach_pid` FOREIGN KEY (`pid`) REFERENCES `publication` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of publicationattach
 -- ----------------------------
 INSERT INTO `publicationattach` VALUES ('1', '1', null);
 INSERT INTO `publicationattach` VALUES ('2', '1', null);
+INSERT INTO `publicationattach` VALUES ('3', '2', null);
+INSERT INTO `publicationattach` VALUES ('4', '3', null);
 
 -- ----------------------------
 -- Table structure for publicationpic
@@ -345,12 +354,14 @@ CREATE TABLE `publicationpic` (
   PRIMARY KEY (`img_id`),
   KEY `pic_pid` (`pid`),
   CONSTRAINT `pic_pid` FOREIGN KEY (`pid`) REFERENCES `publication` (`pid`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of publicationpic
 -- ----------------------------
 INSERT INTO `publicationpic` VALUES ('1', '1', null);
+INSERT INTO `publicationpic` VALUES ('2', '2', null);
+INSERT INTO `publicationpic` VALUES ('3', '3', null);
 
 -- ----------------------------
 -- Table structure for resident
