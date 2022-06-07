@@ -74,8 +74,16 @@ public class UserController {
         user.setUname(params.getString("uname"));
         user.setUgender(params.getInteger("gender"));
         user.setUage(params.getInteger("age"));
+        user.setUphone(params.getString("phoneNumber"));
 
-        this.userService.update(user);
+        if (this.userService.update(user) != null)
+        {
+            ret.put("result", false);
+        }
+        else
+        {
+            ret.put("result", false);
+        }
 
         return ResponseEntity.ok(ret);
     }
