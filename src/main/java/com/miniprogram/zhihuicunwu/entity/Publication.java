@@ -22,6 +22,8 @@ public class Publication implements Serializable {
     
     private Date ptime;
 
+    private String ptitle;
+
 
     public Integer getPid() {
         return pid;
@@ -61,6 +63,14 @@ public class Publication implements Serializable {
 
     public void setPtime(Date ptime) {
         this.ptime = ptime;
+    }
+
+    public String getPtitle() {
+        return ptitle;
+    }
+
+    public void setPtitle(String ptitle) {
+        this.ptitle = ptitle;
     }
 
 }

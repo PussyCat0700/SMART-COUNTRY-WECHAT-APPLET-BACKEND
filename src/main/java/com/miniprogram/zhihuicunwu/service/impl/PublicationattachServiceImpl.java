@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Publicationattach)表服务实现类
@@ -31,6 +32,9 @@ public class PublicationattachServiceImpl implements PublicationattachService {
     public Publicationattach queryById(Integer attachId) {
         return this.publicationattachDao.queryById(attachId);
     }
+
+    @Override
+    public List<Publicationattach> queryByPid(Integer pid) { return this.publicationattachDao.queryByPid(pid); }
 
     /**
      * 分页查询

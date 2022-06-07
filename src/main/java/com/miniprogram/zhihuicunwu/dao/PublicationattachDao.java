@@ -21,6 +21,8 @@ public interface PublicationattachDao {
      */
     Publicationattach queryById(Integer attachId);
 
+    List<Publicationattach> queryByPid(Integer pid);
+
     /**
      * 查询指定行数据
      *

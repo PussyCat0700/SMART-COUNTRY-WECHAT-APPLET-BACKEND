@@ -21,6 +21,8 @@ public interface PublicationpicDao {
      */
     Publicationpic queryById(Integer imgId);
 
+    List<Publicationpic> queryByPid(Integer pid);
+
     /**
      * 查询指定行数据
      *

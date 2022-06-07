@@ -4,6 +4,8 @@ import com.miniprogram.zhihuicunwu.entity.Publicationpic;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (Publicationpic)表服务接口
  *
@@ -19,6 +21,8 @@ public interface PublicationpicService {
      * @return 实例对象
      */
     Publicationpic queryById(Integer imgId);
+
+    List<Publicationpic> queryByPid(Integer pid);
 
     /**
      * 分页查询

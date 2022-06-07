@@ -16,6 +16,14 @@
         where attach_id = #{attachId}
     </select>
 
+    <!--查询某条公告下所有附件-->
+    <select id="queryByPid" resultMap="PublicationattachMap">
+        select
+          attach_id, pid, pAttach
+        from publicationattach
+        where pid = #{pid}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PublicationattachMap">
         select

@@ -16,6 +16,14 @@
         where img_id = #{imgId}
     </select>
 
+    <!--查询某条公告下所有附件-->
+    <select id="queryByPid" resultMap="PublicationpicMap">
+        select
+          img_id, pid, Ppic
+        from publicationpic
+        where pid = #{pid}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PublicationpicMap">
         select

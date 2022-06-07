@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80023
 File Encoding         : 65001
 
-Date: 2022-06-06 17:45:56
+Date: 2022-06-07 12:19:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -265,6 +265,7 @@ CREATE TABLE `publication` (
   `pType` int DEFAULT NULL,
   `pContent` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `pTime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `pTitle` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`pid`) USING BTREE,
   KEY `publication_did` (`did`) USING BTREE,
   CONSTRAINT `publication_did` FOREIGN KEY (`did`) REFERENCES `department` (`did`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -273,7 +274,7 @@ CREATE TABLE `publication` (
 -- ----------------------------
 -- Records of publication
 -- ----------------------------
-INSERT INTO `publication` VALUES ('1', '1', '1', 'wrong!', '2022-06-05 10:55:47');
+INSERT INTO `publication` VALUES ('1', '1', '1', 'wrong!', '2022-06-07 12:14:32', '震惊！');
 
 -- ----------------------------
 -- Table structure for publicationattach

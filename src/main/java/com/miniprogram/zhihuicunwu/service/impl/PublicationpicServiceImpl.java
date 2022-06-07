@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Publicationpic)表服务实现类
@@ -31,6 +32,9 @@ public class PublicationpicServiceImpl implements PublicationpicService {
     public Publicationpic queryById(Integer imgId) {
         return this.publicationpicDao.queryById(imgId);
     }
+
+    @Override
+    public List<Publicationpic> queryByPid(Integer pid) { return this.publicationpicDao.queryByPid(pid); }
 
     /**
      * 分页查询
