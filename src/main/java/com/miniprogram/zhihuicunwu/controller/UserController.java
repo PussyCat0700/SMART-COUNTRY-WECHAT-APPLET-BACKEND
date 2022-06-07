@@ -63,12 +63,29 @@ public class UserController {
     /**
      * 编辑数据
      *
-     * @param user 实体
+     * @param params 实体
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<User> edit(@RequestBody User user) {
-        return ResponseEntity.ok(this.userService.update(user));
+    public ResponseEntity<JSONObject> edit(@RequestBody JSONObject params) {
+        User user = this.userService.queryById(params.getInteger("uid"));
+        JSONObject ret = new JSONObject();
+
+        user.setUname(params.getString("uname"));
+        user.setUgender(params.getInteger("gender"));
+        user.setUage(params.getInteger("age"));
+        user.setUphone(params.getString("phoneNumber"));
+
+        if (this.userService.update(user) != null)
+        {
+            ret.put("result", true);
+        }
+        else
+        {
+            ret.put("result", false);
+        }
+
+        return ResponseEntity.ok(ret);
     }
 
     /**

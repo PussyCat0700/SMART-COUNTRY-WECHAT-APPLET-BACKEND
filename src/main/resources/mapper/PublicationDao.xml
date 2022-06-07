@@ -8,12 +8,13 @@
         <result property="ptype" column="pType" jdbcType="INTEGER"/>
         <result property="pcontent" column="pContent" jdbcType="VARCHAR"/>
         <result property="ptime" column="pTime" jdbcType="TIMESTAMP"/>
+        <result property="ptitle" column="pTitle" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="PublicationMap">
         select
-          pid, did, pType, pContent, pTime
+          pid, did, pType, pContent, pTime, pTitle
         from publication
         where pid = #{pid}
     </select>
@@ -21,7 +22,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PublicationMap">
         select
-          pid, did, pType, pContent, pTime
+          pid, did, pType, pContent, pTime, pTitle
         from publication
         <where>
             <if test="pid != null">
@@ -38,6 +39,9 @@
             </if>
             <if test="ptime != null">
                 and pTime = #{ptime}
+            </if>
+            <if test="ptitle != null and ptitle != ''">
+                pTitle = #{ptitle},
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -63,34 +67,38 @@
             <if test="ptime != null">
                 and pTime = #{ptime}
             </if>
+            <if test="ptitle != null and ptitle != ''">
+                pTitle = #{ptitle},
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="pid" useGeneratedKeys="true">
-        insert into publication(did, pType, pContent, pTime)
-        values (#{did}, #{ptype}, #{pcontent}, #{ptime})
+        insert into publication(did, pType, pContent, pTime, pTitle)
+        values (#{did}, #{ptype}, #{pcontent}, #{ptime}, #{ptitle})
     </insert>
 
     <insert id="insertBatch" keyProperty="pid" useGeneratedKeys="true">
-        insert into publication(did, pType, pContent, pTime)
+        insert into publication(did, pType, pContent, pTime, pTitle)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.did}, #{entity.ptype}, #{entity.pcontent}, #{entity.ptime})
+        (#{entity.did}, #{entity.ptype}, #{entity.pcontent}, #{entity.ptime}, #{entity.ptitle})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="pid" useGeneratedKeys="true">
-        insert into publication(did, pType, pContent, pTime)
+        insert into publication(did, pType, pContent, pTime, pTitle)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.did}, #{entity.ptype}, #{entity.pcontent}, #{entity.ptime})
+            (#{entity.did}, #{entity.ptype}, #{entity.pcontent}, #{entity.ptime}, #{entity.ptitle})
         </foreach>
         on duplicate key update
         did = values(did),
         pType = values(pType),
         pContent = values(pContent),
-        pTime = values(pTime)
+        pTime = values(pTime),
+        pTitle = values(pTitle)
     </insert>
 
     <!--通过主键修改数据-->
@@ -108,6 +116,9 @@
             </if>
             <if test="ptime != null">
                 pTime = #{ptime},
+            </if>
+            <if test="ptitle != null and ptitle != ''">
+                pTitle = #{ptitle},
             </if>
         </set>
         where pid = #{pid}

@@ -2,7 +2,9 @@ package com.miniprogram.zhihuicunwu.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Department;
+import com.miniprogram.zhihuicunwu.entity.Departmentimg;
 import com.miniprogram.zhihuicunwu.service.DepartmentService;
+import com.miniprogram.zhihuicunwu.service.DepartmentimgService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +26,8 @@ public class DepartmentController {
      */
     @Resource
     private DepartmentService departmentService;
+    @Resource
+    private DepartmentimgService departmentimgService;
 //    @Resource
 //    private CountrydepartmentService countrydepartmentService;
 
@@ -60,7 +64,8 @@ public class DepartmentController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Department> add(@RequestBody JSONObject params) {
+    public ResponseEntity<JSONObject> add(@RequestBody JSONObject params) {
+        JSONObject ret = new JSONObject();
         //先在Department表中添加
         Department department = new Department();
         department.setCid(params.getInteger("cid"));
@@ -70,7 +75,35 @@ public class DepartmentController {
         department.setDphone(params.getString("phone"));
         this.departmentService.insert(department);
 
-        return ResponseEntity.ok(this.departmentService.insert(department));
+        //TODO：需要将获得的String(base64)转换成图片，再将图片的url存入数据库
+        Object images_obj = params.get("images");
+        List<String> images = new ArrayList<String>();
+        if (images_obj instanceof ArrayList<?>)
+        {
+            for(Object o : (List<?>) images_obj)
+            {
+                images.add(String.class.cast(o));
+            }
+        }
+
+        for(int i = 0; i < images.size(); i++)
+        {
+            Departmentimg departmentimg = new Departmentimg();
+            departmentimg.setDid(department.getDid());
+            departmentimg.setDpic(images.get(i));
+            this.departmentimgService.insert(departmentimg);
+        }
+
+        if(department == null)
+        {
+            ret.put("result", false);
+        }
+        else
+        {
+            ret.put("result", true);
+        }
+
+        return ResponseEntity.ok(ret);
     }
 
     /**
@@ -80,14 +113,50 @@ public class DepartmentController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<Department> edit(@RequestBody JSONObject params) {
+    public ResponseEntity<JSONObject> edit(@RequestBody JSONObject params) {
         Department department = this.departmentService.queryById(params.getInteger("department_id"));
+        List<Departmentimg> departmentimgs = this.departmentimgService.queryByDid(department.getDid());
+        JSONObject ret = new JSONObject();
+
+        for(int i = 0; i < departmentimgs.size(); i++)
+        {
+            this.departmentimgService.deleteById(departmentimgs.get(i).getImgId());
+        }
+
         department.setDaddress(params.getString("address"));
         department.setDdescription(params.getString("desc"));
         department.setDname(params.getString("name"));
         department.setDphone(params.getString("phone"));
 
-        return ResponseEntity.ok(this.departmentService.update(department));
+        //TODO：需要将获得的String(base64)转换成图片，再将图片的url存入数据库
+        Object images_obj = params.get("images");
+        List<String> images = new ArrayList<String>();
+        if (images_obj instanceof ArrayList<?>)
+        {
+            for(Object o : (List<?>) images_obj)
+            {
+                images.add(String.class.cast(o));
+            }
+        }
+
+        for(int i = 0; i < images.size(); i++)
+        {
+            Departmentimg departmentimg = new Departmentimg();
+            departmentimg.setDid(department.getDid());
+            departmentimg.setDpic(images.get(i));
+            this.departmentimgService.insert(departmentimg);
+        }
+
+        if(department == null)
+        {
+            ret.put("result", false);
+        }
+        else
+        {
+            ret.put("result", true);
+        }
+
+        return ResponseEntity.ok(ret);
     }
 
     /**
@@ -97,8 +166,26 @@ public class DepartmentController {
      * @return 删除是否成功
      */
     @DeleteMapping
-    public ResponseEntity<Boolean> deleteById(Integer id) {
-        return ResponseEntity.ok(this.departmentService.deleteById(id));
+    public ResponseEntity<JSONObject> deleteById(Integer id) {
+        Department department = this.departmentService.queryById(id);
+        List<Departmentimg> departmentimgs = this.departmentimgService.queryByDid(department.getDid());
+        JSONObject ret = new JSONObject();
+
+        for(int i = 0; i < departmentimgs.size(); i++)
+        {
+            this.departmentimgService.deleteById(departmentimgs.get(i).getImgId());
+        }
+
+        if(!this.departmentService.deleteById(id))
+        {
+            ret.put("result", false);
+        }
+        else
+        {
+            ret.put("result", true);
+        }
+
+        return ResponseEntity.ok(ret);
     }
 
 }

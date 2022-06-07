@@ -30,6 +30,8 @@ public class User implements Serializable {
 
     private String uphoto;
 
+    private String uphone;
+
 
     public Integer getUid() {
         return uid;
@@ -93,6 +95,14 @@ public class User implements Serializable {
 
     public void setUphoto(String uphoto) {
         this.uphoto = uphoto;
+    }
+
+    public String getUphone() {
+        return uphone;
+    }
+
+    public void setUphone(String uphone) {
+        this.uphone = uphone;
     }
 
     static public User parseFromJSON(JSONObject jsonObject){

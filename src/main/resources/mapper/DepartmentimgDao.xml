@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.miniprogram.zhihuicunwu.dao.PublicationpicDao">
+<mapper namespace="com.miniprogram.zhihuicunwu.dao.DepartmentimgDao">
 
-    <resultMap type="com.miniprogram.zhihuicunwu.entity.Publicationpic" id="PublicationpicMap">
+    <resultMap type="com.miniprogram.zhihuicunwu.entity.Departmentimg" id="DepartmentimgMap">
         <result property="imgId" column="img_id" jdbcType="INTEGER"/>
-        <result property="pid" column="pid" jdbcType="INTEGER"/>
-        <result property="ppic" column="Ppic" jdbcType="VARCHAR"/>
+        <result property="did" column="did" jdbcType="INTEGER"/>
+        <result property="dpic" column="Dpic" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
-    <select id="queryById" resultMap="PublicationpicMap">
+    <select id="queryById" resultMap="DepartmentimgMap">
         select
-          img_id, pid, Ppic
-        from publicationpic
+          img_id, did, Dpic
+        from departmentimg
         where img_id = #{imgId}
     </select>
 
-    <!--查询某条公告下所有附件-->
-    <select id="queryByPid" resultMap="PublicationpicMap">
+    <!--查询多个-->
+    <select id="queryByDid" resultMap="DepartmentimgMap">
         select
-          img_id, pid, Ppic
-        from publicationpic
-        where pid = #{pid}
+          img_id, did, Dpic
+        from departmentimg
+        where did = #{did}
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="PublicationpicMap">
+    <select id="queryAllByLimit" resultMap="DepartmentimgMap">
         select
-          img_id, pid, Ppic
-        from publicationpic
+          img_id, did, Dpic
+        from departmentimg
         <where>
             <if test="imgId != null">
                 and img_id = #{imgId}
             </if>
-            <if test="pid != null">
-                and pid = #{pid}
+            <if test="did != null">
+                and did = #{did}
             </if>
-            <if test="ppic != null and ppic != ''">
-                and Ppic = #{ppic}
+            <if test="dpic != null and dpic != ''">
+                and Dpic = #{dpic}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -46,54 +46,54 @@
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
-        from publicationpic
+        from departmentimg
         <where>
             <if test="imgId != null">
                 and img_id = #{imgId}
             </if>
-            <if test="pid != null">
-                and pid = #{pid}
+            <if test="did != null">
+                and did = #{did}
             </if>
-            <if test="ppic != null and ppic != ''">
-                and Ppic = #{ppic}
+            <if test="dpic != null and dpic != ''">
+                and Dpic = #{dpic}
             </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="imgId" useGeneratedKeys="true">
-        insert into publicationpic(pid, Ppic)
-        values (#{pid}, #{ppic})
+        insert into departmentimg(did, Dpic)
+        values (#{did}, #{dpic})
     </insert>
 
     <insert id="insertBatch" keyProperty="imgId" useGeneratedKeys="true">
-        insert into publicationpic(pid, Ppic)
+        insert into departmentimg(did, Dpic)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.pid}, #{entity.ppic})
+        (#{entity.did}, #{entity.dpic})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="imgId" useGeneratedKeys="true">
-        insert into publicationpic(pid, Ppic)
+        insert into departmentimg(did, Dpic)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.pid}, #{entity.ppic})
+            (#{entity.did}, #{entity.dpic})
         </foreach>
         on duplicate key update
-        pid = values(pid),
-        Ppic = values(Ppic)
+        did = values(did),
+        Dpic = values(Dpic)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
-        update publicationpic
+        update departmentimg
         <set>
-            <if test="pid != null">
-                pid = #{pid},
+            <if test="did != null">
+                did = #{did},
             </if>
-            <if test="ppic != null and ppic != ''">
-                Ppic = #{ppic},
+            <if test="dpic != null and dpic != ''">
+                Dpic = #{dpic},
             </if>
         </set>
         where img_id = #{imgId}
@@ -101,7 +101,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from publicationpic where img_id = #{imgId}
+        delete from departmentimg where img_id = #{imgId}
     </delete>
 
 </mapper>

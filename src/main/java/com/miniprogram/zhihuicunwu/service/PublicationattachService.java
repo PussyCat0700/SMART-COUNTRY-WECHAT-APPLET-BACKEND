@@ -4,6 +4,8 @@ import com.miniprogram.zhihuicunwu.entity.Publicationattach;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (Publicationattach)表服务接口
  *
@@ -19,6 +21,8 @@ public interface PublicationattachService {
      * @return 实例对象
      */
     Publicationattach queryById(Integer attachId);
+
+    List<Publicationattach> queryByPid(Integer pid);
 
     /**
      * 分页查询

@@ -5,6 +5,7 @@ import com.miniprogram.zhihuicunwu.entity.Work;
 import com.miniprogram.zhihuicunwu.service.UserService;
 import com.miniprogram.zhihuicunwu.service.WorkService;
 import com.alibaba.fastjson.JSONObject;
+import com.miniprogram.zhihuicunwu.util.DateUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,12 +55,29 @@ public class WorkController {
     /**
      * 新增数据
      *
-     * @param work 实体
+     * @param params 实体
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Work> add(@RequestBody Work work) {
-        return ResponseEntity.ok(this.workService.insert(work));
+    public ResponseEntity<JSONObject> add(@RequestBody JSONObject params) {
+        Work work = new Work();
+        JSONObject ret = new JSONObject();
+
+        work.setDid(params.getInteger("dCode"));
+        work.setUid(params.getInteger("uid"));
+        work.setWname(params.getString("wname"));
+        work.setWtime(DateUtil.Companion.dateFromString(params.getString("wtime")));
+
+        if(this.workService.insert(work) != null)
+        {
+            ret.put("result", true);
+        }
+        else
+        {
+            ret.put("result", false);
+        }
+
+        return ResponseEntity.ok(ret);
     }
 
     /**

@@ -1,18 +1,16 @@
 package com.miniprogram.zhihuicunwu.service;
 
-import com.miniprogram.zhihuicunwu.entity.Publicationpic;
+import com.miniprogram.zhihuicunwu.entity.Countryimg;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-import java.util.List;
-
 /**
- * (Publicationpic)表服务接口
+ * (Countryimg)表服务接口
  *
  * @author makejava
- * @since 2022-06-06 16:54:05
+ * @since 2022-06-07 13:21:23
  */
-public interface PublicationpicService {
+public interface CountryimgService {
 
     /**
      * 通过ID查询单条数据
@@ -20,34 +18,32 @@ public interface PublicationpicService {
      * @param imgId 主键
      * @return 实例对象
      */
-    Publicationpic queryById(Integer imgId);
-
-    List<Publicationpic> queryByPid(Integer pid);
+    Countryimg queryById(Integer imgId);
 
     /**
      * 分页查询
      *
-     * @param publicationpic 筛选条件
+     * @param countryimg 筛选条件
      * @param pageRequest      分页对象
      * @return 查询结果
      */
-    Page<Publicationpic> queryByPage(Publicationpic publicationpic, PageRequest pageRequest);
+    Page<Countryimg> queryByPage(Countryimg countryimg, PageRequest pageRequest);
 
     /**
      * 新增数据
      *
-     * @param publicationpic 实例对象
+     * @param countryimg 实例对象
      * @return 实例对象
      */
-    Publicationpic insert(Publicationpic publicationpic);
+    Countryimg insert(Countryimg countryimg);
 
     /**
      * 修改数据
      *
-     * @param publicationpic 实例对象
+     * @param countryimg 实例对象
      * @return 实例对象
      */
-    Publicationpic update(Publicationpic publicationpic);
+    Countryimg update(Countryimg countryimg);
 
     /**
      * 通过主键删除数据
