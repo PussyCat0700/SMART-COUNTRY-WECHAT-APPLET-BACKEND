@@ -78,7 +78,7 @@ public class UserController {
 
         if (this.userService.update(user) != null)
         {
-            ret.put("result", false);
+            ret.put("result", true);
         }
         else
         {

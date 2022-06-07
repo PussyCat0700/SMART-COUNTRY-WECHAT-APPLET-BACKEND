@@ -17,6 +17,8 @@ public class Mailbox implements Serializable {
     
     private String mailcontent;
 
+    private Integer cid;
+
 
     public Integer getMid() {
         return mid;
@@ -38,8 +40,14 @@ public class Mailbox implements Serializable {
         return mailcontent;
     }
 
-    public void setMailcontent(String mailcontent) {
-        this.mailcontent = mailcontent;
+    public void setMailcontent(String mailcontent) { this.mailcontent = mailcontent; }
+
+    public Integer getCid() {
+        return cid;
+    }
+
+    public void setCid(Integer cid) {
+        this.cid = cid;
     }
 
 }

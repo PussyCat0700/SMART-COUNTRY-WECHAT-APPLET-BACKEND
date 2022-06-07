@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80023
 File Encoding         : 65001
 
-Date: 2022-06-07 12:50:01
+Date: 2022-06-07 14:01:08
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -93,6 +93,25 @@ INSERT INTO `country` VALUES ('16', null, null, null, null);
 INSERT INTO `country` VALUES ('17', '10', null, null, null);
 
 -- ----------------------------
+-- Table structure for countryimg
+-- ----------------------------
+DROP TABLE IF EXISTS `countryimg`;
+CREATE TABLE `countryimg` (
+  `img_id` int NOT NULL AUTO_INCREMENT,
+  `cid` int DEFAULT NULL,
+  `Cpic` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`img_id`),
+  KEY `countryimg_cid` (`cid`),
+  CONSTRAINT `countryimg_cid` FOREIGN KEY (`cid`) REFERENCES `country` (`cid`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of countryimg
+-- ----------------------------
+INSERT INTO `countryimg` VALUES ('1', '2', '123');
+INSERT INTO `countryimg` VALUES ('2', '2', '222');
+
+-- ----------------------------
 -- Table structure for create
 -- ----------------------------
 DROP TABLE IF EXISTS `create`;
@@ -130,6 +149,25 @@ CREATE TABLE `department` (
 -- ----------------------------
 INSERT INTO `department` VALUES ('1', '2', 'bingo', null, null, null);
 INSERT INTO `department` VALUES ('2', '2', null, null, null, null);
+
+-- ----------------------------
+-- Table structure for departmentimg
+-- ----------------------------
+DROP TABLE IF EXISTS `departmentimg`;
+CREATE TABLE `departmentimg` (
+  `img_id` int NOT NULL AUTO_INCREMENT,
+  `did` int DEFAULT NULL,
+  `Dpic` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`img_id`),
+  KEY `departmentimg_did` (`did`),
+  CONSTRAINT `departmentimg_did` FOREIGN KEY (`did`) REFERENCES `department` (`did`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of departmentimg
+-- ----------------------------
+INSERT INTO `departmentimg` VALUES ('1', '1', '123');
+INSERT INTO `departmentimg` VALUES ('2', '1', '22222');
 
 -- ----------------------------
 -- Table structure for deptgovaffairs
@@ -226,15 +264,18 @@ CREATE TABLE `mailbox` (
   `mid` int NOT NULL AUTO_INCREMENT,
   `uid` int NOT NULL,
   `mailContent` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `cid` int NOT NULL,
   PRIMARY KEY (`mid`) USING BTREE,
   KEY `mailbox_uid` (`uid`) USING BTREE,
+  KEY `mailbox_cid` (`cid`),
+  CONSTRAINT `mailbox_cid` FOREIGN KEY (`cid`) REFERENCES `country` (`cid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `mailbox_uid` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of mailbox
 -- ----------------------------
-INSERT INTO `mailbox` VALUES ('1', '1', '?');
+INSERT INTO `mailbox` VALUES ('1', '1', '??', '2');
 
 -- ----------------------------
 -- Table structure for mailboximg
@@ -252,8 +293,6 @@ CREATE TABLE `mailboximg` (
 -- ----------------------------
 -- Records of mailboximg
 -- ----------------------------
-INSERT INTO `mailboximg` VALUES ('1', '1', 'base_1');
-INSERT INTO `mailboximg` VALUES ('2', '1', 'base_2');
 
 -- ----------------------------
 -- Table structure for publication

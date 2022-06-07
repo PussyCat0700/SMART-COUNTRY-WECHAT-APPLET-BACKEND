@@ -66,6 +66,7 @@ public class MailboxController {
         Mailbox mailbox = new Mailbox();
         mailbox.setUid(params.getInteger("uid"));
         mailbox.setMailcontent(params.getString("content"));
+        mailbox.setCid(params.getInteger("cid"));
         this.mailboxService.insert(mailbox);
 
         //TODO：需要将获得的String(base64)转换成图片，再将图片的url存入数据库
