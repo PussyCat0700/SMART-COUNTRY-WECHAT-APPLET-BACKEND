@@ -46,4 +46,8 @@ public class ImageIOUtils {
     public static String getUrlFromDBRecord(String relativeUrl){
         return WebMvcConfig.serverUrl+":"+WebMvcConfig.serverPort+relativeUrl;
     }
+
+    public static String processBase64(String relativeUrl){
+        return Base64Util.replaceEnter(relativeUrl);
+    }
 }

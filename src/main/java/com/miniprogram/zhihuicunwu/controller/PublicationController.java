@@ -7,6 +7,7 @@ import com.miniprogram.zhihuicunwu.entity.Publicationpic;
 import com.miniprogram.zhihuicunwu.service.PublicationService;
 import com.miniprogram.zhihuicunwu.service.PublicationattachService;
 import com.miniprogram.zhihuicunwu.service.PublicationpicService;
+import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,7 +118,7 @@ public class PublicationController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<JSONObject> add(JSONObject jsonObject) {
+    public ResponseEntity<JSONObject> add(@RequestBody JSONObject jsonObject) throws IOException {
         Publication publication = new Publication();
         publication.setDid(jsonObject.getInteger("did"));
         publication.setPtype(jsonObject.getString("category"));
@@ -126,7 +128,8 @@ public class PublicationController {
         this.publicationService.insert(publication);
         Publicationpic publicationpic = new Publicationpic();
         publicationpic.setPid(publication.getPid());
-        publicationpic.setPpic(jsonObject.getString("cover"));
+        String relativePath = ImageIOUtils.uploadImg(jsonObject.getString("cover"));
+        publicationpic.setPpic(relativePath);
         this.publicationpicService.insert(publicationpic);
         jsonObject.put("result", true);
         return ResponseEntity.ok(jsonObject);

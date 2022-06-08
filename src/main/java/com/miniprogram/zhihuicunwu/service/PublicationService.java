@@ -25,8 +25,6 @@ public interface PublicationService {
     //根据标题模糊查询
     List<Publication> queryFuzzyByTitle(String keywords);
 
-    int countAll();
-
     /**
      * 通过任意字段查询数据列表
      *
