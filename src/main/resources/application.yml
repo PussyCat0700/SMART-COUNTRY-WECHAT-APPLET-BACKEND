@@ -1,9 +1,9 @@
-#¶Ë¿ÚÅäÖÃ
+#ç«¯å£é…ç½®
 server:
   url: localhost
   port: 8999
 
-#MysqlÁ¬½Ó³Ø
+#Mysqlè¿æ¥æ± 
 spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
@@ -14,18 +14,18 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       username: root
       password: 123456
-      url: jdbc:mysql://localhost:3306/govaffairs?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf8&useSSL=false&allowMultiQueries=true
+      url: jdbc:mysql://114.132.44.9:3306/govaffairs?useUnicode=true&serverTimezone=Asia/Shanghai&characterEncoding=utf8&autoReconnect=true&useSSL=false&allowMultiQueries=true
 
-#mybatis-plus SQLÊä³ö
+#mybatis-plus SQLè¾“å‡º
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
-#ÈÕÖ¾´òÓ¡
+#æ—¥å¿—æ‰“å°
 logging:
   config: classpath:logback-spring.xml
 
-#´æ·ÅÂ·¾¶
+#å­˜æ”¾è·¯å¾„
 absoluteImgPath: D:/images_zhihuicuiwu
 sonImgPath: /images/
 
