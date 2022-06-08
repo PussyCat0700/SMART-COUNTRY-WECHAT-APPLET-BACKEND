@@ -116,11 +116,11 @@ public class DepartmentController {
         for(int i = 0; i < departments.size(); i++)
         {
             JSONObject temp = new JSONObject();
-            temp.put("department_address", departments.get(i).getDaddress());
-            temp.put("department_desc", departments.get(i).getDdescription());
-            temp.put("department_id", departments.get(i).getDid());
-            temp.put("department_name", departments.get(i).getDname());
-            temp.put("department_phone", departments.get(i).getDphone());
+            temp.put("address", departments.get(i).getDaddress());
+            temp.put("desc", departments.get(i).getDdescription());
+            temp.put("did", departments.get(i).getDid());
+            temp.put("name", departments.get(i).getDname());
+            temp.put("phone", departments.get(i).getDphone());
 
             List<Departmentimg> departmentimgs = this.departmentimgService.queryByDid(departments.get(i).getDid());
             List<String> images = new ArrayList<>();
@@ -129,7 +129,7 @@ public class DepartmentController {
                 images.add(departmentimgs.get(j).getDpic());
             }
 
-            temp.put("department_images", images);
+            temp.put("images", images);
 
             ret.add(temp);
         }
@@ -194,7 +194,7 @@ public class DepartmentController {
      */
     @PutMapping
     public ResponseEntity<JSONObject> edit(@RequestBody JSONObject params) {
-        Department department = this.departmentService.queryById(params.getInteger("department_id"));
+        Department department = this.departmentService.queryById(params.getInteger("did"));
         List<Departmentimg> departmentimgs = this.departmentimgService.queryByDid(department.getDid());
         JSONObject ret = new JSONObject();
 
@@ -208,7 +208,7 @@ public class DepartmentController {
         department.setDname(params.getString("name"));
         department.setDphone(params.getString("phone"));
 
-        this.departmentService.insert(department);
+        this.departmentService.update(department);
 
         //TODO：需要将获得的String(base64)转换成图片，再将图片的url存入数据库
         Object images_obj = params.get("images");
@@ -244,12 +244,12 @@ public class DepartmentController {
     /**
      * 删除数据
      *
-     * @param id 主键
+     * @param did 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
-    public ResponseEntity<JSONObject> deleteById(Integer id) {
-        Department department = this.departmentService.queryById(id);
+    @DeleteMapping("{did}")
+    public ResponseEntity<JSONObject> deleteById(@PathVariable("did") Integer did) {
+        Department department = this.departmentService.queryById(did);
         List<Departmentimg> departmentimgs = this.departmentimgService.queryByDid(department.getDid());
         JSONObject ret = new JSONObject();
 
@@ -258,7 +258,7 @@ public class DepartmentController {
             this.departmentimgService.deleteById(departmentimgs.get(i).getImgId());
         }
 
-        if(!this.departmentService.deleteById(id))
+        if(!this.departmentService.deleteById(did))
         {
             ret.put("result", false);
         }

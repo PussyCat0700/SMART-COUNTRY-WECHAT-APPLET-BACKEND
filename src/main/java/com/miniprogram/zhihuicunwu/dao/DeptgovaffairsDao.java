@@ -9,7 +9,7 @@ import java.util.List;
  * (Deptgovaffairs)表数据库访问层
  *
  * @author makejava
- * @since 2022-06-05 16:04:31
+ * @since 2022-06-06 22:09:52
  */
 public interface DeptgovaffairsDao {
 

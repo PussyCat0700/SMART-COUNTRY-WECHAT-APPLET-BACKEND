@@ -50,11 +50,15 @@ public class GovaffairsController {
     /**
      * 编辑数据
      *
-     * @param govaffairs 实体
+     * @param jsonObject 实体
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<Govaffairs> edit(@RequestBody Govaffairs govaffairs) {
+    public ResponseEntity<Govaffairs> edit(@RequestBody JSONObject jsonObject) {
+        Govaffairs govaffairs = new Govaffairs();
+        govaffairs.setGadescription(jsonObject.getString("service_desc"));
+        govaffairs.setGaname(jsonObject.getString("service_name"));
+        govaffairs.setGaid(jsonObject.getInteger("service_id"));
         return ResponseEntity.ok(this.govaffairsService.update(govaffairs));
     }
 

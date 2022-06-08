@@ -4,17 +4,15 @@ import com.miniprogram.zhihuicunwu.entity.Application;
 import com.miniprogram.zhihuicunwu.dao.ApplicationDao;
 import com.miniprogram.zhihuicunwu.service.ApplicationService;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Application)表服务实现类
  *
  * @author makejava
- * @since 2022-06-06 11:42:27
+ * @since 2022-06-06 22:55:46
  */
 @Service("applicationService")
 public class ApplicationServiceImpl implements ApplicationService {
@@ -31,18 +29,16 @@ public class ApplicationServiceImpl implements ApplicationService {
     public Application queryById(Integer applicationId) {
         return this.applicationDao.queryById(applicationId);
     }
-
+    
     /**
-     * 分页查询
+     * 通过任意字段查询数据列表
      *
-     * @param application 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
+     * @param application 实例对象
+     * @return 实例对象列表
      */
-    @Override
-    public Page<Application> queryByPage(Application application, PageRequest pageRequest) {
-        long total = this.applicationDao.count(application);
-        return new PageImpl<>(this.applicationDao.queryAllByLimit(application, pageRequest), pageRequest, total);
+     @Override
+    public List<Application> queryAllByAny(Application application){
+        return this.applicationDao.queryAllByAny(application);
     }
 
     /**

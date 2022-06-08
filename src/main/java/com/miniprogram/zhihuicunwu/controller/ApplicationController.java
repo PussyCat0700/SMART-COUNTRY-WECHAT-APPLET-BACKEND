@@ -2,8 +2,6 @@ package com.miniprogram.zhihuicunwu.controller;
 
 import com.miniprogram.zhihuicunwu.entity.Application;
 import com.miniprogram.zhihuicunwu.service.ApplicationService;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +11,7 @@ import javax.annotation.Resource;
  * (Application)表控制层
  *
  * @author makejava
- * @since 2022-06-06 11:42:26
+ * @since 2022-06-06 22:55:44
  */
 @RestController
 @RequestMapping("application")
@@ -23,18 +21,6 @@ public class ApplicationController {
      */
     @Resource
     private ApplicationService applicationService;
-
-    /**
-     * 分页查询
-     *
-     * @param application 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
-     */
-    @GetMapping
-    public ResponseEntity<Page<Application>> queryByPage(Application application, PageRequest pageRequest) {
-        return ResponseEntity.ok(this.applicationService.queryByPage(application, pageRequest));
-    }
 
     /**
      * 通过主键查询单条数据
@@ -54,7 +40,7 @@ public class ApplicationController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Application> add(Application application) {
+    public ResponseEntity<Application> add(@RequestBody Application application) {
         return ResponseEntity.ok(this.applicationService.insert(application));
     }
 
@@ -65,7 +51,7 @@ public class ApplicationController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<Application> edit(Application application) {
+    public ResponseEntity<Application> edit(@RequestBody Application application) {
         return ResponseEntity.ok(this.applicationService.update(application));
     }
 

@@ -6,10 +6,10 @@ import java.io.Serializable;
  * (Deptgovaffairs)实体类
  *
  * @author makejava
- * @since 2022-06-05 16:04:31
+ * @since 2022-06-06 22:09:52
  */
 public class Deptgovaffairs implements Serializable {
-    private static final long serialVersionUID = 628994402870226396L;
+    private static final long serialVersionUID = -49654489777737617L;
     
     private Integer gaid;
     

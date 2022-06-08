@@ -46,7 +46,33 @@
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
-
+    <!--任意查询（返回列表）-->
+    <select id="queryAllByAny" resultMap="ApplicationMap">
+        select
+          application_id, userGAid, name, gender, phone, address
+        from application
+        <where>
+            <if test="applicationId != null">
+                and application_id = #{applicationId}
+            </if>
+            <if test="usergaid != null">
+                and userGAid = #{usergaid}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="gender != null">
+                and gender = #{gender}
+            </if>
+            <if test="phone != null and phone != ''">
+                and phone = #{phone}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+        </where>
+    </select>
+    
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)

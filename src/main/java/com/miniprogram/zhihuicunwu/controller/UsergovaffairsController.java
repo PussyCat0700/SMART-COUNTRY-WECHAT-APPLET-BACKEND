@@ -37,6 +37,8 @@ public class UsergovaffairsController {
     private DepartmentService departmentService;
     @Resource
     private ApplicationService applicationService;
+    @Resource
+    private UserService userService;
 
     /**
      * 通过主键查询单条数据
@@ -78,6 +80,33 @@ public class UsergovaffairsController {
         }
         ret.put("result",!ret.isEmpty());
         return ResponseEntity.ok(ret);
+    }
+
+    @GetMapping("/admin/{usergaid}")
+    public ResponseEntity<JSONObject> queryDetailById(@PathVariable("usergaid") Integer usergaid) {
+        JSONObject jsonObject = new JSONObject();
+        Usergovaffairs usergovaffairs= this.usergovaffairsService.queryById(usergaid);
+        jsonObject.put("affair", usergovaffairs.getGaname());
+        jsonObject.put("booking_content", usergovaffairs.getContent());
+        jsonObject.put("time", usergovaffairs.getAppointTime());
+        JSONObject applicantInfo = new JSONObject();
+        applicantInfo.put("address", usergovaffairs.getAddress());
+        User user = this.userService.queryById(usergovaffairs.getUid());
+        if(user!=null){
+            jsonObject.put("userInfo", user.getBriefInfo());
+        }
+        Application application = new Application();
+        application.setUsergaid(usergaid);
+        List<Application> application2 = this.applicationService.queryAllByAny(application);
+        if(application2!=null&&!application2.isEmpty()){
+            Application application1 = application2.get(0);
+            applicantInfo.put("address", application1.getAddress());
+            applicantInfo.put("gender", application1.getGender()==0?"女":"男");
+            applicantInfo.put("name", application1.getName());
+            applicantInfo.put("phone", application1.getPhone());
+        }
+        jsonObject.put("applicantInfo", applicantInfo);
+        return ResponseEntity.ok(jsonObject);
     }
 
     //获取所有预约列表

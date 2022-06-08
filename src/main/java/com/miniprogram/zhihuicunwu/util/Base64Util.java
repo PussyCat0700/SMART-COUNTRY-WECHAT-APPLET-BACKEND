@@ -70,7 +70,7 @@ public class Base64Util {
      * @param str 字符串
      * @return 替换后的字符串
      */
-   private static String replaceEnter(String str){
+   public static String replaceEnter(String str){
         String reg ="[\n-\r]";
         Pattern p = Pattern.compile(reg);
         Matcher m = p.matcher(str);

@@ -9,7 +9,7 @@ import java.util.List;
  * (Comment)表数据库访问层
  *
  * @author makejava
- * @since 2022-06-05 14:30:12
+ * @since 2022-06-06 21:32:16
  */
 public interface CommentDao {
 
@@ -30,6 +30,13 @@ public interface CommentDao {
      */
     List<Comment> queryAllByLimit(Comment comment, @Param("pageable") Pageable pageable);
 
+    /**
+     * 任意查询（列表）
+     * @param comment 查询条件
+     * @return 对象列表
+     */
+    List<Comment> queryAllByAny(Comment comment);
+     
     /**
      * 统计总行数
      *

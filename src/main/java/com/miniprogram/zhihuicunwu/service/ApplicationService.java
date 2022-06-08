@@ -1,14 +1,13 @@
 package com.miniprogram.zhihuicunwu.service;
 
 import com.miniprogram.zhihuicunwu.entity.Application;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import java.util.List;
 
 /**
  * (Application)表服务接口
  *
  * @author makejava
- * @since 2022-06-06 11:42:27
+ * @since 2022-06-06 22:55:46
  */
 public interface ApplicationService {
 
@@ -21,14 +20,13 @@ public interface ApplicationService {
     Application queryById(Integer applicationId);
 
     /**
-     * 分页查询
+     * 通过任意字段查询数据列表
      *
-     * @param application 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
+     * @param application 实例对象
+     * @return 实例对象列表
      */
-    Page<Application> queryByPage(Application application, PageRequest pageRequest);
-
+    List<Application> queryAllByAny(Application application);
+    
     /**
      * 新增数据
      *
