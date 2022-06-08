@@ -1,16 +1,13 @@
 package com.miniprogram.zhihuicunwu.service;
 
 import com.miniprogram.zhihuicunwu.entity.Publication;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-
 import java.util.List;
 
 /**
  * (Publication)表服务接口
  *
  * @author makejava
- * @since 2022-06-06 16:54:56
+ * @since 2022-06-08 21:19:32
  */
 public interface PublicationService {
 
@@ -26,14 +23,13 @@ public interface PublicationService {
     List<Publication> queryFuzzyByTitle(String keywords);
 
     /**
-     * 分页查询
+     * 通过任意字段查询数据列表
      *
-     * @param publication 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
+     * @param publication 实例对象
+     * @return 实例对象列表
      */
-    Page<Publication> queryByPage(Publication publication, PageRequest pageRequest);
-
+    List<Publication> queryAllByAny(Publication publication);
+    
     /**
      * 新增数据
      *

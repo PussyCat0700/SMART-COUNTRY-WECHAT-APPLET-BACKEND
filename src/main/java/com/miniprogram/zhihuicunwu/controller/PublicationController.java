@@ -36,18 +36,6 @@ public class PublicationController {
     private PublicationattachService publicationattachService;
 
     /**
-     * 分页查询
-     *
-     * @param publication 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
-     */
-    @GetMapping
-    public ResponseEntity<Page<Publication>> queryByPage(Publication publication, PageRequest pageRequest) {
-        return ResponseEntity.ok(this.publicationService.queryByPage(publication, pageRequest));
-    }
-
-    /**
      * 通过主键查询单条数据
      *
      * @param pid 主键
@@ -123,12 +111,24 @@ public class PublicationController {
     /**
      * 新增数据
      *
-     * @param publication 实体
+     * @param jsonObject 实体
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Publication> add(Publication publication) {
-        return ResponseEntity.ok(this.publicationService.insert(publication));
+    public ResponseEntity<JSONObject> add(JSONObject jsonObject) {
+        Publication publication = new Publication();
+        publication.setDid(jsonObject.getInteger("did"));
+        publication.setPtype(jsonObject.getString("category"));
+        publication.setPabstract(jsonObject.getString("abstract"));
+        publication.setPcontent(jsonObject.getString("content"));
+        publication.setPtitle("title");
+        this.publicationService.insert(publication);
+        Publicationpic publicationpic = new Publicationpic();
+        publicationpic.setPid(publication.getPid());
+        publicationpic.setPpic(jsonObject.getString("cover"));
+        this.publicationpicService.insert(publicationpic);
+        jsonObject.put("result", true);
+        return ResponseEntity.ok(jsonObject);
     }
 
     /**

@@ -9,7 +9,7 @@ import java.util.List;
  * (Publication)表数据库访问层
  *
  * @author makejava
- * @since 2022-06-06 16:54:55
+ * @since 2022-06-08 21:19:32
  */
 public interface PublicationDao {
 
@@ -33,6 +33,13 @@ public interface PublicationDao {
      */
     List<Publication> queryAllByLimit(Publication publication, @Param("pageable") Pageable pageable);
 
+    /**
+     * 任意查询（列表）
+     * @param publication 查询条件
+     * @return 对象列表
+     */
+    List<Publication> queryAllByAny(Publication publication);
+     
     /**
      * 统计总行数
      *

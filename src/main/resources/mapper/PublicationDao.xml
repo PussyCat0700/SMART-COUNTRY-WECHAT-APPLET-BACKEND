@@ -4,17 +4,18 @@
 
     <resultMap type="com.miniprogram.zhihuicunwu.entity.Publication" id="PublicationMap">
         <result property="pid" column="pid" jdbcType="INTEGER"/>
-        <result property="did" column="did" jdbcType="INTEGER"/>
-        <result property="ptype" column="pType" jdbcType="INTEGER"/>
+        <result property="ptype" column="pType" jdbcType="VARCHAR"/>
         <result property="pcontent" column="pContent" jdbcType="VARCHAR"/>
         <result property="ptime" column="pTime" jdbcType="TIMESTAMP"/>
+        <result property="did" column="did" jdbcType="INTEGER"/>
         <result property="ptitle" column="pTitle" jdbcType="VARCHAR"/>
+        <result property="pabstract" column="pAbstract" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="PublicationMap">
         select
-          pid, did, pType, pContent, pTime, pTitle
+          pid, pType, pContent, pTime, did, pTitle, pAbstract
         from publication
         where pid = #{pid}
     </select>
@@ -22,7 +23,7 @@
     <!--根据标题模糊查询-->
     <select id="queryFuzzyByTitle" resultMap="PublicationMap">
         select
-            pid, did, pType, pContent, pTime, pTitle
+            pid, pType, pContent, pTime, did, pTitle, pAbstract
         from publication
         where pTitle like #{keywords}
         ORDER BY pTime desc, pid desc
@@ -31,16 +32,13 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PublicationMap">
         select
-          pid, did, pType, pContent, pTime, pTitle
+          pid, pType, pContent, pTime, did, pTitle, pAbstract
         from publication
         <where>
             <if test="pid != null">
                 and pid = #{pid}
             </if>
-            <if test="did != null">
-                and did = #{did}
-            </if>
-            <if test="ptype != null">
+            <if test="ptype != null and ptype != ''">
                 and pType = #{ptype}
             </if>
             <if test="pcontent != null and pcontent != ''">
@@ -49,13 +47,48 @@
             <if test="ptime != null">
                 and pTime = #{ptime}
             </if>
+            <if test="did != null">
+                and did = #{did}
+            </if>
             <if test="ptitle != null and ptitle != ''">
-                pTitle = #{ptitle},
+                and pTitle = #{ptitle}
+            </if>
+            <if test="pabstract != null and pabstract != ''">
+                and pAbstract = #{pabstract}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
-
+    <!--任意查询（返回列表）-->
+    <select id="queryAllByAny" resultMap="PublicationMap">
+        select
+          pid, pType, pContent, pTime, did, pTitle, pAbstract
+        from publication
+        <where>
+            <if test="pid != null">
+                and pid = #{pid}
+            </if>
+            <if test="ptype != null and ptype != ''">
+                and pType = #{ptype}
+            </if>
+            <if test="pcontent != null and pcontent != ''">
+                and pContent = #{pcontent}
+            </if>
+            <if test="ptime != null">
+                and pTime = #{ptime}
+            </if>
+            <if test="did != null">
+                and did = #{did}
+            </if>
+            <if test="ptitle != null and ptitle != ''">
+                and pTitle = #{ptitle}
+            </if>
+            <if test="pabstract != null and pabstract != ''">
+                and pAbstract = #{pabstract}
+            </if>
+        </where>
+    </select>
+    
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
@@ -64,10 +97,7 @@
             <if test="pid != null">
                 and pid = #{pid}
             </if>
-            <if test="did != null">
-                and did = #{did}
-            </if>
-            <if test="ptype != null">
+            <if test="ptype != null and ptype != ''">
                 and pType = #{ptype}
             </if>
             <if test="pcontent != null and pcontent != ''">
@@ -76,48 +106,52 @@
             <if test="ptime != null">
                 and pTime = #{ptime}
             </if>
+            <if test="did != null">
+                and did = #{did}
+            </if>
             <if test="ptitle != null and ptitle != ''">
-                pTitle = #{ptitle},
+                and pTitle = #{ptitle}
+            </if>
+            <if test="pabstract != null and pabstract != ''">
+                and pAbstract = #{pabstract}
             </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="pid" useGeneratedKeys="true">
-        insert into publication(did, pType, pContent, pTime, pTitle)
-        values (#{did}, #{ptype}, #{pcontent}, #{ptime}, #{ptitle})
+        insert into publication(pType, pContent, pTime, did, pTitle, pAbstract)
+        values (#{ptype}, #{pcontent}, #{ptime}, #{did}, #{ptitle}, #{pabstract})
     </insert>
 
     <insert id="insertBatch" keyProperty="pid" useGeneratedKeys="true">
-        insert into publication(did, pType, pContent, pTime, pTitle)
+        insert into publication(pType, pContent, pTime, did, pTitle, pAbstract)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.did}, #{entity.ptype}, #{entity.pcontent}, #{entity.ptime}, #{entity.ptitle})
+        (#{entity.ptype}, #{entity.pcontent}, #{entity.ptime}, #{entity.did}, #{entity.ptitle}, #{entity.pabstract})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="pid" useGeneratedKeys="true">
-        insert into publication(did, pType, pContent, pTime, pTitle)
+        insert into publication(pType, pContent, pTime, did, pTitle, pAbstract)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.did}, #{entity.ptype}, #{entity.pcontent}, #{entity.ptime}, #{entity.ptitle})
+            (#{entity.ptype}, #{entity.pcontent}, #{entity.ptime}, #{entity.did}, #{entity.ptitle}, #{entity.pabstract})
         </foreach>
         on duplicate key update
-        did = values(did),
         pType = values(pType),
         pContent = values(pContent),
         pTime = values(pTime),
-        pTitle = values(pTitle)
+        did = values(did),
+        pTitle = values(pTitle),
+        pAbstract = values(pAbstract)
     </insert>
 
     <!--通过主键修改数据-->
     <update id="update">
         update publication
         <set>
-            <if test="did != null">
-                did = #{did},
-            </if>
-            <if test="ptype != null">
+            <if test="ptype != null and ptype != ''">
                 pType = #{ptype},
             </if>
             <if test="pcontent != null and pcontent != ''">
@@ -126,8 +160,14 @@
             <if test="ptime != null">
                 pTime = #{ptime},
             </if>
+            <if test="did != null">
+                did = #{did},
+            </if>
             <if test="ptitle != null and ptitle != ''">
                 pTitle = #{ptitle},
+            </if>
+            <if test="pabstract != null and pabstract != ''">
+                pAbstract = #{pabstract},
             </if>
         </set>
         where pid = #{pid}
