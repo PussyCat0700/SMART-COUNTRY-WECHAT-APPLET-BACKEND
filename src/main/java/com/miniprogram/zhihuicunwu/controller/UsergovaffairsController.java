@@ -37,8 +37,6 @@ public class UsergovaffairsController {
     private DepartmentService departmentService;
     @Resource
     private ApplicationService applicationService;
-    @Resource
-    private UserService userService;
 
     /**
      * 通过主键查询单条数据
@@ -54,6 +52,7 @@ public class UsergovaffairsController {
             ret.put("place", usergovaffairs.getAddress());
             ret.put("comment", usergovaffairs.getComment());
             ret.put("rate", usergovaffairs.getRate());
+            ret.put("status", usergovaffairs.getStatus());
             Date date = usergovaffairs.getAppointTime();
             if(date!=null){
                 DateFormat dateFormat = DateFormat.getDateInstance();
@@ -91,12 +90,14 @@ public class UsergovaffairsController {
         for(int i = 0; i < usergovaffairs.size(); i++)
         {
             JSONObject temp = new JSONObject();
-            User user = this.userService.queryById(usergovaffairs.get(i).getUid());
+            Govaffairs govaffairs = this.govaffairsService.queryById(usergovaffairs.get(i).getGaid());
 
-            temp.put("booking_content", usergovaffairs.get(i).getContent());
-            temp.put("booking_id", usergovaffairs.get(i).getUsergaid());
-            temp.put("uname", user.getUname());
-            temp.put("avatar", user.getUphoto());
+            temp.put("aid", usergovaffairs.get(i).getUsergaid());
+            temp.put("name", usergovaffairs.get(i).getGaname());
+            temp.put("status", usergovaffairs.get(i).getStatus());
+            temp.put("create_time", usergovaffairs.get(i).getCreateTime());
+            String type = govaffairs.getIsarrival() == 1 ? "arrival" : "spot";
+            temp.put("type", type);
 
             ret.add(temp);
         }
@@ -113,12 +114,14 @@ public class UsergovaffairsController {
         for(int i = 0; i < usergovaffairs.size(); i++)
         {
             JSONObject temp = new JSONObject();
-            User user = this.userService.queryById(usergovaffairs.get(i).getUid());
+            Govaffairs govaffairs = this.govaffairsService.queryById(usergovaffairs.get(i).getGaid());
 
-            temp.put("booking_content", usergovaffairs.get(i).getContent());
-            temp.put("booking_id", usergovaffairs.get(i).getUsergaid());
-            temp.put("uname", user.getUname());
-            temp.put("avatar", user.getUphoto());
+            temp.put("aid", usergovaffairs.get(i).getUsergaid());
+            temp.put("name", usergovaffairs.get(i).getGaname());
+            temp.put("status", usergovaffairs.get(i).getStatus());
+            temp.put("create_time", usergovaffairs.get(i).getCreateTime());
+            String type = govaffairs.getIsarrival() == 1 ? "arrival" : "spot";
+            temp.put("type", type);
 
             ret.add(temp);
         }

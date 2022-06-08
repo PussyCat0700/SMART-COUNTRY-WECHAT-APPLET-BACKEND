@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.io.Serializable;
 import java.sql.Blob;
+import java.util.Date;
 
 /**
  * (User)实体类
@@ -31,6 +32,8 @@ public class User implements Serializable {
     private String uphoto;
 
     private String uphone;
+
+    private Date uCreateTime;
 
 
     public Integer getUid() {
@@ -103,6 +106,14 @@ public class User implements Serializable {
 
     public void setUphone(String uphone) {
         this.uphone = uphone;
+    }
+
+    public Date getUCreateTime() {
+        return uCreateTime;
+    }
+
+    public void setUCreateTime(Date uCreateTime) {
+        this.uCreateTime = uCreateTime;
     }
 
     static public User parseFromJSON(JSONObject jsonObject){

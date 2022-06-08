@@ -208,6 +208,8 @@ public class DepartmentController {
         department.setDname(params.getString("name"));
         department.setDphone(params.getString("phone"));
 
+        this.departmentService.insert(department);
+
         //TODO：需要将获得的String(base64)转换成图片，再将图片的url存入数据库
         Object images_obj = params.get("images");
         List<String> images = new ArrayList<String>();
