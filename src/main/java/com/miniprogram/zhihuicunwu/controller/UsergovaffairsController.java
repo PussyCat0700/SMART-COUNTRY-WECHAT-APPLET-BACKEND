@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -53,6 +54,7 @@ public class UsergovaffairsController {
             ret.put("place", usergovaffairs.getAddress());
             ret.put("comment", usergovaffairs.getComment());
             ret.put("rate", usergovaffairs.getRate());
+            ret.put("status", usergovaffairs.getStatus());
             Date date = usergovaffairs.getAppointTime();
             if(date!=null){
                 DateFormat dateFormat = DateFormat.getDateInstance();
@@ -79,6 +81,7 @@ public class UsergovaffairsController {
         ret.put("result",!ret.isEmpty());
         return ResponseEntity.ok(ret);
     }
+
     @GetMapping("/admin/{usergaid}")
     public ResponseEntity<JSONObject> queryDetailById(@PathVariable("usergaid") Integer usergaid) {
         JSONObject jsonObject = new JSONObject();
@@ -106,6 +109,55 @@ public class UsergovaffairsController {
         return ResponseEntity.ok(jsonObject);
     }
 
+    //获取所有预约列表
+    @GetMapping("/allByDid/{did}")
+    public ResponseEntity<List> queryByDid(@PathVariable("did") Integer did)
+    {
+        List<JSONObject> ret = new ArrayList<>();
+        List<Usergovaffairs> usergovaffairs = this.usergovaffairsService.queryByDid(did);
+
+        for(int i = 0; i < usergovaffairs.size(); i++)
+        {
+            JSONObject temp = new JSONObject();
+            Govaffairs govaffairs = this.govaffairsService.queryById(usergovaffairs.get(i).getGaid());
+
+            temp.put("aid", usergovaffairs.get(i).getUsergaid());
+            temp.put("name", usergovaffairs.get(i).getGaname());
+            temp.put("status", usergovaffairs.get(i).getStatus());
+            temp.put("create_time", usergovaffairs.get(i).getCreateTime());
+            String type = govaffairs.getIsarrival() == 1 ? "arrival" : "spot";
+            temp.put("type", type);
+
+            ret.add(temp);
+        }
+
+        return ResponseEntity.ok(ret);
+    }
+
+    @GetMapping("/allByUid/{uid}")
+    public ResponseEntity<List> queryByUid(@PathVariable("uid") Integer uid)
+    {
+        List<JSONObject> ret = new ArrayList<>();
+        List<Usergovaffairs> usergovaffairs = this.usergovaffairsService.queryByUid(uid);
+
+        for(int i = 0; i < usergovaffairs.size(); i++)
+        {
+            JSONObject temp = new JSONObject();
+            Govaffairs govaffairs = this.govaffairsService.queryById(usergovaffairs.get(i).getGaid());
+
+            temp.put("aid", usergovaffairs.get(i).getUsergaid());
+            temp.put("name", usergovaffairs.get(i).getGaname());
+            temp.put("status", usergovaffairs.get(i).getStatus());
+            temp.put("create_time", usergovaffairs.get(i).getCreateTime());
+            String type = govaffairs.getIsarrival() == 1 ? "arrival" : "spot";
+            temp.put("type", type);
+
+            ret.add(temp);
+        }
+
+        return ResponseEntity.ok(ret);
+    }
+
     /**
      * 新增数据
      *
@@ -123,6 +175,7 @@ public class UsergovaffairsController {
         //存入到Usergovaffairs实体中
         usergovaffairs.setGaid(params.getInteger("affairId"));
         usergovaffairs.setUid(params.getInteger("uid"));
+        usergovaffairs.setDid(params.getInteger("did"));
         usergovaffairs.setAddress(params.getString("arrival_location"));
         usergovaffairs.setAppointTime(DateUtil.Companion.dateFromString(appoint_time_str));
         usergovaffairs.setGaname(params.getString("service"));

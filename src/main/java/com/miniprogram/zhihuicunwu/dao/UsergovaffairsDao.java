@@ -21,6 +21,10 @@ public interface UsergovaffairsDao {
      */
     Usergovaffairs queryById(Integer usergaid);
 
+    List<Usergovaffairs> queryByDid(Integer did);
+
+    List<Usergovaffairs> queryByUid(Integer uid);
+
     /**
      * 查询指定行数据
      *

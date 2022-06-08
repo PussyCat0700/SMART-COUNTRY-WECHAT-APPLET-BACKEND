@@ -19,6 +19,8 @@ public class Usergovaffairs implements Serializable {
     public boolean unsatisfied;
     
     private Integer uid;
+
+    private Integer did;
     
     private String address;
     
@@ -51,6 +53,12 @@ public class Usergovaffairs implements Serializable {
 
     public void setUid(Integer uid) {
         this.uid = uid;
+    }
+
+    public Integer getDid() { return did; }
+
+    public void setDid(Integer did) {
+        this.did = did;
     }
 
     public String getAddress() {

@@ -3,6 +3,7 @@ package com.miniprogram.zhihuicunwu.service.impl;
 import com.miniprogram.zhihuicunwu.entity.Publication;
 import com.miniprogram.zhihuicunwu.dao.PublicationDao;
 import com.miniprogram.zhihuicunwu.service.PublicationService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,7 +30,7 @@ public class PublicationServiceImpl implements PublicationService {
     public Publication queryById(Integer pid) {
         return this.publicationDao.queryById(pid);
     }
-    
+
     /**
      * 通过任意字段查询数据列表
      *

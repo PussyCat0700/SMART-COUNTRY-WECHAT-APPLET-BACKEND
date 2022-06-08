@@ -1,7 +1,5 @@
 package com.miniprogram.zhihuicunwu.entity;
 
-import com.alibaba.fastjson.JSONObject;
-
 import java.io.Serializable;
 
 /**
@@ -65,16 +63,6 @@ public class Department implements Serializable {
     public String getDphone() { return dphone; }
 
     public void setDphone(String dphone) { this.dphone = dphone; }
-
-    public JSONObject getBriefInfo(){
-        JSONObject temp = new JSONObject();
-        temp.put("department_address", getDaddress());
-        temp.put("department_desc", getDdescription());
-        temp.put("department_id", getDid());
-        temp.put("department_name", getDname());
-        temp.put("department_phone", getDphone());
-        return temp;
-    }
 
 }
 

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 80023
 File Encoding         : 65001
 
-Date: 2022-06-07 17:04:54
+Date: 2022-06-08 19:59:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -102,7 +102,7 @@ CREATE TABLE `countryimg` (
   `Cpic` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`img_id`),
   KEY `countryimg_cid` (`cid`),
-  CONSTRAINT `countryimg_cid` FOREIGN KEY (`cid`) REFERENCES `country` (`cid`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `countryimg_cid` FOREIGN KEY (`cid`) REFERENCES `country` (`cid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -147,7 +147,7 @@ CREATE TABLE `department` (
 -- ----------------------------
 -- Records of department
 -- ----------------------------
-INSERT INTO `department` VALUES ('1', '2', 'bingo', null, null, null);
+INSERT INTO `department` VALUES ('1', '2', 'bingo', 'description_did_1', 'Rd. Chuanda', '0832-123456');
 INSERT INTO `department` VALUES ('2', '2', null, null, null, null);
 
 -- ----------------------------
@@ -160,7 +160,7 @@ CREATE TABLE `departmentimg` (
   `Dpic` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`img_id`),
   KEY `departmentimg_did` (`did`),
-  CONSTRAINT `departmentimg_did` FOREIGN KEY (`did`) REFERENCES `department` (`did`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `departmentimg_did` FOREIGN KEY (`did`) REFERENCES `department` (`did`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -252,13 +252,13 @@ CREATE TABLE `govaffairs` (
   KEY `GASName` (`GAName`) USING BTREE,
   KEY `GAid` (`GAid`) USING BTREE,
   KEY `GAid_2` (`GAid`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of govaffairs
 -- ----------------------------
-INSERT INTO `govaffairs` VALUES ('1', '2005-03-18 09:58:31', 'ads', 'zhdt', '1');
-INSERT INTO `govaffairs` VALUES ('2', '2022-06-07 16:48:02', '444', '666', '0');
+INSERT INTO `govaffairs` VALUES ('1', '2005-03-18 09:58:31', 'renew your ID card[@material&]ID Card;Social Insurance Card;Driving Licence', 'renew ID Card', '1');
+INSERT INTO `govaffairs` VALUES ('2', '2022-06-07 16:48:02', 'renew your ID card[@material&]ID Card;Social Insurance Card;Driving Licence', 'renew ID Card', '0');
 INSERT INTO `govaffairs` VALUES ('3', '2022-05-12 16:48:09', '666', '999', '1');
 
 -- ----------------------------
@@ -394,20 +394,21 @@ CREATE TABLE `user` (
   `uwxid` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL COMMENT 'alias = uwxopenId\r',
   `uphoto` varchar(1024) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
   `uphone` varchar(255) DEFAULT NULL,
+  `ucreate_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`uid`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', '1', 'asd', '0', '10', 'guess', '6', null, null);
-INSERT INTO `user` VALUES ('2', '2', 'abc', '0', '10', 'you guess', '1', null, null);
-INSERT INTO `user` VALUES ('3', '2', '123', '0', '10', 'you guess', '1', null, null);
-INSERT INTO `user` VALUES ('4', '2', '456', '0', '10', 'you guess', '1', null, null);
-INSERT INTO `user` VALUES ('5', '2', 'qwe', '0', '10', 'you guess', '1', null, null);
-INSERT INTO `user` VALUES ('6', '2', 'rty', '0', '10', 'you guess', '1', null, null);
-INSERT INTO `user` VALUES ('7', '2', 'gbn', '0', '10', 'you guess', '1', null, null);
-INSERT INTO `user` VALUES ('8', '2', '333', '0', '10', 'you guess', '1', null, null);
+INSERT INTO `user` VALUES ('1', '1', 'asd', '0', '10', 'guess', '6', null, null, '2022-06-08 18:44:47');
+INSERT INTO `user` VALUES ('2', '2', 'abc', '0', '10', 'you guess', '1', null, null, '2022-06-08 18:44:47');
+INSERT INTO `user` VALUES ('3', '2', '123', '0', '10', 'you guess', '1', null, null, '2022-06-08 18:44:47');
+INSERT INTO `user` VALUES ('4', '2', '456', '0', '10', 'you guess', '1', null, null, '2022-06-08 18:44:47');
+INSERT INTO `user` VALUES ('5', '2', 'qwe', '0', '10', 'you guess', '1', null, null, '2022-06-08 18:44:47');
+INSERT INTO `user` VALUES ('6', '2', 'rty', '0', '10', 'you guess', '1', null, null, '2022-06-08 18:44:47');
+INSERT INTO `user` VALUES ('7', '2', 'gbn', '0', '10', 'you guess', '1', null, null, '2022-06-08 18:44:47');
+INSERT INTO `user` VALUES ('8', '2', '333', '0', '10', 'you guess', '1', null, null, '2022-06-08 18:44:47');
 
 -- ----------------------------
 -- Table structure for usergovaffairs
@@ -417,6 +418,7 @@ CREATE TABLE `usergovaffairs` (
   `userGAid` int NOT NULL AUTO_INCREMENT,
   `GAid` int NOT NULL,
   `uid` int NOT NULL,
+  `did` int DEFAULT NULL,
   `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
   `Appoint_time` datetime DEFAULT NULL,
   `GAName` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL,
@@ -428,15 +430,17 @@ CREATE TABLE `usergovaffairs` (
   PRIMARY KEY (`userGAid`) USING BTREE,
   KEY `GAuid` (`uid`) USING BTREE,
   KEY `userGAGA` (`GAid`) USING BTREE,
-  CONSTRAINT `userGAGA` FOREIGN KEY (`GAid`) REFERENCES `govaffairs` (`GAid`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `userGAuser` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `userGAdid` (`did`),
+  CONSTRAINT `userGAdid` FOREIGN KEY (`did`) REFERENCES `department` (`did`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `userGAGA` FOREIGN KEY (`GAid`) REFERENCES `govaffairs` (`GAid`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `userGAuser` FOREIGN KEY (`uid`) REFERENCES `user` (`uid`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of usergovaffairs
 -- ----------------------------
-INSERT INTO `usergovaffairs` VALUES ('1', '1', '1', 'hahahaha', '2022-02-02 15:15:15', 'aaaaaa', '0', '0', '', '2022-06-04 17:23:16', 'nothing');
-INSERT INTO `usergovaffairs` VALUES ('4', '1', '2', 'asdbgg', '2022-06-04 09:00:00', 'wo budong', '0', '0', '', '2022-06-06 11:55:17', '???');
+INSERT INTO `usergovaffairs` VALUES ('1', '1', '1', '1', 'hahahaha', '2022-02-02 15:15:15', 'aaaaaa', '0', '0', '', '2022-06-04 17:23:16', 'nothing');
+INSERT INTO `usergovaffairs` VALUES ('4', '1', '2', '1', 'asdbgg', '2022-06-04 09:00:00', 'wo budong', '0', '0', '', '2022-06-06 11:55:17', '???');
 
 -- ----------------------------
 -- Table structure for work

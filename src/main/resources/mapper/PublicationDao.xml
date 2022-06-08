@@ -87,8 +87,12 @@
                 and pAbstract = #{pabstract}
             </if>
         </where>
+        order by ptime desc, pid desc
+        limit #{pageable.offset}, #{pageable.pageSize}
     </select>
-    
+
+    <!--根据条件统计总行数-->
+
     <!--统计总行数-->
     <select id="count" resultType="java.lang.Long">
         select count(1)
@@ -116,6 +120,12 @@
                 and pAbstract = #{pabstract}
             </if>
         </where>
+    </select>
+
+    <!--统计总行数-->
+    <select id="countAll" resultType="java.lang.Integer">
+        select count(1)
+        from publication
     </select>
 
     <!--新增所有列-->

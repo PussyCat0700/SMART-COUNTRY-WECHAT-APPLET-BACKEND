@@ -1,6 +1,9 @@
 package com.miniprogram.zhihuicunwu.service;
 
 import com.miniprogram.zhihuicunwu.entity.Publication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import java.util.List;
 
 /**
@@ -22,6 +25,8 @@ public interface PublicationService {
     //根据标题模糊查询
     List<Publication> queryFuzzyByTitle(String keywords);
 
+    int countAll();
+
     /**
      * 通过任意字段查询数据列表
      *
@@ -29,7 +34,7 @@ public interface PublicationService {
      * @return 实例对象列表
      */
     List<Publication> queryAllByAny(Publication publication);
-    
+
     /**
      * 新增数据
      *

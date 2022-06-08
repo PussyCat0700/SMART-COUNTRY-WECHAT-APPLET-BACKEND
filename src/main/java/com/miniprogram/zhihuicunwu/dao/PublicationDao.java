@@ -27,11 +27,10 @@ public interface PublicationDao {
     /**
      * 查询指定行数据
      *
-     * @param publication 查询条件
      * @param pageable         分页对象
      * @return 对象列表
      */
-    List<Publication> queryAllByLimit(Publication publication, @Param("pageable") Pageable pageable);
+    List<Publication> queryAllByLimit(@Param("pageable") Pageable pageable);
 
     /**
      * 任意查询（列表）
@@ -47,6 +46,8 @@ public interface PublicationDao {
      * @return 总行数
      */
     long count(Publication publication);
+
+    int countAll();
 
     /**
      * 新增数据

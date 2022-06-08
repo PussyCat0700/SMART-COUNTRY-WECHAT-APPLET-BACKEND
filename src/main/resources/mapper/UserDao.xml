@@ -12,12 +12,13 @@
         <result property="uwxid" column="uwxid" jdbcType="VARCHAR"/>
         <result property="uphoto" column="uphoto" jdbcType="VARCHAR"/>
         <result property="uphone" column="uphone" jdbcType="VARCHAR"/>
+        <result property="uCreateTime" column="ucreate_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
         select
-          uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone
+          uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, ucreate_time
         from user
         where uid = #{uid}
     </select>
@@ -25,7 +26,7 @@
     <!--Query By OpenID-->
     <select id="queryByOpenID" resultMap="UserMap">
         select
-            uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone
+            uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, ucreate_time
         from user
         where uwxid = #{openID}
     </select>
@@ -33,7 +34,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="UserMap">
         select
-          uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone
+          uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, ucreate_time
         from user
         <where>
             <if test="uid != null">
@@ -62,6 +63,9 @@
             </if>
             <if test="uphone != null and uphone != ''">
                 uphone = #{uphone},
+            </if>
+            <if test="uCreateTime != null">
+                and ucreate_time = #{uCreateTime}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -99,28 +103,31 @@
             <if test="uphone != null and uphone != ''">
                 uphone = #{uphone},
             </if>
+            <if test="uCreateTime != null">
+                and ucreate_time = #{uCreateTime}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="uid" useGeneratedKeys="true">
-        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone)
-        values (#{status}, #{uname}, #{ugender}, #{uage}, #{uaddress}, #{uwxid}, #{uphoto}, #{uphone})
+        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, ucreate_time)
+        values (#{status}, #{uname}, #{ugender}, #{uage}, #{uaddress}, #{uwxid}, #{uphoto}, #{uphone}, #{uCreateTime})
     </insert>
 
     <insert id="insertBatch" keyProperty="uid" useGeneratedKeys="true">
-        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone)
+        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, ucreate_time)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid}, #{entity.uphoto}, #{entity.uphone})
+        (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid}, #{entity.uphoto}, #{entity.uphone}, #{entity.uCreateTime})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="uid" useGeneratedKeys="true">
-        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone)
+        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, ucreate_time)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid}, #{entity.uphoto}, #{entity.uphone})
+            (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid}, #{entity.uphoto}, #{entity.uphone}, #{entity.uCreateTime})
         </foreach>
         on duplicate key update
         status = values(status),
@@ -130,7 +137,8 @@
         uaddress = values(uaddress),
         uwxid = values(uwxid),
         uphoto = values(uphoto),
-        uphone = values(uphone)
+        uphone = values(uphone),
+        ucreate_time = values(ucreate_time)
     </insert>
 
     <!--通过主键修改数据-->
@@ -160,6 +168,9 @@
             </if>
             <if test="uphone != null and uphone != ''">
                 uphone = #{uphone},
+            </if>
+            <if test="uCreateTime != null">
+                and ucreate_time = #{uCreateTime}
             </if>
         </set>
         where uid = #{uid}

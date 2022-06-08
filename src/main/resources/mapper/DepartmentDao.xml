@@ -113,9 +113,6 @@
     <update id="update">
         update department
         <set>
-            <if test="cid != null">
-                and cid = #{cid}
-            </if>
             <if test="dname != null and dname != ''">
                 dname = #{dname},
             </if>
@@ -126,7 +123,7 @@
                 daddress = #{daddress},
             </if>
             <if test="dphone != null and dphone != ''">
-                and dphone = #{dphone}
+                dphone = #{dphone}
             </if>
         </set>
         where did = #{did}
