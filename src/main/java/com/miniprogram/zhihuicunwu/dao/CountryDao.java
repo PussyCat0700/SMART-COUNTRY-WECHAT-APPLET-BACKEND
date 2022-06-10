@@ -21,6 +21,8 @@ public interface CountryDao {
      */
     Country queryById(Integer cid);
 
+    Country queryByCcode(String ccode);
+
     /**
      * 查询指定行数据
      *

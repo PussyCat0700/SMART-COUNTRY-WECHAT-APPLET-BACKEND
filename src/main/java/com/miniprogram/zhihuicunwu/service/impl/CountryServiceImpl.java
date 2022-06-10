@@ -29,6 +29,8 @@ public class CountryServiceImpl implements CountryService {
         return this.countryDao.queryById(cid);
     }
 
+    @Override
+    public Country queryByCcode(String ccode) { return this.countryDao.queryByCcode(ccode); }
     /**
      * 新增数据
      *

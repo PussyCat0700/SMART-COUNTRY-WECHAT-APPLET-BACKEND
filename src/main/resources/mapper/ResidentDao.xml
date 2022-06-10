@@ -47,8 +47,8 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="uid" useGeneratedKeys="true">
-        insert into resident(cid)
-        values (#{cid})
+        insert into resident(cid, uid)
+        values (#{cid}, #{uid})
     </insert>
 
     <insert id="insertBatch" keyProperty="uid" useGeneratedKeys="true">

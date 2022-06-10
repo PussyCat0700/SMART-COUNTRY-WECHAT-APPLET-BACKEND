@@ -18,6 +18,14 @@
         where cid = #{cid}
     </select>
 
+    <!--根据ccode查询单个-->
+    <select id="queryByCcode" resultMap="CountryMap">
+        select
+            cid, score, location, cname, ccode
+        from country
+        where ccode = #{ccode}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="CountryMap">
         select

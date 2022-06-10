@@ -13,6 +13,8 @@ public class Publication implements Serializable {
     private static final long serialVersionUID = -53977151753006794L;
     
     private Integer pid;
+
+    private Integer cid;
     
     private String ptype;
     
@@ -33,6 +35,14 @@ public class Publication implements Serializable {
 
     public void setPid(Integer pid) {
         this.pid = pid;
+    }
+
+    public Integer getCid() {
+        return cid;
+    }
+
+    public void setCid(Integer cid) {
+        this.cid = cid;
     }
 
     public String getPtype() {

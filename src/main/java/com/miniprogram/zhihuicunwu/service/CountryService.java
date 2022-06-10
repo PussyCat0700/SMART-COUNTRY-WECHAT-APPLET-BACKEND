@@ -18,6 +18,8 @@ public interface CountryService {
      */
     Country queryById(Integer cid);
 
+    Country queryByCcode(String ccode);
+
     /**
      * 新增数据
      *

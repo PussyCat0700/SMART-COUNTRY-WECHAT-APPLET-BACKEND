@@ -28,8 +28,8 @@ public class PublicationServiceImpl implements PublicationService {
      * @return 查询结果
      */
     @Override
-    public Page<Publication> queryByPage(Pageable pageRequest) {
-        return new PageImpl<>(this.publicationDao.queryAllByLimit(pageRequest));
+    public Page<Publication> queryByPage(Pageable pageRequest, Integer cid) {
+        return new PageImpl<>(this.publicationDao.queryAllByLimit(pageRequest, cid));
     }
 
     @Override
@@ -60,7 +60,7 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
-    public List<Publication> queryFuzzyByTitle(String keywords) { return this.publicationDao.queryFuzzyByTitle(keywords); }
+    public List<Publication> queryFuzzyByTitle(String keywords, Integer cid) { return this.publicationDao.queryFuzzyByTitle(keywords, cid); }
 
     /**
      * 新增数据

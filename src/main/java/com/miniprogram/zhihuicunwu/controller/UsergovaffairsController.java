@@ -224,8 +224,8 @@ public class UsergovaffairsController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
-    public ResponseEntity<Boolean> deleteById(Integer id) {
+    @DeleteMapping("/delete/{usergaid}")
+    public ResponseEntity<Boolean> deleteById(@PathVariable("usergaid") Integer id) {
         return ResponseEntity.ok(this.usergovaffairsService.deleteById(id));
     }
 

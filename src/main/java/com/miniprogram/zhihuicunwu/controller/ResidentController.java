@@ -1,7 +1,12 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.miniprogram.zhihuicunwu.entity.Country;
 import com.miniprogram.zhihuicunwu.entity.Resident;
+import com.miniprogram.zhihuicunwu.entity.User;
+import com.miniprogram.zhihuicunwu.service.CountryService;
 import com.miniprogram.zhihuicunwu.service.ResidentService;
+import com.miniprogram.zhihuicunwu.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +26,10 @@ public class ResidentController {
      */
     @Resource
     private ResidentService residentService;
+    @Resource
+    private CountryService countryService;
+    @Resource
+    private UserService userService;
 
     /**
      * 通过主键查询单条数据
@@ -36,12 +45,35 @@ public class ResidentController {
     /**
      * 新增数据
      *
-     * @param resident 实体
+     * @param params 实体
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Resident> add(@RequestBody Resident resident) {
-        return ResponseEntity.ok(this.residentService.insert(resident));
+    public ResponseEntity<JSONObject> add(@RequestBody JSONObject params) {
+        JSONObject ret = new JSONObject();
+        Resident resident = new Resident();
+        Resident resident_1 = this.residentService.queryById(params.getInteger("uid"));
+        User user = this.userService.queryById(params.getInteger("uid"));
+        Country country = this.countryService.queryByCcode(params.getString("countryCode"));
+
+        if(user == null || country == null || resident_1 != null)
+        {
+            ret.put("result", false);
+        }
+        else
+        {
+            resident.setCid(country.getCid());
+            resident.setUid(params.getInteger("uid"));
+            this.residentService.insert(resident);
+
+            ret.put("result", true);
+            ret.put("cid", country.getCid());
+            ret.put("score", country.getScore());
+            ret.put("location", country.getLocation());
+            ret.put("cname", country.getCname());
+            ret.put("ccode", country.getCcode());
+        }
+        return ResponseEntity.ok(ret);
     }
 
     /**

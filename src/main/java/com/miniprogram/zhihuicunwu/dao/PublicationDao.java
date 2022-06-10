@@ -22,7 +22,7 @@ public interface PublicationDao {
     Publication queryById(Integer pid);
 
     //根据标题模糊查询
-    List<Publication> queryFuzzyByTitle(String keywords);
+    List<Publication> queryFuzzyByTitle(String keywords, Integer cid);
 
     /**
      * 查询指定行数据
@@ -30,7 +30,7 @@ public interface PublicationDao {
      * @param pageable         分页对象
      * @return 对象列表
      */
-    List<Publication> queryAllByLimit(@Param("pageable") Pageable pageable);
+    List<Publication> queryAllByLimit(@Param("pageable") Pageable pageable, @Param("cid") Integer cid);
 
     /**
      * 任意查询（列表）

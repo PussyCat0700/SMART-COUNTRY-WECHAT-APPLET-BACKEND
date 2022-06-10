@@ -4,6 +4,7 @@
 
     <resultMap type="com.miniprogram.zhihuicunwu.entity.Publication" id="PublicationMap">
         <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="cid" column="cid" jdbcType="INTEGER"/>
         <result property="ptype" column="pType" jdbcType="VARCHAR"/>
         <result property="pcontent" column="pContent" jdbcType="VARCHAR"/>
         <result property="ptime" column="pTime" jdbcType="TIMESTAMP"/>
@@ -15,7 +16,7 @@
     <!--查询单个-->
     <select id="queryById" resultMap="PublicationMap">
         select
-          pid, pType, pContent, pTime, did, pTitle, pAbstract
+          pid, cid, pType, pContent, pTime, did, pTitle, pAbstract
         from publication
         where pid = #{pid}
     </select>
@@ -23,48 +24,31 @@
     <!--根据标题模糊查询-->
     <select id="queryFuzzyByTitle" resultMap="PublicationMap">
         select
-            pid, pType, pContent, pTime, did, pTitle, pAbstract
+            pid, cid, pType, pContent, pTime, did, pTitle, pAbstract
         from publication
-        where pTitle like #{keywords}
+        where pTitle like #{keywords} and cid = #{cid}
         ORDER BY pTime desc, pid desc
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PublicationMap">
         select
-          pid, pType, pContent, pTime, did, pTitle, pAbstract
+          pid, cid, pType, pContent, pTime, did, pTitle, pAbstract
         from publication
-        <where>
-            <if test="pid != null">
-                and pid = #{pid}
-            </if>
-            <if test="ptype != null and ptype != ''">
-                and pType = #{ptype}
-            </if>
-            <if test="pcontent != null and pcontent != ''">
-                and pContent = #{pcontent}
-            </if>
-            <if test="ptime != null">
-                and pTime = #{ptime}
-            </if>
-            <if test="did != null">
-                and did = #{did}
-            </if>
-            <if test="ptitle != null and ptitle != ''">
-                and pTitle = #{ptitle}
-            </if>
-            <if test="pabstract != null and pabstract != ''">
-                and pAbstract = #{pabstract}
-            </if>
-        </where>
+        where cid = #{cid}
+        order by ptime desc, pid desc
         limit #{pageable.offset}, #{pageable.pageSize}
     </select>
+
     <!--任意查询（返回列表）-->
     <select id="queryAllByAny" resultMap="PublicationMap">
         select
-          pid, pType, pContent, pTime, did, pTitle, pAbstract
+          pid, cid, pType, pContent, pTime, did, pTitle, pAbstract
         from publication
         <where>
+            <if test="cid != null">
+                cid = #{cid},
+            </if>
             <if test="pid != null">
                 and pid = #{pid}
             </if>
@@ -98,6 +82,9 @@
         select count(1)
         from publication
         <where>
+            <if test="cid != null">
+                cid = #{cid},
+            </if>
             <if test="pid != null">
                 and pid = #{pid}
             </if>
@@ -130,25 +117,26 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="pid" useGeneratedKeys="true">
-        insert into publication(pType, pContent, pTime, did, pTitle, pAbstract)
-        values (#{ptype}, #{pcontent}, #{ptime}, #{did}, #{ptitle}, #{pabstract})
+        insert into publication(cid, pType, pContent, pTime, did, pTitle, pAbstract)
+        values (#{cid}, #{ptype}, #{pcontent}, #{ptime}, #{did}, #{ptitle}, #{pabstract})
     </insert>
 
     <insert id="insertBatch" keyProperty="pid" useGeneratedKeys="true">
-        insert into publication(pType, pContent, pTime, did, pTitle, pAbstract)
+        insert into publication(cid, pType, pContent, pTime, did, pTitle, pAbstract)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.ptype}, #{entity.pcontent}, #{entity.ptime}, #{entity.did}, #{entity.ptitle}, #{entity.pabstract})
+        (#{entity.cid}, #{entity.ptype}, #{entity.pcontent}, #{entity.ptime}, #{entity.did}, #{entity.ptitle}, #{entity.pabstract})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="pid" useGeneratedKeys="true">
-        insert into publication(pType, pContent, pTime, did, pTitle, pAbstract)
+        insert into publication(cid, pType, pContent, pTime, did, pTitle, pAbstract)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.ptype}, #{entity.pcontent}, #{entity.ptime}, #{entity.did}, #{entity.ptitle}, #{entity.pabstract})
+            (#{entity.cid}, #{entity.ptype}, #{entity.pcontent}, #{entity.ptime}, #{entity.did}, #{entity.ptitle}, #{entity.pabstract})
         </foreach>
         on duplicate key update
+        cid = values(cid),
         pType = values(pType),
         pContent = values(pContent),
         pTime = values(pTime),
@@ -161,6 +149,9 @@
     <update id="update">
         update publication
         <set>
+            <if test="cid != null">
+                cid = #{cid},
+            </if>
             <if test="ptype != null and ptype != ''">
                 pType = #{ptype},
             </if>

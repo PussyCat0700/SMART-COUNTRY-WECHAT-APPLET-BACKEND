@@ -24,7 +24,7 @@ public interface PublicationService {
     Publication queryById(Integer pid);
 
     //根据标题模糊查询
-    List<Publication> queryFuzzyByTitle(String keywords);
+    List<Publication> queryFuzzyByTitle(String keywords, Integer cid);
 
     int countAll();
 
@@ -34,7 +34,7 @@ public interface PublicationService {
      * @param pageRequest      分页对象
      * @return 查询结果
      */
-    Page<Publication> queryByPage(Pageable pageRequest);
+    Page<Publication> queryByPage(Pageable pageRequest, Integer cid);
     /**
      * 通过任意字段查询数据列表
      *

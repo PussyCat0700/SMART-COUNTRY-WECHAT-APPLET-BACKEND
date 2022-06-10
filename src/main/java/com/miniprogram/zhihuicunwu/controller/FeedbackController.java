@@ -5,6 +5,7 @@ import com.miniprogram.zhihuicunwu.entity.Feedback;
 import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.service.FeedbackService;
 import com.miniprogram.zhihuicunwu.service.UserService;
+import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -71,7 +72,7 @@ public class FeedbackController {
         {
             User user = userService.queryById(feedbacks.get(i).getUid());
             JSONObject user_info = new JSONObject();
-            String avartar = user.getUphoto();
+            String avartar = ImageIOUtils.getUrlFromDBRecord(user.getUphoto());
 
             user_info.put("avatarUrl", avartar);
 
@@ -104,7 +105,7 @@ public class FeedbackController {
         {
             User user = userService.queryById(feedbacks.get(i).getUid());
             JSONObject user_info = new JSONObject();
-            String avartar = user.getUphoto();
+            String avartar = ImageIOUtils.getUrlFromDBRecord(user.getUphoto());
 
             user_info.put("avatarUrl", avartar);
             user_info.put("nickName", user.getUname());

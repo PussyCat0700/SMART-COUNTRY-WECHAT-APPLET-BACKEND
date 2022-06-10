@@ -9,10 +9,12 @@ import com.miniprogram.zhihuicunwu.service.DepartmentService;
 import com.miniprogram.zhihuicunwu.service.DepartmentimgService;
 import com.miniprogram.zhihuicunwu.service.DeptgovaffairsService;
 import com.miniprogram.zhihuicunwu.service.GovaffairsService;
+import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -126,7 +128,8 @@ public class DepartmentController {
             List<String> images = new ArrayList<>();
             for(int j = 0; j < departmentimgs.size(); j++)
             {
-                images.add(departmentimgs.get(j).getDpic());
+                String url = ImageIOUtils.getUrlFromDBRecord(departmentimgs.get(j).getDpic());
+                images.add(url);
             }
 
             temp.put("images", images);
@@ -144,7 +147,7 @@ public class DepartmentController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<JSONObject> add(@RequestBody JSONObject params) {
+    public ResponseEntity<JSONObject> add(@RequestBody JSONObject params) throws IOException {
         JSONObject ret = new JSONObject();
         //先在Department表中添加
         Department department = new Department();
@@ -155,7 +158,6 @@ public class DepartmentController {
         department.setDphone(params.getString("phone"));
         this.departmentService.insert(department);
 
-        //TODO：需要将获得的String(base64)转换成图片，再将图片的url存入数据库
         Object images_obj = params.get("images");
         List<String> images = new ArrayList<String>();
         if (images_obj instanceof ArrayList<?>)
@@ -170,7 +172,8 @@ public class DepartmentController {
         {
             Departmentimg departmentimg = new Departmentimg();
             departmentimg.setDid(department.getDid());
-            departmentimg.setDpic(images.get(i));
+            String url = ImageIOUtils.uploadImg(images.get(i));
+            departmentimg.setDpic(url);
             this.departmentimgService.insert(departmentimg);
         }
 
@@ -193,7 +196,7 @@ public class DepartmentController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<JSONObject> edit(@RequestBody JSONObject params) {
+    public ResponseEntity<JSONObject> edit(@RequestBody JSONObject params) throws IOException {
         Department department = this.departmentService.queryById(params.getInteger("did"));
         List<Departmentimg> departmentimgs = this.departmentimgService.queryByDid(department.getDid());
         JSONObject ret = new JSONObject();
@@ -210,7 +213,6 @@ public class DepartmentController {
 
         this.departmentService.update(department);
 
-        //TODO：需要将获得的String(base64)转换成图片，再将图片的url存入数据库
         Object images_obj = params.get("images");
         List<String> images = new ArrayList<String>();
         if (images_obj instanceof ArrayList<?>)
@@ -225,7 +227,8 @@ public class DepartmentController {
         {
             Departmentimg departmentimg = new Departmentimg();
             departmentimg.setDid(department.getDid());
-            departmentimg.setDpic(images.get(i));
+            String url = ImageIOUtils.uploadImg(images.get(i));
+            departmentimg.setDpic(url);
             this.departmentimgService.insert(departmentimg);
         }
 

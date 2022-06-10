@@ -8,6 +8,7 @@ import com.miniprogram.zhihuicunwu.service.PublicationService;
 import com.miniprogram.zhihuicunwu.service.PublicationattachService;
 import com.miniprogram.zhihuicunwu.service.PublicationpicService;
 import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -42,18 +43,18 @@ public class PublicationController {
      *
      * @return 查询结果
      */
-    @GetMapping
-    public ResponseEntity<cn.hutool.json.JSONObject> queryByPage() {
-        cn.hutool.json.JSONObject ret = new cn.hutool.json.JSONObject();
+    @GetMapping("/latest/{cid}")
+    public ResponseEntity<JSONObject> queryByPage(@PathVariable("cid") Integer cid) {
+        JSONObject ret = new JSONObject();
         int pagesize_max = this.publicationService.countAll();
         int size = pagesize_max >= 16 ? 16 : pagesize_max;
         int page = 0;
 
         Pageable pageable = new PageRequest(page,size);
-        Page<Publication> pages = this.publicationService.queryByPage(pageable);
+        Page<Publication> pages = this.publicationService.queryByPage(pageable, cid);
 
         List<Publication> publications = pages.getContent();
-        List<cn.hutool.json.JSONObject> news = new ArrayList<cn.hutool.json.JSONObject>();
+        List<JSONObject> news = new ArrayList<JSONObject>();
         for(int i = 0; i < publications.size(); i++)
         {
             List<Publicationattach> publicationattaches = this.publicationattachService.queryByPid(publications.get(i).getPid());
@@ -67,14 +68,17 @@ public class PublicationController {
             List<String> images = new ArrayList<>();
             for(int j = 0; j < publicationpics.size(); j++)
             {
-                images.add(publicationpics.get(j).getPpic());
+                String url = ImageIOUtils.getUrlFromDBRecord(publicationpics.get(j).getPpic());
+                images.add(url);
             }
 
-            cn.hutool.json.JSONObject temp = new cn.hutool.json.JSONObject();
+            JSONObject temp = new JSONObject();
             temp.put("title", publications.get(i).getPtitle());
             temp.put("pid", publications.get(i).getPid());
             temp.put("type", publications.get(i).getPtype());
             temp.put("headPic", images);
+            temp.put("abstract", publications.get(i).getPabstract());
+            temp.put("create_time", publications.get(i).getPtime());
             news.add(temp);
         }
 
@@ -100,7 +104,8 @@ public class PublicationController {
 
         for(int i = 0; i < publicationpics.size(); i++)
         {
-            images.add(publicationpics.get(i).getPpic());
+            String url = ImageIOUtils.getUrlFromDBRecord(publicationpics.get(i).getPpic());
+            images.add(url);
         }
         for(int i = 0; i < publicationattaches.size(); i++)
         {
@@ -120,12 +125,16 @@ public class PublicationController {
         return ResponseEntity.ok(ret);
     }
 
-    @GetMapping("/fuzzy/{keywords}")
-    public ResponseEntity<JSONObject> queryFuzzyByTitle(@PathVariable("keywords") String keywords)
+    @GetMapping("/fuzzy")
+    public ResponseEntity<JSONObject> queryFuzzyByTitle(@RequestBody JSONObject params)
     {
         JSONObject ret = new JSONObject();
         List<JSONObject> news = new ArrayList<JSONObject>();
-        List<Publication> publications = this.publicationService.queryFuzzyByTitle("%" + keywords + "%");
+
+        String keywords = params.getString("keywords");
+        Integer cid = params.getInteger("cid");
+
+        List<Publication> publications = this.publicationService.queryFuzzyByTitle("%" + keywords + "%", cid);
         for(int i = 0; i < publications.size(); i++)
         {
             List<Publicationattach> publicationattaches = this.publicationattachService.queryByPid(publications.get(i).getPid());
@@ -139,7 +148,8 @@ public class PublicationController {
             List<String> images = new ArrayList<>();
             for(int j = 0; j < publicationpics.size(); j++)
             {
-                images.add(publicationpics.get(j).getPpic());
+                String url = ImageIOUtils.getUrlFromDBRecord(publicationpics.get(j).getPpic());
+                images.add(url);
             }
 
             JSONObject temp = new JSONObject();
@@ -147,6 +157,8 @@ public class PublicationController {
             temp.put("pid", publications.get(i).getPid());
             temp.put("type", publications.get(i).getPtype());
             temp.put("headPic", images);
+            temp.put("abstract", publications.get(i).getPabstract());
+            temp.put("create_time", publications.get(i).getPtime());
             news.add(temp);
         }
 
