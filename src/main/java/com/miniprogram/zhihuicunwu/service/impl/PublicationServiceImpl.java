@@ -3,6 +3,8 @@ package com.miniprogram.zhihuicunwu.service.impl;
 import com.miniprogram.zhihuicunwu.entity.Publication;
 import com.miniprogram.zhihuicunwu.dao.PublicationDao;
 import com.miniprogram.zhihuicunwu.service.PublicationService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,22 @@ import java.util.List;
 public class PublicationServiceImpl implements PublicationService {
     @Resource
     private PublicationDao publicationDao;
+    /**
+     * 分页查询
+     *
+     * @param pageRequest      分页对象
+     * @return 查询结果
+     */
+    @Override
+    public Page<Publication> queryByPage(Pageable pageRequest) {
+        return new PageImpl<>(this.publicationDao.queryAllByLimit(pageRequest));
+    }
 
+    @Override
+    public int countAll()
+    {
+        return this.publicationDao.countAll();
+    }
     /**
      * 通过ID查询单条数据
      *

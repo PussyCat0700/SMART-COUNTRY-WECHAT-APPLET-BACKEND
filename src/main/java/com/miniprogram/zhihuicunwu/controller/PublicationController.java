@@ -37,7 +37,52 @@ public class PublicationController {
     private PublicationpicService publicationpicService;
     @Resource
     private PublicationattachService publicationattachService;
+    /**
+     * 分页查询
+     *
+     * @return 查询结果
+     */
+    @GetMapping
+    public ResponseEntity<cn.hutool.json.JSONObject> queryByPage() {
+        cn.hutool.json.JSONObject ret = new cn.hutool.json.JSONObject();
+        int pagesize_max = this.publicationService.countAll();
+        int size = pagesize_max >= 16 ? 16 : pagesize_max;
+        int page = 0;
 
+        Pageable pageable = new PageRequest(page,size);
+        Page<Publication> pages = this.publicationService.queryByPage(pageable);
+
+        List<Publication> publications = pages.getContent();
+        List<cn.hutool.json.JSONObject> news = new ArrayList<cn.hutool.json.JSONObject>();
+        for(int i = 0; i < publications.size(); i++)
+        {
+            List<Publicationattach> publicationattaches = this.publicationattachService.queryByPid(publications.get(i).getPid());
+            List<String> attatches = new ArrayList<>();
+            for(int j = 0; j < publicationattaches.size(); j++)
+            {
+                attatches.add(publicationattaches.get(j).getPattach());
+            }
+
+            List<Publicationpic> publicationpics = this.publicationpicService.queryByPid(publications.get(i).getPid());
+            List<String> images = new ArrayList<>();
+            for(int j = 0; j < publicationpics.size(); j++)
+            {
+                images.add(publicationpics.get(j).getPpic());
+            }
+
+            cn.hutool.json.JSONObject temp = new cn.hutool.json.JSONObject();
+            temp.put("title", publications.get(i).getPtitle());
+            temp.put("pid", publications.get(i).getPid());
+            temp.put("type", publications.get(i).getPtype());
+            temp.put("headPic", images);
+            news.add(temp);
+        }
+
+        ret.put("result", true);
+        ret.put("news", news);
+
+        return ResponseEntity.ok(ret);
+    }
     /**
      * 通过主键查询单条数据
      *
