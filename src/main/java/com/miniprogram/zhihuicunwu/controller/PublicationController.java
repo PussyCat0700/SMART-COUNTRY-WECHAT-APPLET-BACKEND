@@ -125,7 +125,7 @@ public class PublicationController {
         return ResponseEntity.ok(ret);
     }
 
-    @GetMapping("/fuzzy")
+    @PostMapping("/fuzzy")
     public ResponseEntity<JSONObject> queryFuzzyByTitle(@RequestBody JSONObject params)
     {
         JSONObject ret = new JSONObject();
