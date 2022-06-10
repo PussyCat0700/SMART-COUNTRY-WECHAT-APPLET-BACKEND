@@ -11,6 +11,7 @@ import com.miniprogram.zhihuicunwu.service.DeptgovaffairsService;
 import com.miniprogram.zhihuicunwu.service.GovaffairsService;
 import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
 import org.springframework.http.ResponseEntity;
+import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -210,35 +211,31 @@ public class DepartmentController {
         department.setDdescription(params.getString("desc"));
         department.setDname(params.getString("name"));
         department.setDphone(params.getString("phone"));
+        try {
+            this.departmentService.update(department);
+        }catch (BadSqlGrammarException e){
+            /**
+             * 这是一个粗略的错误处理方法
+             * 我们在这里假设BadSQLGrammerException一定是由没有更新字段造成的！
+             */
+            ret.put("extra", "除图片外，部门其他字段未修改");
+        }finally {
+            String image = params.getString("dImage");
 
-        this.departmentService.update(department);
-
-        Object images_obj = params.get("images");
-        List<String> images = new ArrayList<String>();
-        if (images_obj instanceof ArrayList<?>)
-        {
-            for(Object o : (List<?>) images_obj)
-            {
-                images.add(String.class.cast(o));
-            }
-        }
-
-        for(int i = 0; i < images.size(); i++)
-        {
             Departmentimg departmentimg = new Departmentimg();
             departmentimg.setDid(department.getDid());
-            String url = ImageIOUtils.uploadImg(images.get(i));
+            String url = ImageIOUtils.uploadImg(image);
             departmentimg.setDpic(url);
             this.departmentimgService.insert(departmentimg);
-        }
 
-        if(department == null)
-        {
-            ret.put("result", false);
-        }
-        else
-        {
-            ret.put("result", true);
+            if(department == null)
+            {
+                ret.put("result", false);
+            }
+            else
+            {
+                ret.put("result", true);
+            }
         }
 
         return ResponseEntity.ok(ret);
