@@ -13,10 +13,6 @@ public class Usergovaffairs implements Serializable {
     private static final long serialVersionUID = -21502300697049037L;
     
     private Integer gaid;
-
-    public boolean finished;
-
-    public boolean unsatisfied;
     
     private Integer uid;
 
