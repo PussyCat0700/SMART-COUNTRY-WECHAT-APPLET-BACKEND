@@ -7,6 +7,8 @@ import com.miniprogram.zhihuicunwu.entity.Resident;
 import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.dao.UserDao;
 import com.miniprogram.zhihuicunwu.entity.Work;
+import com.miniprogram.zhihuicunwu.service.CountryService;
+import com.miniprogram.zhihuicunwu.service.DepartmentService;
 import com.miniprogram.zhihuicunwu.service.UserService;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +28,10 @@ public class UserServiceImpl implements UserService {
     private ResidentDao residentDao;
     @Resource
     private WorkDao workDao;
+    @Resource
+    private DepartmentService departmentService;
+    @Resource
+    private CountryService countryService;
 
     /**
      * 通过ID查询单条数据
@@ -46,7 +52,7 @@ public class UserServiceImpl implements UserService {
         Work w = null;
         if(u==null){
             u = User.parseFromJSON(userInfo);
-            u.setUwxid(openID); // 暂时无法获取
+            u.setUwxid(openID);
             if(this.userDao.insert(u) == 0) {
                 u = null;
             }
@@ -56,8 +62,9 @@ public class UserServiceImpl implements UserService {
             w = this.workDao.queryByUId(u.getUid());
         }
         jsonObject.put("user", u);
-        jsonObject.put("countryId", r==null?null:r.getCid());
-        jsonObject.put("departmentID", w==null?null:w.getDid());
+        jsonObject.put("country", countryService.queryById(r.getCid()));
+        jsonObject.put("work", w);
+        jsonObject.put("department", this.departmentService.queryById(w.getDid()));
         return jsonObject;
     }
 
