@@ -31,6 +31,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void setServerPort(String b){
         serverPort = b;
     }
+
+    public static String appId;
+    @Value("${app.id}")
+    public void setAppId(String b){
+        appId = b;
+    }
+
+    public static String appSecret;
+    @Value("${app.secret}")
+    public void setAppSecret(String b){
+        appSecret = b;
+    }
  
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

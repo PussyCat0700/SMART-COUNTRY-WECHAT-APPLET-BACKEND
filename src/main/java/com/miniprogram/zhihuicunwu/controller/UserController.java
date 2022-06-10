@@ -2,6 +2,7 @@ package com.miniprogram.zhihuicunwu.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.User;
+import com.miniprogram.zhihuicunwu.externalservices.LoginUtils;
 import com.miniprogram.zhihuicunwu.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -55,9 +56,15 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<JSONObject> loginOrRegister(@RequestBody JSONObject params){
         String encryptedData = params.getString("encryptedData");
+        String code = params.getString("code");
+        String iv = params.getString("iv");
+        JSONObject decodeResult = LoginUtils.INSTANCE.login(encryptedData, code, iv);
+        if(!decodeResult.containsKey("openId")){
+            return ResponseEntity.ok(decodeResult);
+        }
         // TODO 解密
         JSONObject userInfo = params.getJSONObject("userInfo");
-        return ResponseEntity.ok(this.userService.queryOrRegisterByOpenId(encryptedData, userInfo));
+        return ResponseEntity.ok(this.userService.queryOrRegisterByOpenId(decodeResult.getString("openId"), userInfo));
     }
 
     /**
