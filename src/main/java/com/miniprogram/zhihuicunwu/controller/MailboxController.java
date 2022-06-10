@@ -70,9 +70,7 @@ public class MailboxController {
         this.mailboxService.insert(mailbox);
 
         String base64 = params.getString("postImage");
-
         Mailboximg mailboximg = new Mailboximg();
-
         mailboximg.setMailboxid(mailbox.getMid());
         mailboximg.setImagebase64(base64);
 

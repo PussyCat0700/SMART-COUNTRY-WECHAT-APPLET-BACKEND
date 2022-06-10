@@ -1,5 +1,6 @@
 package com.miniprogram.zhihuicunwu.externalservices;
 
+import com.alibaba.fastjson.JSONObject;
 import org.junit.Test;
 
 import java.io.UnsupportedEncodingException;
@@ -10,6 +11,8 @@ public class SensitiveUtilsTest {
     @Test
     public void requestSensitiveService() throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
         String content = "救命！食材打人啦！";
-        SensitiveUtils.requestSensitiveService(content);
+        JSONObject ret = SensitiveUtils.requestSensitiveService(content);
+
+        System.out.println(ret);
     }
 }

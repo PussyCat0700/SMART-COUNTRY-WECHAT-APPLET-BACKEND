@@ -75,6 +75,7 @@ public class FeedbackController {
             String avartar = ImageIOUtils.getUrlFromDBRecord(user.getUphoto());
 
             user_info.put("avatarUrl", avartar);
+            user_info.put("nickName", user.getUname());
 
             JSONObject temp = new JSONObject();
             temp.put("id", feedbacks.get(i).getFid());

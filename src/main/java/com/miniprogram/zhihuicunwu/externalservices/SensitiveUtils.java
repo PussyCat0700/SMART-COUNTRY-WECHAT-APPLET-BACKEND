@@ -1,6 +1,7 @@
 package com.miniprogram.zhihuicunwu.externalservices;
 
 import cn.hutool.core.codec.Base64Encoder;
+import com.alibaba.fastjson.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -46,7 +47,7 @@ public class SensitiveUtils {
         return sb.toString();
     }
 
-    public static void requestSensitiveService(String testContent) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
+    public static JSONObject requestSensitiveService(String testContent) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
         //云市场分配的密钥Id
         String secretId = "AKID9b649kbCH5KcrLIUs2fU27XFCppHzw0pzjO0";
         //云市场分配的密钥Key
@@ -113,12 +114,18 @@ public class SensitiveUtils {
             String line;
             String result = "";
             while ((line = in.readLine()) != null) {
-                System.out.println(line);
-                result += line;
+                result = result + line + "\n";
             }
+
+            JSONObject ret = JSONObject.parseObject(result);
+            ret.put("result", true);
+            return ret;
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
+            JSONObject ret = new JSONObject();
+            ret.put("result", false);
+            return ret;
         } finally {
             try {
                 if (in != null) {
