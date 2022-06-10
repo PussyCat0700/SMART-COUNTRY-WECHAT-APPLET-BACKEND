@@ -1,6 +1,7 @@
 package com.miniprogram.zhihuicunwu.entity;
 
 import com.alibaba.fastjson.JSONObject;
+import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
 
 import java.io.Serializable;
 import java.sql.Blob;
@@ -127,6 +128,7 @@ public class User implements Serializable {
         JSONObject ret = new JSONObject();
         ret.put("userId", uid);
         ret.put("userName", uname);
+        ret.put("avatar", ImageIOUtils.getUrlFromDBRecord(uphoto));
         return ret;
     }
 

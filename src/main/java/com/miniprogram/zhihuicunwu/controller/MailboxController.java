@@ -69,25 +69,14 @@ public class MailboxController {
         mailbox.setCid(params.getInteger("cid"));
         this.mailboxService.insert(mailbox);
 
-        //TODO：需要将获得的String(base64)转换成图片，再将图片的url存入数据库
-        Object images_obj = params.get("images");
-        List<String> images = new ArrayList<String>();
-        if (images_obj instanceof ArrayList<?>)
-        {
-            for(Object o : (List<?>) images_obj)
-            {
-                images.add(String.class.cast(o));
-            }
-        }
+        String base64 = params.getString("postImage");
 
-        for(int i = 0; i < images.size(); i++) {
-            Mailboximg mailboximg = new Mailboximg();
+        Mailboximg mailboximg = new Mailboximg();
 
-            mailboximg.setMailboxid(mailbox.getMid());
-            mailboximg.setImagebase64(images.get(i));
+        mailboximg.setMailboxid(mailbox.getMid());
+        mailboximg.setImagebase64(base64);
 
-            this.mailboximgService.insert(mailboximg);
-        }
+        this.mailboximgService.insert(mailboximg);
 
 
         return ResponseEntity.ok(mailbox);
