@@ -2,6 +2,7 @@ package com.miniprogram.zhihuicunwu.externalservices
 
 import com.alibaba.fastjson.JSONObject
 import com.miniprogram.zhihuicunwu.exception.OCRAccessTokenException
+import com.miniprogram.zhihuicunwu.util.Base64Util
 import com.miniprogram.zhihuicunwu.util.UnirestUtils
 
 object OCRUtils {
@@ -39,5 +40,8 @@ object OCRUtils {
                 queryString = mapOf("access_token" to accessToken)
         )
     }
+
+    fun bas64ToJSONString(base64String: String) = requestOCRService(base64String).toJSONString()
+    fun urlToJSONString(url:String) = bas64ToJSONString(Base64Util.imageUrlToBase64(url));
 
 }

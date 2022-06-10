@@ -3,21 +3,15 @@ package com.miniprogram.zhihuicunwu.externalservices;
 import cn.hutool.core.codec.Base64Encoder;
 import com.alibaba.fastjson.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import javax.crypto.Mac;
+import javax.crypto.spec.SecretKeySpec;
+import java.io.*;
+import java.net.*;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-
-import javax.crypto.Mac;
-import javax.crypto.spec.SecretKeySpec;
 
 public class SensitiveUtils {
     public static String calcAuthorization(String source, String secretId, String secretKey, String datetime)
@@ -47,7 +41,7 @@ public class SensitiveUtils {
         return sb.toString();
     }
 
-    public static JSONObject requestSensitiveService(String testContent) throws NoSuchAlgorithmException, UnsupportedEncodingException, InvalidKeyException {
+    public static JSONObject requestSensitiveService(String testContent) throws NoSuchAlgorithmException, IOException, InvalidKeyException {
         //云市场分配的密钥Id
         String secretId = "AKID9b649kbCH5KcrLIUs2fU27XFCppHzw0pzjO0";
         //云市场分配的密钥Key
@@ -81,59 +75,42 @@ public class SensitiveUtils {
         }
 
         BufferedReader in = null;
-        try {
-            URL realUrl = new URL(url);
-            HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
-            conn.setConnectTimeout(5000);
-            conn.setReadTimeout(5000);
-            conn.setRequestMethod(method);
+        URL realUrl = new URL(url);
+        HttpURLConnection conn = (HttpURLConnection) realUrl.openConnection();
+        conn.setConnectTimeout(5000);
+        conn.setReadTimeout(5000);
+        conn.setRequestMethod(method);
 
-            // request headers
-            for (Map.Entry<String, String> entry : headers.entrySet()) {
-                conn.setRequestProperty(entry.getKey(), entry.getValue());
-            }
-
-            // request body
-            Map<String, Boolean> methods = new HashMap<>();
-            methods.put("POST", true);
-            methods.put("PUT", true);
-            methods.put("PATCH", true);
-            Boolean hasBody = methods.get(method);
-            if (hasBody != null) {
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-                conn.setDoOutput(true);
-                DataOutputStream out = new DataOutputStream(conn.getOutputStream());
-                out.writeBytes(urlencode(bodyParams));
-                out.flush();
-                out.close();
-            }
-
-            // 定义 BufferedReader输入流来读取URL的响应
-            in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            String line;
-            String result = "";
-            while ((line = in.readLine()) != null) {
-                result = result + line + "\n";
-            }
-
-            JSONObject ret = JSONObject.parseObject(result);
-            ret.put("result", true);
-            return ret;
-        } catch (Exception e) {
-            System.out.println(e);
-            e.printStackTrace();
-            JSONObject ret = new JSONObject();
-            ret.put("result", false);
-            return ret;
-        } finally {
-            try {
-                if (in != null) {
-                    in.close();
-                }
-            } catch (Exception e2) {
-                e2.printStackTrace();
-            }
+        // request headers
+        for (Map.Entry<String, String> entry : headers.entrySet()) {
+            conn.setRequestProperty(entry.getKey(), entry.getValue());
         }
+
+        // request body
+        Map<String, Boolean> methods = new HashMap<>();
+        methods.put("POST", true);
+        methods.put("PUT", true);
+        methods.put("PATCH", true);
+        Boolean hasBody = methods.get(method);
+        if (hasBody != null) {
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+            conn.setDoOutput(true);
+            DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+            out.writeBytes(urlencode(bodyParams));
+            out.flush();
+            out.close();
+        }
+
+        // 定义 BufferedReader输入流来读取URL的响应
+        in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        String line;
+        String result = "";
+        while ((line = in.readLine()) != null) {
+            System.out.println(line);
+            result += line;
+        }
+        JSONObject jsonObject = JSONObject.parseObject(result);
+        return jsonObject;
     }
 }

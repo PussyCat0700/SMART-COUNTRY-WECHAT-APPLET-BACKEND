@@ -92,7 +92,7 @@ public class DepartmentController {
                 temp.put("name", govaffairs.getGaname());
                 temp.put("id", GAid);
 
-                boolean isArrival = govaffairs.getIsarrival() == 0 ? false : true;
+                boolean isArrival = govaffairs.getIsarrival() != 0;
                 if (isArrival) {
                     arrivals.add(temp);
                 }
@@ -178,14 +178,7 @@ public class DepartmentController {
             this.departmentimgService.insert(departmentimg);
         }
 
-        if(department == null)
-        {
-            ret.put("result", false);
-        }
-        else
-        {
-            ret.put("result", true);
-        }
+        ret.put("result", true);
 
         return ResponseEntity.ok(ret);
     }

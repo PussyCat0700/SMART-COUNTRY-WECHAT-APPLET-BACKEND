@@ -58,13 +58,12 @@ public class UserController {
         String encryptedData = params.getString("encryptedData");
         String code = params.getString("code");
         String iv = params.getString("iv");
-        JSONObject decodeResult = LoginUtils.INSTANCE.login(encryptedData, code, iv);
-        if(!decodeResult.containsKey("openId")){
+        JSONObject decodeResult = LoginUtils.INSTANCE.login(code);
+        if(!decodeResult.containsKey("openid")){
             return ResponseEntity.ok(decodeResult);
         }
-        // TODO 解密
         JSONObject userInfo = params.getJSONObject("userInfo");
-        return ResponseEntity.ok(this.userService.queryOrRegisterByOpenId(decodeResult.getString("openId"), userInfo));
+        return ResponseEntity.ok(this.userService.queryOrRegisterByOpenId(decodeResult.getString("openid"), userInfo));
     }
 
     /**

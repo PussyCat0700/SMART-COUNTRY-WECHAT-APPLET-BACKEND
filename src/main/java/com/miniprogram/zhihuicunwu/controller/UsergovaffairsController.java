@@ -179,7 +179,7 @@ public class UsergovaffairsController {
         usergovaffairs.setAddress(params.getString("arrival_location"));
         usergovaffairs.setAppointTime(DateUtil.Companion.dateFromString(appoint_time_str));
         usergovaffairs.setGaname(params.getString("service"));
-        usergovaffairs.setStatus(AffairStatus.JUST_REGISTERED.ordinal());  //默认
+        usergovaffairs.setStatus(AffairStatus.ORDERED.ordinal());  //默认
         usergovaffairs.setRate(0);  //默认
         usergovaffairs.setComment("");  //默认
         usergovaffairs.setContent(params.getString("content"));
@@ -199,23 +199,62 @@ public class UsergovaffairsController {
         return ResponseEntity.ok(usergovaffairs);
     }
 
+    private ResponseEntity<JSONObject> getEditResult(Usergovaffairs usergovaffairs, AffairStatus newStatus){
+        JSONObject jsonObject = new JSONObject();
+        usergovaffairs.setStatus(newStatus.ordinal());
+        jsonObject.put("result", this.usergovaffairsService.update(usergovaffairs)!=null);
+        return ResponseEntity.ok(jsonObject);
+    }
+    private ResponseEntity<JSONObject> getBadResult(){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("result", false);
+        return ResponseEntity.ok(jsonObject);
+    }
+    private Integer getInputStatus(Usergovaffairs usergovaffairs){
+        return this.usergovaffairsService.queryById(usergovaffairs.getUsergaid()).getStatus();
+    }
     /**
-     * 编辑数据
+     * For Government Staff
+     * accept an order
      *
      * @param usergovaffairs 实体
      * @return 编辑结果
      */
-    @PutMapping
-    public ResponseEntity<JSONObject> edit(@RequestBody Usergovaffairs usergovaffairs) {
-        JSONObject jsonObject = new JSONObject();
-        if(usergovaffairs.finished){
-            usergovaffairs.setStatus(AffairStatus.FINISHED.ordinal());
+    @PutMapping("/accept")
+    public ResponseEntity<JSONObject> markAsAccepted(@RequestBody Usergovaffairs usergovaffairs) {
+        if(getInputStatus(usergovaffairs)!=AffairStatus.ORDERED.ordinal()){
+            return getBadResult();
         }
-        if(usergovaffairs.unsatisfied){
-            usergovaffairs.setStatus(AffairStatus.REBOOTED.ordinal());
+        return getEditResult(usergovaffairs, AffairStatus.ACCEPTED);
+    }
+    /**
+     * For User
+     * mark order as accomplished
+     *
+     * @param usergovaffairs 实体
+     * @return 编辑结果
+     */
+    @PutMapping("/accomplish")
+    public ResponseEntity<JSONObject> markAsFinished(@RequestBody Usergovaffairs usergovaffairs) {
+        if(getInputStatus(usergovaffairs)>AffairStatus.FINISHED.ordinal()){
+            return getBadResult();
         }
-        jsonObject.put("result", this.usergovaffairsService.update(usergovaffairs)!=null);
-        return ResponseEntity.ok(jsonObject);
+        return getEditResult(usergovaffairs, AffairStatus.FINISHED);
+    }
+
+    /**
+     * For User
+     * mark order as commented
+     *
+     * @param usergovaffairs 实体
+     * @return 编辑结果
+     */
+    @PutMapping("/comment")
+    public ResponseEntity<JSONObject> markAsCommented(@RequestBody Usergovaffairs usergovaffairs) {
+        if(getInputStatus(usergovaffairs)!=AffairStatus.FINISHED.ordinal()){
+            return getBadResult();
+        }
+        return getEditResult(usergovaffairs, AffairStatus.COMMENTED);
     }
 
     /**

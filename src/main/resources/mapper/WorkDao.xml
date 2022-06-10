@@ -22,21 +22,7 @@
         select
           did, uid, wname, wtime
         from work
-        <where>
-            <if test="did != null">
-                and did = #{did}
-            </if>
-            <if test="uid != null">
-                and uid = #{uid}
-            </if>
-            <if test="wname != null and wname != ''">
-                and wname = #{wname}
-            </if>
-            <if test="wtime != null">
-                and wtime = #{wtime}
-            </if>
-        </where>
-        limit #{pageable.offset}, #{pageable.pageSize}
+        where uid = #{uid}
     </select>
     <!--任意查询（返回列表）-->
     <select id="queryAllByAny" resultMap="WorkMap">

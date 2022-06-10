@@ -66,6 +66,9 @@ public class ResidentController {
             resident.setUid(params.getInteger("uid"));
             this.residentService.insert(resident);
 
+            user.setStatus(1);
+            this.userService.update(user);
+
             ret.put("result", true);
             ret.put("cid", country.getCid());
             ret.put("score", country.getScore());
