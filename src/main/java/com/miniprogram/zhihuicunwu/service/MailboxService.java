@@ -4,6 +4,8 @@ import com.miniprogram.zhihuicunwu.entity.Mailbox;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (Mailbox)表服务接口
  *
@@ -19,6 +21,8 @@ public interface MailboxService {
      * @return 实例对象
      */
     Mailbox queryById(Integer mid);
+
+    List<Mailbox> queryByCid(Integer cid);
 
     /**
      * 分页查询

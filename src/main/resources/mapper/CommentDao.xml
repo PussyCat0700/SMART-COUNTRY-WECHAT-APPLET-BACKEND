@@ -41,7 +41,7 @@
                 and content = #{content}
             </if>
             <if test="reply_comment_id != null">
-                reply_comment_id = #{replyCommentId},
+                and reply_comment_id = #{replyCommentId},
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -67,8 +67,8 @@
             <if test="content != null and content != ''">
                 and content = #{content}
             </if>
-            <if test="reply_comment_id != null">
-                reply_comment_id = #{replyCommentId},
+            <if test="replyCommentId != null">
+                and reply_comment_id = #{replyCommentId},
             </if>
         </where>
     </select>
@@ -94,7 +94,7 @@
                 and content = #{content}
             </if>
             <if test="reply_comment_id != null">
-                reply_comment_id = #{replyCommentId},
+                and reply_comment_id = #{replyCommentId},
             </if>
         </where>
     </select>

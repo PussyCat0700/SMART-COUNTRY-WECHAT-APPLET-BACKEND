@@ -16,6 +16,13 @@
         where img_id = #{imgId}
     </select>
 
+    <select id="queryByMid" resultMap="MailboximgMap">
+        select
+          img_id, mailboxId, imageBase64
+        from mailboximg
+        where mailboxId = #{mid}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="MailboximgMap">
         select

@@ -1,6 +1,7 @@
 package com.miniprogram.zhihuicunwu.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * (Mailbox)实体类
@@ -19,6 +20,7 @@ public class Mailbox implements Serializable {
 
     private Integer cid;
 
+    private Date createTime;
 
     public Integer getMid() {
         return mid;
@@ -48,6 +50,14 @@ public class Mailbox implements Serializable {
 
     public void setCid(Integer cid) {
         this.cid = cid;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
 }

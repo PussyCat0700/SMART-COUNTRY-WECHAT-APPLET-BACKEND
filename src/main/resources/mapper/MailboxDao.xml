@@ -7,20 +7,28 @@
         <result property="uid" column="uid" jdbcType="INTEGER"/>
         <result property="mailcontent" column="mailContent" jdbcType="VARCHAR"/>
         <result property="cid" column="cid" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="MailboxMap">
         select
-          mid, uid, mailContent, cid
+          mid, uid, mailContent, cid, create_time
         from mailbox
         where mid = #{mid}
+    </select>
+
+    <select id="queryByCid" resultMap="MailboxMap">
+        select
+          mid, uid, mailContent, cid, create_time
+        from mailbox
+        where cid = #{cid}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="MailboxMap">
         select
-          mid, uid, mailContent, cid
+          mid, uid, mailContent, cid, create_time
         from mailbox
         <where>
             <if test="mid != null">
@@ -55,6 +63,9 @@
             </if>
             <if test="cid != null">
                 cid = #{cid},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
             </if>
         </where>
     </select>

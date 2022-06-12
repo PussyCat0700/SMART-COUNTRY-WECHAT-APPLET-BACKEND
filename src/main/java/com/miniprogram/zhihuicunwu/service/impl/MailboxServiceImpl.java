@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Mailbox)表服务实现类
@@ -31,6 +32,9 @@ public class MailboxServiceImpl implements MailboxService {
     public Mailbox queryById(Integer mid) {
         return this.mailboxDao.queryById(mid);
     }
+
+    @Override
+    public List<Mailbox> queryByCid(Integer cid) { return this.mailboxDao.queryByCid(cid); }
 
     /**
      * 分页查询
