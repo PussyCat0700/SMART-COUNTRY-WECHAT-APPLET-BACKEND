@@ -1,5 +1,6 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Mailbox;
 import com.miniprogram.zhihuicunwu.entity.Mailboximg;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,11 +61,10 @@ public class MailboxController {
     public ResponseEntity<List> queryByCid(@PathVariable("cid") Integer cid) {
         List<Mailbox> mailboxs = this.mailboxService.queryByCid(cid);
         List<JSONObject> ret = new ArrayList<>();
-        List<Mailboximg> images = new ArrayList<>();
-        List<String> image_urls = new ArrayList<>();
-        JSONObject jsonObject = new JSONObject();
         if(mailboxs!=null) {
             for(int i = 0; i < mailboxs.size(); i++) {
+                List<String> image_urls = new ArrayList<>();
+                JSONObject jsonObject = new JSONObject();
                 jsonObject.put("content", mailboxs.get(i).getMailcontent());
                 jsonObject.put("id", mailboxs.get(i).getMid());
                 jsonObject.put("create_time", mailboxs.get(i).getCreateTime());
@@ -72,13 +73,13 @@ public class MailboxController {
                     jsonObject.put("userInfo", user.getBriefInfo());
                 }
 
-                images = this.mailboximgService.queryByMid(mailboxs.get(i).getMid());
+                List<Mailboximg> images = this.mailboximgService.queryByMid(mailboxs.get(i).getMid());
                 for(int j = 0; j < images.size(); j++)
                 {
                     String url = ImageIOUtils.getUrlFromDBRecord(images.get(j).getImagebase64());
                     image_urls.add(url);
                 }
-                jsonObject.put("images", image_urls);
+                jsonObject.put("postImages", image_urls);
 
                 ret.add(jsonObject);
             }
@@ -93,7 +94,7 @@ public class MailboxController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Mailbox> add(@RequestBody JSONObject params) {
+    public ResponseEntity<Mailbox> add(@RequestBody JSONObject params) throws IOException {
         //存到mailbox
         Mailbox mailbox = new Mailbox();
         mailbox.setUid(params.getInteger("uid"));
@@ -101,13 +102,14 @@ public class MailboxController {
         mailbox.setCid(params.getInteger("cid"));
         this.mailboxService.insert(mailbox);
 
-        String base64 = params.getString("postImage");
-        Mailboximg mailboximg = new Mailboximg();
-        mailboximg.setMailboxid(mailbox.getMid());
-        mailboximg.setImagebase64(base64);
-
-        this.mailboximgService.insert(mailboximg);
-
+        JSONArray base64List = params.getJSONArray("postImages");
+        for(Object base64:base64List){
+            Mailboximg mailboximg = new Mailboximg();
+            mailboximg.setMailboxid(mailbox.getMid());
+            String path = ImageIOUtils.uploadImg((String) base64);
+            mailboximg.setImagebase64(path);
+            this.mailboximgService.insert(mailboximg);
+        }
 
         return ResponseEntity.ok(mailbox);
     }
