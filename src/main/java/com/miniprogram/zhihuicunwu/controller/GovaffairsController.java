@@ -68,10 +68,9 @@ public class GovaffairsController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
-    public ResponseEntity<Boolean> deleteById(Integer id) {
+    @DeleteMapping("{service_id}")
+    public ResponseEntity<Boolean> deleteById(@PathVariable("service_id") Integer id) {
         return ResponseEntity.ok(this.govaffairsService.deleteById(id));
     }
-
 }
 

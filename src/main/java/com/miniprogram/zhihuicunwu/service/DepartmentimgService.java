@@ -22,7 +22,7 @@ public interface DepartmentimgService {
      */
     Departmentimg queryById(Integer imgId);
 
-    List<Departmentimg> queryByDid(Integer did);
+    Departmentimg queryByDid(Integer did);
 
     /**
      * 分页查询

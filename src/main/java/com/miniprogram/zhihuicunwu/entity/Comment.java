@@ -21,6 +21,8 @@ public class Comment implements Serializable {
     
     private String content;
 
+    private Integer replyCommentId;
+
 
     public Integer getCommentId() {
         return commentId;
@@ -62,5 +64,12 @@ public class Comment implements Serializable {
         this.content = content;
     }
 
+    public Integer getReplyCommentId() {
+        return replyCommentId;
+    }
+
+    public void setReplyCommentId(Integer replyCommentId) {
+        this.replyCommentId = replyCommentId;
+    }
 }
 

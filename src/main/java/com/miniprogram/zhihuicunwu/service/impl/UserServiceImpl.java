@@ -62,9 +62,9 @@ public class UserServiceImpl implements UserService {
             w = this.workDao.queryByUId(u.getUid());
         }
         jsonObject.put("user", u);
-        jsonObject.put("country", countryService.queryById(r.getCid()));
+        jsonObject.put("country", r==null?r:countryService.queryById(r.getCid()));
         jsonObject.put("work", w);
-        jsonObject.put("department", this.departmentService.queryById(w.getDid()));
+        jsonObject.put("department", w==null?w:this.departmentService.queryById(w.getDid()));
         return jsonObject;
     }
 

@@ -171,12 +171,26 @@ public class FeedbackController {
     /**
      * 编辑数据
      *
-     * @param feedback 实体
+     * @param params 实体
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<Feedback> edit(@RequestBody Feedback feedback) {
-        return ResponseEntity.ok(this.feedbackService.update(feedback));
+    public ResponseEntity<JSONObject> edit(@RequestBody JSONObject params) {
+        JSONObject ret = new JSONObject();
+        Feedback feedback = this.feedbackService.queryById(params.getInteger("fid"));
+
+        if(feedback != null)
+        {
+            ret.put("result", true);
+
+            feedback.setFreturn(params.getString("fReturn"));
+        }
+        else
+        {
+            ret.put("result", false);
+        }
+
+        return ResponseEntity.ok(ret);
     }
 
     /**

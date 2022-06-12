@@ -64,13 +64,8 @@ public class DepartmentController {
             List<JSONObject> spots = new ArrayList<>();
 
             //存基本信息
-            List<Departmentimg> departmentimgs = this.departmentimgService.queryByDid(department.getDid());
-            List<String> images = new ArrayList<>();
-
-            for(int i = 0; i < departmentimgs.size(); i++)
-            {
-                images.add(departmentimgs.get(i).getDpic());
-            }
+            Departmentimg departmentimgs = this.departmentimgService.queryByDid(department.getDid());
+            String images = ImageIOUtils.getUrlFromDBRecord(departmentimgs.getDpic());
 
             ret.put("result", true);
             ret.put("headPic", images);
@@ -125,15 +120,10 @@ public class DepartmentController {
             temp.put("name", departments.get(i).getDname());
             temp.put("phone", departments.get(i).getDphone());
 
-            List<Departmentimg> departmentimgs = this.departmentimgService.queryByDid(departments.get(i).getDid());
-            List<String> images = new ArrayList<>();
-            for(int j = 0; j < departmentimgs.size(); j++)
-            {
-                String url = ImageIOUtils.getUrlFromDBRecord(departmentimgs.get(j).getDpic());
-                images.add(url);
-            }
+            Departmentimg departmentimgs = this.departmentimgService.queryByDid(departments.get(i).getDid());
+            String images = ImageIOUtils.getUrlFromDBRecord(departmentimgs.getDpic());
 
-            temp.put("images", images);
+            temp.put("dImage", images);
 
             ret.add(temp);
         }
@@ -159,24 +149,13 @@ public class DepartmentController {
         department.setDphone(params.getString("phone"));
         this.departmentService.insert(department);
 
-        Object images_obj = params.get("images");
-        List<String> images = new ArrayList<String>();
-        if (images_obj instanceof ArrayList<?>)
-        {
-            for(Object o : (List<?>) images_obj)
-            {
-                images.add(String.class.cast(o));
-            }
-        }
+        String images = params.getString("dImage");
 
-        for(int i = 0; i < images.size(); i++)
-        {
-            Departmentimg departmentimg = new Departmentimg();
-            departmentimg.setDid(department.getDid());
-            String url = ImageIOUtils.uploadImg(images.get(i));
-            departmentimg.setDpic(url);
-            this.departmentimgService.insert(departmentimg);
-        }
+        Departmentimg departmentimg = new Departmentimg();
+        departmentimg.setDid(department.getDid());
+        String url = ImageIOUtils.uploadImg(images);
+        departmentimg.setDpic(url);
+        this.departmentimgService.insert(departmentimg);
 
         ret.put("result", true);
 
@@ -192,13 +171,11 @@ public class DepartmentController {
     @PutMapping
     public ResponseEntity<JSONObject> edit(@RequestBody JSONObject params) throws IOException {
         Department department = this.departmentService.queryById(params.getInteger("did"));
-        List<Departmentimg> departmentimgs = this.departmentimgService.queryByDid(department.getDid());
+        Departmentimg departmentimgs = this.departmentimgService.queryByDid(department.getDid());
         JSONObject ret = new JSONObject();
 
-        for(int i = 0; i < departmentimgs.size(); i++)
-        {
-            this.departmentimgService.deleteById(departmentimgs.get(i).getImgId());
-        }
+
+        this.departmentimgService.deleteById(departmentimgs.getImgId());
 
         department.setDaddress(params.getString("address"));
         department.setDdescription(params.getString("desc"));
@@ -228,6 +205,7 @@ public class DepartmentController {
             else
             {
                 ret.put("result", true);
+                ret.put("dImage", ImageIOUtils.getUrlFromDBRecord(url));
             }
         }
 
@@ -243,13 +221,10 @@ public class DepartmentController {
     @DeleteMapping("{did}")
     public ResponseEntity<JSONObject> deleteById(@PathVariable("did") Integer did) {
         Department department = this.departmentService.queryById(did);
-        List<Departmentimg> departmentimgs = this.departmentimgService.queryByDid(department.getDid());
+        Departmentimg departmentimgs = this.departmentimgService.queryByDid(department.getDid());
         JSONObject ret = new JSONObject();
 
-        for(int i = 0; i < departmentimgs.size(); i++)
-        {
-            this.departmentimgService.deleteById(departmentimgs.get(i).getImgId());
-        }
+        this.departmentimgService.deleteById(departmentimgs.getImgId());
 
         if(!this.departmentService.deleteById(did))
         {

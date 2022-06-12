@@ -34,7 +34,7 @@ public class DepartmentimgServiceImpl implements DepartmentimgService {
     }
 
     @Override
-    public List<Departmentimg> queryByDid(Integer did) { return this.departmentimgDao.queryByDid(did); }
+    public Departmentimg queryByDid(Integer did) { return this.departmentimgDao.queryByDid(did); }
 
     /**
      * 分页查询

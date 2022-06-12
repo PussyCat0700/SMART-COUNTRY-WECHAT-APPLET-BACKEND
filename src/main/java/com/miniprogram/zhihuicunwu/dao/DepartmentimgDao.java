@@ -21,7 +21,7 @@ public interface DepartmentimgDao {
      */
     Departmentimg queryById(Integer imgId);
 
-    List<Departmentimg> queryByDid(Integer did);
+    Departmentimg queryByDid(Integer did);
 
     /**
      * 查询指定行数据

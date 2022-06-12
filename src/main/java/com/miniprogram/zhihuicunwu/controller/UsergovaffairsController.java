@@ -90,7 +90,10 @@ public class UsergovaffairsController {
         jsonObject.put("booking_content", usergovaffairs.getContent());
         jsonObject.put("time", usergovaffairs.getAppointTime());
         JSONObject applicantInfo = new JSONObject();
-        applicantInfo.put("address", usergovaffairs.getAddress());
+        jsonObject.put("arrival_location", usergovaffairs.getAddress());
+        jsonObject.put("status", usergovaffairs.getStatus());
+        jsonObject.put("rate", usergovaffairs.getRate());
+        jsonObject.put("comment", usergovaffairs.getComment());
         User user = this.userService.queryById(usergovaffairs.getUid());
         if(user!=null){
             jsonObject.put("userInfo", user.getBriefInfo());

@@ -17,10 +17,10 @@ public interface FeedbackService {
     /**
      * 通过ID查询单条数据
      *
-     * @param uid 主键
+     * @param fid 主键
      * @return 实例对象
      */
-    Feedback queryById(Integer uid);
+    Feedback queryById(Integer fid);
 
     //查询所有数据
     List<Feedback> queryAll();
