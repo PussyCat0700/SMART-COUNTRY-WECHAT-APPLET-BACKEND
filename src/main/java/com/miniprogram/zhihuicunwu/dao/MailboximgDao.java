@@ -21,6 +21,8 @@ public interface MailboximgDao {
      */
     Mailboximg queryById(Integer imgId);
 
+    List<Mailboximg> queryByMid(Integer mid);
+
     /**
      * 查询指定行数据
      *

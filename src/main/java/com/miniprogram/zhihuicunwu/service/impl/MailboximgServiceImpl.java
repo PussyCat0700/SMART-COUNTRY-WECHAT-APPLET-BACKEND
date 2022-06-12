@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Mailboximg)表服务实现类
@@ -31,6 +32,9 @@ public class MailboximgServiceImpl implements MailboximgService {
     public Mailboximg queryById(Integer imgId) {
         return this.mailboximgDao.queryById(imgId);
     }
+
+    @Override
+    public List<Mailboximg> queryByMid(Integer mid) { return this.mailboximgDao.queryByMid(mid); }
 
     /**
      * 分页查询

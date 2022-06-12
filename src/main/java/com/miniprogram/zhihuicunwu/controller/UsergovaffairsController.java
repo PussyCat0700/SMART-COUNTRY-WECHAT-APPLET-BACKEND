@@ -168,10 +168,11 @@ public class UsergovaffairsController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Usergovaffairs> add(@RequestBody JSONObject params) throws ParseException {
+    public ResponseEntity<JSONObject> add(@RequestBody JSONObject params) throws ParseException {
         Usergovaffairs usergovaffairs = new Usergovaffairs();
         Application application = new Application();
         JSONObject applicant_info = new JSONObject();
+        JSONObject ret = new JSONObject();
 
         String appoint_time_str = params.getString("appoint_time");
 
@@ -192,14 +193,21 @@ public class UsergovaffairsController {
 
         //存入到Application实体中
         applicant_info = params.getJSONObject("application_info");
-        application.setName(applicant_info.getString("name"));
-        application.setGender(applicant_info.getInteger("gender"));
-        application.setPhone(applicant_info.getString("phone"));
-        application.setAddress(applicant_info.getString("address"));
-        application.setUsergaid(usergovaffairs.getUsergaid());
-        applicationService.insert(application);
+        if(applicant_info!=null) {
+            application.setName(applicant_info.getString("name"));
+            application.setGender(applicant_info.getInteger("gender"));
+            application.setPhone(applicant_info.getString("phone"));
+            application.setAddress(applicant_info.getString("address"));
+            application.setUsergaid(usergovaffairs.getUsergaid());
+            applicationService.insert(application);
 
-        return ResponseEntity.ok(usergovaffairs);
+            ret.put("result", true);
+        }
+        else
+        {
+            ret.put("result", false);
+        }
+        return ResponseEntity.ok(ret);
     }
 
     private ResponseEntity<JSONObject> getEditResult(Usergovaffairs usergovaffairs, AffairStatus newStatus){

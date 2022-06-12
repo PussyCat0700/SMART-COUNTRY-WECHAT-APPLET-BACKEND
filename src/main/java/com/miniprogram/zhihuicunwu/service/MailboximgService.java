@@ -4,6 +4,8 @@ import com.miniprogram.zhihuicunwu.entity.Mailboximg;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
+import java.util.List;
+
 /**
  * (Mailboximg)表服务接口
  *
@@ -19,6 +21,8 @@ public interface MailboximgService {
      * @return 实例对象
      */
     Mailboximg queryById(Integer imgId);
+
+    List<Mailboximg> queryByMid(Integer mid);
 
     /**
      * 分页查询

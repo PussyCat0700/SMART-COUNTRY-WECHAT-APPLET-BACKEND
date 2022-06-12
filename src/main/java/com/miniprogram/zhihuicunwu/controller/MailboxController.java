@@ -7,6 +7,7 @@ import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.service.MailboxService;
 import com.miniprogram.zhihuicunwu.service.MailboximgService;
 import com.miniprogram.zhihuicunwu.service.UserService;
+import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,6 +53,37 @@ public class MailboxController {
             }
         }
         return ResponseEntity.ok(jsonObject);
+    }
+
+    @GetMapping("/country/{cid}")
+    public ResponseEntity<List> queryByCid(@PathVariable("cid") Integer cid) {
+        List<Mailbox> mailboxs = this.mailboxService.queryByCid(cid);
+        List<JSONObject> ret = new ArrayList<>();
+        List<Mailboximg> images = new ArrayList<>();
+        List<String> image_urls = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject();
+        if(mailboxs!=null) {
+            for(int i = 0; i < mailboxs.size(); i++) {
+                jsonObject.put("content", mailboxs.get(i).getMailcontent());
+                jsonObject.put("id", mailboxs.get(i).getMid());
+                jsonObject.put("create_time", mailboxs.get(i).getCreateTime());
+                User user = this.userService.queryById(mailboxs.get(i).getUid());
+                if (user != null) {
+                    jsonObject.put("userInfo", user.getBriefInfo());
+                }
+
+                images = this.mailboximgService.queryByMid(mailboxs.get(i).getMid());
+                for(int j = 0; j < images.size(); j++)
+                {
+                    String url = ImageIOUtils.getUrlFromDBRecord(images.get(j).getImagebase64());
+                    image_urls.add(url);
+                }
+                jsonObject.put("images", image_urls);
+
+                ret.add(jsonObject);
+            }
+        }
+        return ResponseEntity.ok(ret);
     }
 
     /**

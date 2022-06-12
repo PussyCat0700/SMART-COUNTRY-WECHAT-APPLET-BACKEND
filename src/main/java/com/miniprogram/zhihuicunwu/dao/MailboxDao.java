@@ -21,6 +21,8 @@ public interface MailboxDao {
      */
     Mailbox queryById(Integer mid);
 
+    List<Mailbox> queryByCid(Integer cid);
+
     /**
      * 查询指定行数据
      *
