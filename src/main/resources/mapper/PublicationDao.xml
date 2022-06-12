@@ -117,29 +117,28 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="pid" useGeneratedKeys="true">
-        insert into publication(cid, pType, pContent, pTime, did, pTitle, pAbstract)
-        values (#{cid}, #{ptype}, #{pcontent}, #{ptime}, #{did}, #{ptitle}, #{pabstract})
+        insert into publication(cid, pType, pContent, did, pTitle, pAbstract)
+        values (#{cid}, #{ptype}, #{pcontent}, #{did}, #{ptitle}, #{pabstract})
     </insert>
 
     <insert id="insertBatch" keyProperty="pid" useGeneratedKeys="true">
-        insert into publication(cid, pType, pContent, pTime, did, pTitle, pAbstract)
+        insert into publication(cid, pType, pContent, did, pTitle, pAbstract)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.cid}, #{entity.ptype}, #{entity.pcontent}, #{entity.ptime}, #{entity.did}, #{entity.ptitle}, #{entity.pabstract})
+        (#{entity.cid}, #{entity.ptype}, #{entity.pcontent}, #{entity.did}, #{entity.ptitle}, #{entity.pabstract})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="pid" useGeneratedKeys="true">
-        insert into publication(cid, pType, pContent, pTime, did, pTitle, pAbstract)
+        insert into publication(cid, pType, pContent, did, pTitle, pAbstract)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.cid}, #{entity.ptype}, #{entity.pcontent}, #{entity.ptime}, #{entity.did}, #{entity.ptitle}, #{entity.pabstract})
+            (#{entity.cid}, #{entity.ptype}, #{entity.pcontent}, #{entity.did}, #{entity.ptitle}, #{entity.pabstract})
         </foreach>
         on duplicate key update
         cid = values(cid),
         pType = values(pType),
         pContent = values(pContent),
-        pTime = values(pTime),
         did = values(did),
         pTitle = values(pTitle),
         pAbstract = values(pAbstract)
@@ -157,9 +156,6 @@
             </if>
             <if test="pcontent != null and pcontent != ''">
                 pContent = #{pcontent},
-            </if>
-            <if test="ptime != null">
-                pTime = #{ptime},
             </if>
             <if test="did != null">
                 did = #{did},

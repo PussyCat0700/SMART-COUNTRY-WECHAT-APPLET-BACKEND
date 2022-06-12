@@ -59,11 +59,9 @@ public class MailboxController {
     public ResponseEntity<List> queryByCid(@PathVariable("cid") Integer cid) {
         List<Mailbox> mailboxs = this.mailboxService.queryByCid(cid);
         List<JSONObject> ret = new ArrayList<>();
-        List<Mailboximg> images = new ArrayList<>();
-        List<String> image_urls = new ArrayList<>();
-        JSONObject jsonObject = new JSONObject();
         if(mailboxs!=null) {
             for(int i = 0; i < mailboxs.size(); i++) {
+                JSONObject jsonObject = new JSONObject();
                 jsonObject.put("content", mailboxs.get(i).getMailcontent());
                 jsonObject.put("id", mailboxs.get(i).getMid());
                 jsonObject.put("create_time", mailboxs.get(i).getCreateTime());
@@ -72,6 +70,8 @@ public class MailboxController {
                     jsonObject.put("userInfo", user.getBriefInfo());
                 }
 
+                List<Mailboximg> images = new ArrayList<>();
+                List<String> image_urls = new ArrayList<>();
                 images = this.mailboximgService.queryByMid(mailboxs.get(i).getMid());
                 for(int j = 0; j < images.size(); j++)
                 {

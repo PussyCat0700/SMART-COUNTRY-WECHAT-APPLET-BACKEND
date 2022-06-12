@@ -178,6 +178,7 @@ public class PublicationController {
     public ResponseEntity<JSONObject> add(@RequestBody JSONObject jsonObject) throws IOException {
         Publication publication = new Publication();
         publication.setDid(jsonObject.getInteger("did"));
+        publication.setCid(jsonObject.getInteger("cid"));
         publication.setPtype(jsonObject.getString("category"));
         publication.setPabstract(jsonObject.getString("abstract"));
         publication.setPcontent(jsonObject.getString("content"));
