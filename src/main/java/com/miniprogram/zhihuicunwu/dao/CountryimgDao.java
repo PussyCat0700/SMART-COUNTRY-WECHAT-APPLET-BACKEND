@@ -9,7 +9,7 @@ import java.util.List;
  * (Countryimg)表数据库访问层
  *
  * @author makejava
- * @since 2022-06-07 13:21:12
+ * @since 2022-06-12 17:41:08
  */
 public interface CountryimgDao {
 
@@ -30,6 +30,13 @@ public interface CountryimgDao {
      */
     List<Countryimg> queryAllByLimit(Countryimg countryimg, @Param("pageable") Pageable pageable);
 
+    /**
+     * 任意查询（列表）
+     * @param countryimg 查询条件
+     * @return 对象列表
+     */
+    List<Countryimg> queryAllByAny(Countryimg countryimg);
+     
     /**
      * 统计总行数
      *

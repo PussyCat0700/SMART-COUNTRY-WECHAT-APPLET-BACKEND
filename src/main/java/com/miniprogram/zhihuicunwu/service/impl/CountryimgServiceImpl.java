@@ -4,17 +4,15 @@ import com.miniprogram.zhihuicunwu.entity.Countryimg;
 import com.miniprogram.zhihuicunwu.dao.CountryimgDao;
 import com.miniprogram.zhihuicunwu.service.CountryimgService;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Countryimg)表服务实现类
  *
  * @author makejava
- * @since 2022-06-07 13:21:23
+ * @since 2022-06-12 17:41:11
  */
 @Service("countryimgService")
 public class CountryimgServiceImpl implements CountryimgService {
@@ -31,18 +29,16 @@ public class CountryimgServiceImpl implements CountryimgService {
     public Countryimg queryById(Integer imgId) {
         return this.countryimgDao.queryById(imgId);
     }
-
+    
     /**
-     * 分页查询
+     * 通过任意字段查询数据列表
      *
-     * @param countryimg 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
+     * @param countryimg 实例对象
+     * @return 实例对象列表
      */
-    @Override
-    public Page<Countryimg> queryByPage(Countryimg countryimg, PageRequest pageRequest) {
-        long total = this.countryimgDao.count(countryimg);
-        return new PageImpl<>(this.countryimgDao.queryAllByLimit(countryimg, pageRequest), pageRequest, total);
+     @Override
+    public List<Countryimg> queryAllByAny(Countryimg countryimg){
+        return this.countryimgDao.queryAllByAny(countryimg);
     }
 
     /**
