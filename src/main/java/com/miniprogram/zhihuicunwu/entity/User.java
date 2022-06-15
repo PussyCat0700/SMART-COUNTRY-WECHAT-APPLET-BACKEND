@@ -1,8 +1,10 @@
 package com.miniprogram.zhihuicunwu.entity;
 
 import com.alibaba.fastjson.JSONObject;
+import com.miniprogram.zhihuicunwu.util.Base64Util;
 import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.sql.Blob;
 import java.util.Date;
@@ -126,11 +128,14 @@ public class User implements Serializable {
         this.realName = realName;
     }
 
-    static public User parseFromJSON(JSONObject jsonObject){
+    static public User parseFromJSON(JSONObject jsonObject) throws IOException {
         User user = new User();
         user.uname = jsonObject.getString("nickname");
         user.ugender = jsonObject.getInteger("gender");
-        user.uaddress = jsonObject.getString("city");
+        String wxAvatarUrl = jsonObject.getString("avatarUrl");
+        if(wxAvatarUrl!=null){
+            user.uphoto = ImageIOUtils.uploadImg(Base64Util.imageUrlToBase64(wxAvatarUrl));
+        }
         return user;
     }
     public JSONObject getBriefInfo(){

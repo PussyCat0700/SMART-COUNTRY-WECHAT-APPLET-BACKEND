@@ -80,6 +80,8 @@ public class WorkController {
                 JSONObject temp = new JSONObject();
                 User user = this.userService.queryById(works.get(i).getUid());
                 temp.put("name", user.getUname());
+                temp.put("uid", user.getUid());
+                temp.put("real_name", user.getRealName());
                 temp.put("avatar", ImageIOUtils.getUrlFromDBRecord(user.getUphoto()));
                 temp.put("wname", works.get(i).getWname());
                 temp.put("wtime", works.get(i).getWtime());

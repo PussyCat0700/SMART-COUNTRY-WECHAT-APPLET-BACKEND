@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
 /**
  * (User)表控制层
@@ -54,7 +55,7 @@ public class UserController {
      * login Or register
      */
     @PostMapping("/login")
-    public ResponseEntity<JSONObject> loginOrRegister(@RequestBody JSONObject params){
+    public ResponseEntity<JSONObject> loginOrRegister(@RequestBody JSONObject params) throws IOException {
         String encryptedData = params.getString("encryptedData");
         String code = params.getString("code");
         String iv = params.getString("iv");

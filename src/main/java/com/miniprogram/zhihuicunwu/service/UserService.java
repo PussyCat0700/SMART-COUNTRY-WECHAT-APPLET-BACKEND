@@ -3,6 +3,8 @@ package com.miniprogram.zhihuicunwu.service;
 import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.User;
 
+import java.io.IOException;
+
 /**
  * (User)表服务接口
  *
@@ -19,7 +21,7 @@ public interface UserService {
      */
     User queryById(Integer uid);
 
-    JSONObject queryOrRegisterByOpenId(String openID, JSONObject userInfo);
+    JSONObject queryOrRegisterByOpenId(String openID, JSONObject userInfo) throws IOException;
 
     /**
      * 新增数据
