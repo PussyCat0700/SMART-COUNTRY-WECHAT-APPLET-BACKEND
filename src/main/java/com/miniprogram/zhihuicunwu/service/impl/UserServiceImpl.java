@@ -10,9 +10,11 @@ import com.miniprogram.zhihuicunwu.entity.Work;
 import com.miniprogram.zhihuicunwu.service.CountryService;
 import com.miniprogram.zhihuicunwu.service.DepartmentService;
 import com.miniprogram.zhihuicunwu.service.UserService;
+import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.io.IOException;
 
 /**
  * (User)表服务实现类
@@ -45,7 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public JSONObject queryOrRegisterByOpenId(String openID, JSONObject userInfo) {
+    public JSONObject queryOrRegisterByOpenId(String openID, JSONObject userInfo) throws IOException {
         JSONObject jsonObject = new JSONObject();
         User u = this.userDao.queryByOpenID(openID);
         Resident r = null;
@@ -55,6 +57,8 @@ public class UserServiceImpl implements UserService {
             u.setUwxid(openID);
             if(this.userDao.insert(u) == 0) {
                 u = null;
+            }else{
+                u.setUphoto(ImageIOUtils.getUrlFromDBRecord(u.getUphoto()));
             }
         }
         if(u!=null){
