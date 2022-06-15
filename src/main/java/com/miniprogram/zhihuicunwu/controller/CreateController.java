@@ -1,7 +1,10 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Create;
+import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.service.CreateService;
+import com.miniprogram.zhihuicunwu.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +24,8 @@ public class CreateController {
      */
     @Resource
     private CreateService createService;
+    @Resource
+    private UserService userService;
 
     /**
      * 通过主键查询单条数据
@@ -53,6 +58,28 @@ public class CreateController {
     @PutMapping
     public ResponseEntity<Create> edit(@RequestBody Create create) {
         return ResponseEntity.ok(this.createService.update(create));
+    }
+
+    @PutMapping("setting")
+    public ResponseEntity<JSONObject> edit(@RequestBody JSONObject params) {
+        JSONObject ret = new JSONObject();
+        Create create = this.createService.queryById(params.getInteger("uid"));
+
+        if(create != null)
+        {
+            this.createService.deleteById(params.getInteger("uid"));
+        }
+
+        create.setCid(params.getInteger("cid"));
+        create.setUid(params.getInteger("uid"));
+
+        User user = this.userService.queryById(params.getInteger("uid"));
+        user.setStatus(4);
+        this.userService.update(user);
+
+        ret.put("result", true);
+
+        return ResponseEntity.ok(ret);
     }
 
     /**

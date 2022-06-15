@@ -105,7 +105,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from work where did = #{did}
+        delete from work where uid = #{uid}
     </delete>
 
 </mapper>

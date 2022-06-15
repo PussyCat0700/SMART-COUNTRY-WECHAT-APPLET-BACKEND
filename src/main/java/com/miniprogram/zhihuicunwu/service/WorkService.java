@@ -19,6 +19,8 @@ public interface WorkService {
      */
     List<Work> queryById(Integer did);
 
+    Work queryByUid(Integer uid);
+
     /**
      * 通过任意字段查询数据列表
      *
@@ -46,9 +48,9 @@ public interface WorkService {
     /**
      * 通过主键删除数据
      *
-     * @param did 主键
+     * @param uid 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer did);
+    boolean deleteById(Integer uid);
 
 }

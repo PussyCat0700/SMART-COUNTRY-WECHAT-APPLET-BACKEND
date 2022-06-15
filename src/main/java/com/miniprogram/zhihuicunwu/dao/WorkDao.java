@@ -83,10 +83,10 @@ public interface WorkDao {
     /**
      * 通过主键删除数据
      *
-     * @param did 主键
+     * @param uid 主键
      * @return 影响行数
      */
-    int deleteById(Integer did);
+    int deleteById(Integer uid);
 
 }
 

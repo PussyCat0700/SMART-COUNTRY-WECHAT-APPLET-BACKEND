@@ -58,7 +58,7 @@ public class WorkController {
     }
 
     @GetMapping("/all/{cid}")
-    public ResponseEntity<JSONObject> queryByCid(@PathVariable("Cid") Integer cid) {
+    public ResponseEntity<JSONObject> queryByCid(@PathVariable("cid") Integer cid) {
         JSONObject ret = new JSONObject();
 
         List<Department> departments = this.departmentService.queryByCid(cid);
@@ -78,13 +78,13 @@ public class WorkController {
             for(int j = 0; j < works.size(); j++)
             {
                 JSONObject temp = new JSONObject();
-                User user = this.userService.queryById(works.get(i).getUid());
+                User user = this.userService.queryById(works.get(j).getUid());
                 temp.put("name", user.getUname());
                 temp.put("uid", user.getUid());
                 temp.put("real_name", user.getRealName());
                 temp.put("avatar", ImageIOUtils.getUrlFromDBRecord(user.getUphoto()));
-                temp.put("wname", works.get(i).getWname());
-                temp.put("wtime", works.get(i).getWtime());
+                temp.put("wname", works.get(j).getWname());
+                temp.put("wtime", works.get(j).getWtime());
                 temp.put("phone", user.getUphone());
                 temp.put("gender", user.getUgender());
 
@@ -114,11 +114,11 @@ public class WorkController {
 
         work.setDid(department.getDid());
         work.setUid(params.getInteger("uid"));
-        work.setWname("");
 
         List<Work> works = this.workService.queryById(department.getDid());
-        Integer status;
-        status = works.size() == 0 ? 3 : 2;
+        Integer status = works.size() == 0 ? 3 : 2;
+        String wname = works.size() == 0 ? "负责人" : "干事";
+        work.setWname(wname);
 
         User user = this.userService.queryById(params.getInteger("uid"));
         user.setStatus(status);
@@ -141,23 +141,74 @@ public class WorkController {
     /**
      * 编辑数据
      *
-     * @param work 实体
+     * @param params 实体
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<List> edit(@RequestBody Work work) {
-        return ResponseEntity.ok(this.workService.update(work));
+    public ResponseEntity<JSONObject> edit(@RequestBody JSONObject params) {
+        JSONObject ret = new JSONObject();
+        Work work = this.workService.queryByUid(params.getInteger("uid"));
+
+        if(work != null)
+        {
+            ret.put("result", true);
+            work.setWname(params.getString("wname"));
+            this.workService.update(work);
+        }
+        else
+        {
+            ret.put("result", false);
+        }
+        return ResponseEntity.ok(ret);
+    }
+
+    @PutMapping("/setting")
+    public ResponseEntity<JSONObject> setManager(@RequestBody JSONObject params) {
+        JSONObject ret = new JSONObject();
+        Work work = this.workService.queryByUid(params.getInteger("uid"));
+
+        if(work != null)
+        {
+            ret.put("result", true);
+            work.setWname("负责人");
+            this.workService.update(work);
+
+            User user = this.userService.queryById(params.getInteger("uid"));
+            user.setStatus(3);
+            this.userService.update(user);
+        }
+        else
+        {
+            ret.put("result", false);
+        }
+        return ResponseEntity.ok(ret);
     }
 
     /**
      * 删除数据
      *
-     * @param id 主键
+     * @param uid 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
-    public ResponseEntity<Boolean> deleteById(Integer id) {
-        return ResponseEntity.ok(this.workService.deleteById(id));
+    @DeleteMapping("/delete/{uid}")
+    public ResponseEntity<JSONObject> deleteById(@PathVariable("uid") Integer uid) {
+        JSONObject ret = new JSONObject();
+
+        if(this.workService.queryByUid(uid) != null)
+        {
+            ret.put("result", true);
+            this.workService.deleteById(uid);
+
+            User user = this.userService.queryById(uid);
+            user.setStatus(1);
+            this.userService.update(user);
+        }
+        else
+        {
+            ret.put("result", false);
+        }
+
+        return ResponseEntity.ok(ret);
     }
 
 }

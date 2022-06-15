@@ -12,7 +12,7 @@
         select
           uid, cid
         from create
-        where uid = #{uid}
+        where cid = #{cid}
     </select>
 
     <!--查询指定行数据-->
@@ -79,7 +79,7 @@
 
     <!--通过主键删除-->
     <delete id="deleteById">
-        delete from create where uid = #{uid}
+        delete from create where cid = #{cid}
     </delete>
 
 </mapper>

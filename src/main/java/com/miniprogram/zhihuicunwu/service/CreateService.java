@@ -13,10 +13,10 @@ public interface CreateService {
     /**
      * 通过ID查询单条数据
      *
-     * @param uid 主键
+     * @param cid 主键
      * @return 实例对象
      */
-    Create queryById(Integer uid);
+    Create queryById(Integer cid);
 
     /**
      * 新增数据
@@ -37,9 +37,9 @@ public interface CreateService {
     /**
      * 通过主键删除数据
      *
-     * @param uid 主键
+     * @param cid 主键
      * @return 是否成功
      */
-    boolean deleteById(Integer uid);
+    boolean deleteById(Integer cid);
 
 }

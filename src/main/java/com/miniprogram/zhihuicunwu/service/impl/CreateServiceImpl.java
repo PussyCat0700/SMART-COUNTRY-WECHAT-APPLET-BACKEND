@@ -21,12 +21,12 @@ public class CreateServiceImpl implements CreateService {
     /**
      * 通过ID查询单条数据
      *
-     * @param uid 主键
+     * @param cid 主键
      * @return 实例对象
      */
     @Override
-    public Create queryById(Integer uid) {
-        return this.createDao.queryById(uid);
+    public Create queryById(Integer cid) {
+        return this.createDao.queryById(cid);
     }
 
     /**
@@ -56,11 +56,11 @@ public class CreateServiceImpl implements CreateService {
     /**
      * 通过主键删除数据
      *
-     * @param uid 主键
+     * @param cid 主键
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer uid) {
-        return this.createDao.deleteById(uid) > 0;
+    public boolean deleteById(Integer cid) {
+        return this.createDao.deleteById(cid) > 0;
     }
 }

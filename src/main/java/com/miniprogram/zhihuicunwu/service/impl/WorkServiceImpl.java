@@ -36,10 +36,13 @@ public class WorkServiceImpl implements WorkService {
      * @param work 实例对象
      * @return 实例对象列表
      */
-     @Override
+    @Override
     public List<Work> queryAllByAny(Work work){
         return this.workDao.queryAllByAny(work);
     }
+
+    @Override
+    public Work queryByUid(Integer uid) { return this.workDao.queryByUId(uid); }
 
     /**
      * 新增数据
@@ -68,11 +71,11 @@ public class WorkServiceImpl implements WorkService {
     /**
      * 通过主键删除数据
      *
-     * @param did 主键
+     * @param uid 主键
      * @return 是否成功
      */
     @Override
-    public boolean deleteById(Integer did) {
-        return this.workDao.deleteById(did) > 0;
+    public boolean deleteById(Integer uid) {
+        return this.workDao.deleteById(uid) > 0;
     }
 }
