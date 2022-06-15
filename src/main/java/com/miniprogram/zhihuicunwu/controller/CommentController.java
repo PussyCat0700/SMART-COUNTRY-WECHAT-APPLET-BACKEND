@@ -44,6 +44,7 @@ public class CommentController {
         for(Comment comment:comments){
             JSONObject item = new JSONObject();
             item.put("replyContent", comment.getContent());
+            item.put("commentID", comment.getCommentId());
             User u = this.userService.queryById(comment.getUid());
             if(u!=null) {
                 item.put("userInfo", u.getBriefInfo());
@@ -69,6 +70,8 @@ public class CommentController {
         comment.setContent(jsonObject.getString("replyContent"));
         comment.setUid(jsonObject.getInteger("userID"));
         comment.setReplyUid(jsonObject.getInteger("replyUserID"));
+        comment.setMid(jsonObject.getInteger("mid"));
+        comment.setReplyCommentId(jsonObject.getInteger("replyCommentID"));
         return ResponseEntity.ok(this.commentService.insert(comment));
     }
 

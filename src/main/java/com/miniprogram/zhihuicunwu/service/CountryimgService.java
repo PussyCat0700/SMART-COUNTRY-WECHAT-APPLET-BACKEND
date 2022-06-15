@@ -1,14 +1,13 @@
 package com.miniprogram.zhihuicunwu.service;
 
 import com.miniprogram.zhihuicunwu.entity.Countryimg;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import java.util.List;
 
 /**
  * (Countryimg)表服务接口
  *
  * @author makejava
- * @since 2022-06-07 13:21:23
+ * @since 2022-06-12 17:41:10
  */
 public interface CountryimgService {
 
@@ -21,14 +20,13 @@ public interface CountryimgService {
     Countryimg queryById(Integer imgId);
 
     /**
-     * 分页查询
+     * 通过任意字段查询数据列表
      *
-     * @param countryimg 筛选条件
-     * @param pageRequest      分页对象
-     * @return 查询结果
+     * @param countryimg 实例对象
+     * @return 实例对象列表
      */
-    Page<Countryimg> queryByPage(Countryimg countryimg, PageRequest pageRequest);
-
+    List<Countryimg> queryAllByAny(Countryimg countryimg);
+    
     /**
      * 新增数据
      *

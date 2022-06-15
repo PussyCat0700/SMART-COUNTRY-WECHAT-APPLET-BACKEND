@@ -6,10 +6,10 @@ import java.io.Serializable;
  * (Countryimg)实体类
  *
  * @author makejava
- * @since 2022-06-07 13:21:12
+ * @since 2022-06-12 17:41:09
  */
 public class Countryimg implements Serializable {
-    private static final long serialVersionUID = 174699853192664851L;
+    private static final long serialVersionUID = -62529899227285213L;
     
     private Integer imgId;
     

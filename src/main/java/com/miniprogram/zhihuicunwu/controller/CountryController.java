@@ -1,11 +1,17 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Country;
+import com.miniprogram.zhihuicunwu.entity.Countryimg;
 import com.miniprogram.zhihuicunwu.service.CountryService;
+import com.miniprogram.zhihuicunwu.service.CountryimgService;
+import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * (Country)表控制层
@@ -21,6 +27,8 @@ public class CountryController {
      */
     @Resource
     private CountryService countryService;
+    @Resource
+    private CountryimgService countryimgService;
 
     /**
      * 通过主键查询单条数据
@@ -29,30 +37,62 @@ public class CountryController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public ResponseEntity<Country> queryById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(this.countryService.queryById(id));
+    public ResponseEntity<JSONObject> queryById(@PathVariable("id") Integer id) {
+        JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSONString(this.countryService.queryById(id)));
+        Countryimg countryimg = this.countryimgService.queryById(jsonObject.getInteger("cimage"));
+        jsonObject.replace("cimage", ImageIOUtils.getUrlFromDBRecord(countryimg!=null?countryimg.getCpic():null));
+        return ResponseEntity.ok(jsonObject);
     }
 
     /**
      * 新增数据
      *
-     * @param country 实体
+     * @param jsonObject 实体
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Country> add(@RequestBody Country country) {
-        return ResponseEntity.ok(this.countryService.insert(country));
+    public ResponseEntity<JSONObject> add(@RequestBody JSONObject jsonObject) throws IOException {
+        Country country = new Country();
+        country.setCid(jsonObject.getInteger("cid"));
+        country.setScore(jsonObject.getInteger("score"));
+        country.setLocation(jsonObject.getString("location"));
+        country.setCname(jsonObject.getString("cname"));
+        country.setCcode(jsonObject.getString("ccode"));
+
+        Countryimg countryimg = new Countryimg();
+        countryimg.setCid(jsonObject.getInteger("cid"));
+        String path = ImageIOUtils.uploadImg(jsonObject.getString("cimage"));
+        countryimg.setCpic(path);
+        this.countryimgService.insert(countryimg);
+        jsonObject.replace("cimage", ImageIOUtils.getUrlFromDBRecord(path));
+        return ResponseEntity.ok(jsonObject);
     }
 
     /**
      * 编辑数据
      *
-     * @param country 实体
+     * @param jsonObject 实体
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<Country> edit(@RequestBody Country country) {
-        return ResponseEntity.ok(this.countryService.update(country));
+    public ResponseEntity<JSONObject> edit(@RequestBody JSONObject jsonObject) throws IOException {
+        Country country = JSONObject.parseObject(JSONObject.toJSONString(jsonObject), Country.class);
+        country = this.countryService.update(country);
+        if(jsonObject.containsKey("cimage")) {
+            String path = ImageIOUtils.uploadImg(jsonObject.getString("cimage"));
+            Countryimg countryimg = new Countryimg();
+            countryimg.setCid(country.getCid());
+            List<Countryimg> countryimgs = this.countryimgService.queryAllByAny(countryimg);
+            if (countryimgs != null&&!countryimgs.isEmpty()) {
+                countryimg = countryimgs.get(0);
+                countryimg.setCpic(path);
+                jsonObject.replace("cimage", ImageIOUtils.getUrlFromDBRecord(this.countryimgService.update(countryimg).getCpic()));
+            }else{
+                countryimg.setCpic(path);
+                jsonObject.replace("cimage", ImageIOUtils.getUrlFromDBRecord(this.countryimgService.insert(countryimg).getCpic()));
+            }
+        }
+        return ResponseEntity.ok(jsonObject);
     }
 
     /**
