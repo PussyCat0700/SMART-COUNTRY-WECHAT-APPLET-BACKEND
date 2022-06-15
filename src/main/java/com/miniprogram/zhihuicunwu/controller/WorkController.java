@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -57,12 +58,8 @@ public class WorkController {
         return ResponseEntity.ok(ret);
     }
 
-    @GetMapping("/all/{cid}")
-    public ResponseEntity<JSONObject> queryByCid(@PathVariable("cid") Integer cid) {
+    private ResponseEntity<JSONObject> doQuery(List<Department> departments){
         JSONObject ret = new JSONObject();
-
-        List<Department> departments = this.departmentService.queryByCid(cid);
-        List<Integer> dids = new ArrayList<>();
         List<JSONObject> people = new ArrayList<>();
 
         ret.put("result", true);
@@ -99,6 +96,19 @@ public class WorkController {
 
         return ResponseEntity.ok(ret);
     }
+
+    @GetMapping("/all/{cid}")
+    public ResponseEntity<JSONObject> queryByCid(@PathVariable("cid") Integer cid) {
+        List<Department> departments = this.departmentService.queryByCid(cid);
+        return doQuery(departments);
+    }
+
+    @GetMapping("/all/dept/{did}")
+    public ResponseEntity<JSONObject> queryByDid(@PathVariable("did") Integer did){
+        Department department = this.departmentService.queryById(did);
+        return doQuery(Arrays.asList(department));
+    }
+
 
     /**
      * 新增数据
