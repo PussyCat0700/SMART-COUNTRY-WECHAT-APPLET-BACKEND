@@ -18,6 +18,7 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * (Department)表控制层
@@ -73,6 +74,7 @@ public class DepartmentController {
             ret.put("desc", department.getDdescription());
             ret.put("phoneNum", department.getDphone());
             ret.put("location", department.getDaddress());
+            ret.put("dcode", department.getDcode());
 
             //存政务
             //获取政务id
@@ -119,6 +121,7 @@ public class DepartmentController {
             temp.put("did", departments.get(i).getDid());
             temp.put("name", departments.get(i).getDname());
             temp.put("phone", departments.get(i).getDphone());
+            temp.put("dCode", departments.get(i).getDcode());
 
             Departmentimg departmentimgs = this.departmentimgService.queryByDid(departments.get(i).getDid());
             String images = ImageIOUtils.getUrlFromDBRecord(departmentimgs.getDpic());
@@ -147,6 +150,9 @@ public class DepartmentController {
         department.setDdescription(params.getString("desc"));
         department.setDname(params.getString("name"));
         department.setDphone(params.getString("phone"));
+
+        String dcode = UUID.randomUUID().toString();
+        department.setDcode(dcode);
         this.departmentService.insert(department);
 
         String images = params.getString("dImage");

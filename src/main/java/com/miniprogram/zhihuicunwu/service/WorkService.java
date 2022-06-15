@@ -17,7 +17,7 @@ public interface WorkService {
      * @param did 主键
      * @return 实例对象
      */
-    Work queryById(Integer did);
+    List<Work> queryById(Integer did);
 
     /**
      * 通过任意字段查询数据列表
@@ -41,7 +41,7 @@ public interface WorkService {
      * @param work 实例对象
      * @return 实例对象
      */
-    Work update(Work work);
+    List<Work> update(Work work);
 
     /**
      * 通过主键删除数据

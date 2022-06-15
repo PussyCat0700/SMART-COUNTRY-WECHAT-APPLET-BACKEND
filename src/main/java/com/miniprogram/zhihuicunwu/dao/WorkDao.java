@@ -19,7 +19,7 @@ public interface WorkDao {
      * @param did 主键
      * @return 实例对象
      */
-    Work queryById(Integer did);
+    List<Work> queryById(Integer did);
 
     Work queryByUId(Integer uid);
 
@@ -78,7 +78,7 @@ public interface WorkDao {
      * @param work 实例对象
      * @return 影响行数
      */
-    int update(Work work);
+    List<Work> update(Work work);
 
     /**
      * 通过主键删除数据

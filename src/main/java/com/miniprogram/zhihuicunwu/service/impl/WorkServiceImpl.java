@@ -26,7 +26,7 @@ public class WorkServiceImpl implements WorkService {
      * @return 实例对象
      */
     @Override
-    public Work queryById(Integer did) {
+    public List<Work> queryById(Integer did) {
         return this.workDao.queryById(did);
     }
     
@@ -60,7 +60,7 @@ public class WorkServiceImpl implements WorkService {
      * @return 实例对象
      */
     @Override
-    public Work update(Work work) {
+    public List<Work> update(Work work) {
         this.workDao.update(work);
         return this.queryById(work.getDid());
     }

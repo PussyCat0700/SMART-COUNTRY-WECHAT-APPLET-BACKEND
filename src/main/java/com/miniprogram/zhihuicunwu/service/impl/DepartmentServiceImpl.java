@@ -33,6 +33,9 @@ public class DepartmentServiceImpl implements DepartmentService {
     @Override
     public List<Department> queryByCid(Integer cid) { return this.departmentDao.queryByCid(cid); }
 
+    @Override
+    public Department queryByDcode(String dcode) { return this.departmentDao.queryByDcode(dcode); }
+
     /**
      * 新增数据
      *

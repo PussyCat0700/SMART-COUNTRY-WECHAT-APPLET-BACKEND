@@ -24,6 +24,7 @@
         from work
         where uid = #{uid}
     </select>
+
     <!--任意查询（返回列表）-->
     <select id="queryAllByAny" resultMap="WorkMap">
         select
@@ -67,27 +68,28 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="did" useGeneratedKeys="true">
-        insert into work(wname, wtime)
-        values (#{wname}, #{wtime})
+        insert into work(did, uid, wname)
+        values (#{did}, #{uid}, #{wname})
     </insert>
 
     <insert id="insertBatch" keyProperty="did" useGeneratedKeys="true">
-        insert into work(wname, wtime)
+        insert into work(did, uid, wname)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.wname}, #{entity.wtime})
+        (#{entity.did}, #{entity.uid}, #{entity.wname})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="did" useGeneratedKeys="true">
-        insert into work(wname, wtime)
+        insert into work(did, uid, wname)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.wname}, #{entity.wtime})
+            (#{entity.did}, #{entity.uid}, #{entity.wname})
         </foreach>
         on duplicate key update
-        wname = values(wname),
-        wtime = values(wtime)
+        did = values(did),
+        uid = values(uid),
+        wname = values(wname)
     </insert>
 
     <!--通过主键修改数据-->
@@ -96,9 +98,6 @@
         <set>
             <if test="wname != null and wname != ''">
                 wname = #{wname},
-            </if>
-            <if test="wtime != null">
-                wtime = #{wtime},
             </if>
         </set>
         where did = #{did}

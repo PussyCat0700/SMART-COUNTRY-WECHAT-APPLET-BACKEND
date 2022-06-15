@@ -36,6 +36,7 @@ public class User implements Serializable {
 
     private Date uCreateTime;
 
+    private String realName;
 
     public Integer getUid() {
         return uid;
@@ -115,6 +116,14 @@ public class User implements Serializable {
 
     public void setUCreateTime(Date uCreateTime) {
         this.uCreateTime = uCreateTime;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     static public User parseFromJSON(JSONObject jsonObject){

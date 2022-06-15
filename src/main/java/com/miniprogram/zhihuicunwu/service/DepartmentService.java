@@ -22,6 +22,8 @@ public interface DepartmentService {
 
     List<Department> queryByCid(Integer cid);
 
+    Department queryByDcode(String dcode);
+
     /**
      * 新增数据
      *

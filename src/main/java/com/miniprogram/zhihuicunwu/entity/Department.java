@@ -23,6 +23,8 @@ public class Department implements Serializable {
 
     private String dphone;
 
+    private String dcode;
+
 
     public Integer getDid() { return did; }
 
@@ -64,5 +66,8 @@ public class Department implements Serializable {
 
     public void setDphone(String dphone) { this.dphone = dphone; }
 
+    public String getDcode() { return dcode; }
+
+    public void setDcode(String dcode) { this.dcode = dcode; }
 }
 

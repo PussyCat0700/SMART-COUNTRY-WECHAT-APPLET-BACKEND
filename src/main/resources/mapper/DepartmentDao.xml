@@ -9,12 +9,13 @@
         <result property="ddescription" column="ddescription" jdbcType="VARCHAR"/>
         <result property="daddress" column="daddress" jdbcType="VARCHAR"/>
         <result property="dphone" column="dphone" jdbcType="VARCHAR"/>
+        <result property="dcode" column="dcode" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="DepartmentMap">
         select
-          did, cid, dname, ddescription, daddress, dphone
+          did, cid, dname, ddescription, daddress, dphone, dcode
         from department
         where did = #{did}
     </select>
@@ -22,15 +23,23 @@
     <!--查询多个-->
     <select id="queryByCid" resultMap="DepartmentMap">
         select
-            did, cid, dname, ddescription, daddress, dphone
+            did, cid, dname, ddescription, daddress, dphone, dcode
         from department
         where cid = #{cid}
+    </select>
+
+    <!--g根据dcode查询-->
+    <select id="queryByDcode" resultMap="DepartmentMap">
+        select
+            did, cid, dname, ddescription, daddress, dphone, dcode
+        from department
+        where dcode = #{dcode}
     </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="DepartmentMap">
         select
-          did, cid, dname, ddescription, daddress, dphone
+          did, cid, dname, ddescription, daddress, dphone, dcode
         from department
         <where>
             <if test="did != null">
@@ -50,6 +59,9 @@
             </if>
             <if test="dphone != null and dphone != ''">
                 and dphone = #{dphone}
+            </if>
+            <if test="dcode != null and dcode != ''">
+                and dcode = #{dcode}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -78,35 +90,39 @@
             <if test="dphone != null and dphone != ''">
                 and dphone = #{dphone}
             </if>
+            <if test="dcode != null and dcode != ''">
+                and dcode = #{dcode}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="did" useGeneratedKeys="true">
-        insert into department(cid, dname, ddescription, daddress, dphone)
-        values (#{cid}, #{dname}, #{ddescription}, #{daddress}, #{dphone})
+        insert into department(cid, dname, ddescription, daddress, dphone, dcode)
+        values (#{cid}, #{dname}, #{ddescription}, #{daddress}, #{dphone}, #{dcode})
     </insert>
 
     <insert id="insertBatch" keyProperty="did" useGeneratedKeys="true">
-        insert into department(cid, dname, ddescription, daddress, dphone)
+        insert into department(cid, dname, ddescription, daddress, dphone, dcode)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.cid}, #{entity.dname}, #{entity.ddescription}, #{entity.daddress}, #{entity.dphone})
+        (#{entity.cid}, #{entity.dname}, #{entity.ddescription}, #{entity.daddress}, #{entity.dphone}, #{entity.dcode})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="did" useGeneratedKeys="true">
-        insert into department(cid, dname, ddescription, daddress, dphone)
+        insert into department(cid, dname, ddescription, daddress, dphone, dcode)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.cid}, #{entity.dname}, #{entity.ddescription}, #{entity.daddress}, #{entity.dphone})
+            (#{entity.cid}, #{entity.dname}, #{entity.ddescription}, #{entity.daddress}, #{entity.dphone}, #{entity.dcode})
         </foreach>
         on duplicate key update
         cid = values(cid),
         dname = values(dname),
         ddescription = values(ddescription),
-        daddress = values(daddress)
-        dphone = values(dphone)
+        daddress = values(daddress),
+        dphone = values(dphone),
+        dcode = values(dcode)
     </insert>
 
     <!--通过主键修改数据-->
@@ -124,6 +140,9 @@
             </if>
             <if test="dphone != null and dphone != ''">
                 dphone = #{dphone}
+            </if>
+            <if test="dcode != null and dcode != ''">
+                dcode = #{dcode}
             </if>
         </set>
         where did = #{did}

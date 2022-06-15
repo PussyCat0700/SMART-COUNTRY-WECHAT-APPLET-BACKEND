@@ -23,6 +23,8 @@ public interface DepartmentDao {
 
     List<Department> queryByCid(Integer cid);
 
+    Department queryByDcode(String dcode);
+
     /**
      * 查询指定行数据
      *
