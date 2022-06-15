@@ -78,7 +78,7 @@ public interface WorkDao {
      * @param work 实例对象
      * @return 影响行数
      */
-    List<Work> update(Work work);
+    int update(Work work);
 
     /**
      * 通过主键删除数据

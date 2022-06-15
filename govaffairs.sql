@@ -114,7 +114,7 @@ INSERT INTO `countryimg` VALUES ('2', '2', '222');
 -- ----------------------------
 -- Table structure for create
 -- ----------------------------
-DROP TABLE IF EXISTS `create`;
+DROP TABLE IF EXISTS creates;
 CREATE TABLE `create` (
   `uid` int NOT NULL,
   `cid` int NOT NULL,

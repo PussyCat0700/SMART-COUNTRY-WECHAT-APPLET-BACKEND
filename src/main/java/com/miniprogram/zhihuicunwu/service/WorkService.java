@@ -43,7 +43,7 @@ public interface WorkService {
      * @param work 实例对象
      * @return 实例对象
      */
-    List<Work> update(Work work);
+    Work update(Work work);
 
     /**
      * 通过主键删除数据

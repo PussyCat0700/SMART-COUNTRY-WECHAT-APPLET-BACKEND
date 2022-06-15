@@ -79,6 +79,7 @@ public class WorkController {
                 temp.put("name", user.getUname());
                 temp.put("uid", user.getUid());
                 temp.put("real_name", user.getRealName());
+                temp.put("status", user.getStatus());
                 temp.put("avatar", ImageIOUtils.getUrlFromDBRecord(user.getUphoto()));
                 temp.put("wname", works.get(j).getWname());
                 temp.put("wtime", works.get(j).getWtime());

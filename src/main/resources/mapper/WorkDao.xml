@@ -97,10 +97,10 @@
         update work
         <set>
             <if test="wname != null and wname != ''">
-                wname = #{wname},
+                wname = #{wname}
             </if>
         </set>
-        where did = #{did}
+        where uid = #{uid}
     </update>
 
     <!--通过主键删除-->
