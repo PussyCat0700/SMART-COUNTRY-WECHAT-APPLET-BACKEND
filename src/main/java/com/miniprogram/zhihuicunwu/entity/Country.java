@@ -21,6 +21,8 @@ public class Country implements Serializable {
 
     private String ccode;
 
+    private String cdesc;
+
     public Integer getCid() {
         return cid;
     }
@@ -59,6 +61,14 @@ public class Country implements Serializable {
 
     public void setCcode(String ccode) {
         this.ccode = ccode;
+    }
+
+    public String getCdesc() {
+        return cdesc;
+    }
+
+    public void setCdesc(String cdesc) {
+        this.cdesc = cdesc;
     }
 
 }
