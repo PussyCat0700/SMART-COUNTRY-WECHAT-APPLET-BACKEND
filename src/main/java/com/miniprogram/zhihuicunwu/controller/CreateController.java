@@ -1,9 +1,9 @@
 package com.miniprogram.zhihuicunwu.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.miniprogram.zhihuicunwu.entity.Create;
+import com.miniprogram.zhihuicunwu.entity.Creates;
 import com.miniprogram.zhihuicunwu.entity.User;
-import com.miniprogram.zhihuicunwu.service.CreateService;
+import com.miniprogram.zhihuicunwu.service.CreatesService;
 import com.miniprogram.zhihuicunwu.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ public class CreateController {
      * 服务对象
      */
     @Resource
-    private CreateService createService;
+    private CreatesService createsService;
     @Resource
     private UserService userService;
 
@@ -34,8 +34,8 @@ public class CreateController {
      * @return 单条数据
      */
     @GetMapping("{id}")
-    public ResponseEntity<Create> queryById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(this.createService.queryById(id));
+    public ResponseEntity<Creates> queryById(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(this.createsService.queryById(id));
     }
 
     /**
@@ -45,8 +45,8 @@ public class CreateController {
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Create> add(@RequestBody Create create) {
-        return ResponseEntity.ok(this.createService.insert(create));
+    public ResponseEntity<Creates> add(@RequestBody Creates create) {
+        return ResponseEntity.ok(this.createsService.insert(create));
     }
 
     /**
@@ -56,22 +56,23 @@ public class CreateController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<Create> edit(@RequestBody Create create) {
-        return ResponseEntity.ok(this.createService.update(create));
+    public ResponseEntity<Creates> edit(@RequestBody Creates create) {
+        return ResponseEntity.ok(this.createsService.update(create));
     }
 
-    @PutMapping("setting")
-    public ResponseEntity<JSONObject> edit(@RequestBody JSONObject params) {
+    @PutMapping("/setting")
+    public ResponseEntity<JSONObject> setManager(@RequestBody JSONObject params) {
         JSONObject ret = new JSONObject();
-        Create create = this.createService.queryById(params.getInteger("uid"));
+        Creates create = this.createsService.queryById(params.getInteger("cid"));
 
         if(create != null)
         {
-            this.createService.deleteById(params.getInteger("uid"));
+            this.createsService.deleteById(params.getInteger("uid"));
         }
-
+        create = new Creates();
         create.setCid(params.getInteger("cid"));
         create.setUid(params.getInteger("uid"));
+        this.createsService.insert(create);
 
         User user = this.userService.queryById(params.getInteger("uid"));
         user.setStatus(4);
@@ -88,9 +89,9 @@ public class CreateController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
-    public ResponseEntity<Boolean> deleteById(Integer id) {
-        return ResponseEntity.ok(this.createService.deleteById(id));
+    @DeleteMapping("/delete/{uid}")
+    public ResponseEntity<Boolean> deleteById(@PathVariable("uid") Integer id) {
+        return ResponseEntity.ok(this.createsService.deleteById(id));
     }
 
 }

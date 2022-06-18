@@ -31,6 +31,7 @@
           GAid, uid, did, address, Appoint_time, GAName, status, rate, comment, create_time, content, userGAid
         from usergovaffairs
         where did = #{did}
+        ORDER By create_time asc
     </select>
 
     <!--根据uid查询某个用户所有预约列表-->
@@ -39,6 +40,7 @@
           GAid, uid, did, address, Appoint_time, GAName, status, rate, comment, create_time, content, userGAid
         from usergovaffairs
         where uid = #{uid}
+        ORDER By create_time desc
     </select>
 
     <!--查询指定行数据-->
@@ -143,7 +145,7 @@
                 and uid = #{uid}
             </if>
             <if test="uid != null">
-                did = #{did},
+                and did = #{did}
             </if>
             <if test="address != null and address != ''">
                 and address = #{address}

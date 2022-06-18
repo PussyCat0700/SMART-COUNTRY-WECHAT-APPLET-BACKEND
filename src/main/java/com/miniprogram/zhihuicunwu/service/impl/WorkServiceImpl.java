@@ -63,9 +63,9 @@ public class WorkServiceImpl implements WorkService {
      * @return 实例对象
      */
     @Override
-    public List<Work> update(Work work) {
+    public Work update(Work work) {
         this.workDao.update(work);
-        return this.queryById(work.getDid());
+        return this.queryByUid(work.getUid());
     }
 
     /**
