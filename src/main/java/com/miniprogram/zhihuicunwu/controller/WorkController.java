@@ -94,7 +94,7 @@ public class WorkController {
                 dept.put("personnel", personnel);
                 people.add(dept);
             }else if(!personnel.isEmpty()){
-                people.add(personnel);
+                people.addAll(personnel);
             }
         }
 

@@ -1,15 +1,16 @@
 package com.miniprogram.zhihuicunwu.entity;
 
+import java.util.Date;
 import java.io.Serializable;
 
 /**
  * (Feedbackcomment)实体类
  *
  * @author makejava
- * @since 2022-06-18 11:19:00
+ * @since 2022-06-18 15:25:59
  */
 public class Feedbackcomment implements Serializable {
-    private static final long serialVersionUID = 992000658124866137L;
+    private static final long serialVersionUID = 144867378641951910L;
     
     private Integer commentId;
     
@@ -20,6 +21,8 @@ public class Feedbackcomment implements Serializable {
     private Integer replyUid;
     
     private String content;
+    
+    private Date commentTime;
 
 
     public Integer getCommentId() {
@@ -60,6 +63,14 @@ public class Feedbackcomment implements Serializable {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Date getCommentTime() {
+        return commentTime;
+    }
+
+    public void setCommentTime(Date commentTime) {
+        this.commentTime = commentTime;
     }
 
 }

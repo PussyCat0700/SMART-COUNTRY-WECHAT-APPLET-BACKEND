@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -43,6 +45,7 @@ public class FeedbackcommentController {
         if(feedbackcommentList!=null&&!feedbackcommentList.isEmpty()) {
             for(Feedbackcomment feedbackcomment1:feedbackcommentList) {
                 JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSONString(feedbackcomment1));
+                jsonObject.replace("commentTime", feedbackcomment1.getCommentTime());
                 jsonObject.put("userInfo", userService.queryById(feedbackcomment1.getUid()).getBriefInfo());
                 jsonArray.add(jsonObject);
             }
@@ -62,6 +65,7 @@ public class FeedbackcommentController {
         feedbackcomment.setContent(jsonObject.getString("content"));
         feedbackcomment.setFid(jsonObject.getInteger("related_feedback"));
         feedbackcomment.setUid(jsonObject.getInteger("responder"));
+        feedbackcomment.setCommentTime(Date.from(Instant.now()));
         return ResponseEntity.ok(this.feedbackcommentService.insert(feedbackcomment));
     }
 
