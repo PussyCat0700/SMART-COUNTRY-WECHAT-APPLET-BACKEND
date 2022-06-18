@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miniprogram.zhihuicunwu.dao.CreatesDao">
+
+    <resultMap type="com.miniprogram.zhihuicunwu.entity.Creates" id="CreatesMap">
+        <result property="uid" column="uid" jdbcType="INTEGER"/>
+        <result property="cid" column="cid" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--��ѯ����-->
+    <select id="queryById" resultMap="CreatesMap">
+        select
+          uid, cid
+        from creates
+        where cid = #{cid}
+    </select>
+
+    <!--��ѯָ��������-->
+    <select id="queryAllByLimit" resultMap="CreatesMap">
+        select
+          uid, cid
+        from creates
+        <where>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="cid != null">
+                and cid = #{cid}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+    <!--�����ѯ�������б�-->
+    <select id="queryAllByAny" resultMap="CreatesMap">
+        select
+          uid, cid
+        from creates
+        <where>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="cid != null">
+                and cid = #{cid}
+            </if>
+        </where>
+    </select>
+    
+    <!--ͳ��������-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from creates
+        <where>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="cid != null">
+                and cid = #{cid}
+            </if>
+        </where>
+    </select>
+
+    <!--����������-->
+    <insert id="insert" keyProperty="uid" useGeneratedKeys="true">
+        insert into creates(uid, cid)
+        values (#{uid}, #{cid})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="uid" useGeneratedKeys="true">
+        insert into creates(uid, cid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.uid}, #{entity.cid})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="uid" useGeneratedKeys="true">
+        insert into creates(uid, cid)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.uid}, #{entity.cid})
+        </foreach>
+        on duplicate key update
+        uid = values(uid),
+        cid = values(cid)
+    </insert>
+
+    <!--ͨ�������޸�����-->
+    <update id="update">
+        update creates
+        <set>
+        </set>
+        where uid = #{uid}
+    </update>
+
+    <!--ͨ������ɾ��-->
+    <delete id="deleteById">
+        delete from creates where uid = #{uid}
+    </delete>
+
+</mapper>
+

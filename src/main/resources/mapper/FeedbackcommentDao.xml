@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.miniprogram.zhihuicunwu.dao.FeedbackcommentDao">
+
+    <resultMap type="com.miniprogram.zhihuicunwu.entity.Feedbackcomment" id="FeedbackcommentMap">
+        <result property="commentId" column="comment_id" jdbcType="INTEGER"/>
+        <result property="pid" column="pid" jdbcType="INTEGER"/>
+        <result property="uid" column="uid" jdbcType="INTEGER"/>
+        <result property="replyUid" column="reply_uid" jdbcType="INTEGER"/>
+        <result property="content" column="content" jdbcType="VARCHAR"/>
+        <result property="replyCommentId" column="reply_comment_id" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="FeedbackcommentMap">
+        select
+          comment_id, pid, uid, reply_uid, content, reply_comment_id
+        from feedbackcomment
+        where comment_id = #{commentId}
+    </select>
+
+    <!--任意查询（返回列表）-->
+    <select id="queryAllByAny" resultMap="FeedbackcommentMap">
+        select
+        comment_id, pid, uid, reply_uid, content, reply_comment_id
+        from feedbackcomment
+        <where>
+            <if test="commentId != null">
+                and comment_id = #{commentId}
+            </if>
+            <if test="pid != null">
+                and pid = #{pid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="replyUid != null">
+                and reply_uid = #{replyUid}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="replyCommentId != null">
+                and reply_comment_id = #{replyCommentId},
+            </if>
+        </where>
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="FeedbackcommentMap">
+        select
+          comment_id, pid, uid, reply_uid, content, reply_comment_id
+        from feedbackcomment
+        <where>
+            <if test="commentId != null">
+                and comment_id = #{commentId}
+            </if>
+            <if test="pid != null">
+                and pid = #{pid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="replyUid != null">
+                and reply_uid = #{replyUid}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="replyCommentId != null">
+                and reply_comment_id = #{replyCommentId}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from feedbackcomment
+        <where>
+            <if test="commentId != null">
+                and comment_id = #{commentId}
+            </if>
+            <if test="pid != null">
+                and pid = #{pid}
+            </if>
+            <if test="uid != null">
+                and uid = #{uid}
+            </if>
+            <if test="replyUid != null">
+                and reply_uid = #{replyUid}
+            </if>
+            <if test="content != null and content != ''">
+                and content = #{content}
+            </if>
+            <if test="replyCommentId != null">
+                and reply_comment_id = #{replyCommentId}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="commentId" useGeneratedKeys="true">
+        insert into feedbackcomment(pid, uid, reply_uid, content, reply_comment_id)
+        values (#{pid}, #{uid}, #{replyUid}, #{content}, #{replyCommentId})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="commentId" useGeneratedKeys="true">
+        insert into feedbackcomment(pid, uid, reply_uid, content, reply_comment_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.pid}, #{entity.uid}, #{entity.replyUid}, #{entity.content}, #{entity.replyCommentId})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="commentId" useGeneratedKeys="true">
+        insert into feedbackcomment(pid, uid, reply_uid, content, reply_comment_id)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.pid}, #{entity.uid}, #{entity.replyUid}, #{entity.content}, #{entity.replyCommentId})
+        </foreach>
+        on duplicate key update
+        pid = values(pid),
+        uid = values(uid),
+        reply_uid = values(reply_uid),
+        content = values(content),
+        reply_comment_id = values(reply_comment_id)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update feedbackcomment
+        <set>
+            <if test="pid != null">
+                pid = #{pid},
+            </if>
+            <if test="uid != null">
+                uid = #{uid},
+            </if>
+            <if test="replyUid != null">
+                reply_uid = #{replyUid},
+            </if>
+            <if test="content != null and content != ''">
+                content = #{content},
+            </if>
+            <if test="replyCommentId != null">
+                reply_comment_id = #{replyCommentId},
+            </if>
+        </set>
+        where comment_id = #{commentId}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from feedbackcomment where comment_id = #{commentId}
+    </delete>
+
+</mapper>
+
