@@ -139,6 +139,17 @@ public class User implements Serializable {
         }
         return user;
     }
+    public void mergeChanges(User user){
+        if(uname==null){
+           uname = user.uname;
+        }
+        if (ugender == null) {
+            ugender = user.ugender;
+        }
+        if(uphoto == null){
+            uphoto = user.uphoto;
+        }
+    }
     public JSONObject getBriefInfo(){
         JSONObject ret = new JSONObject();
         ret.put("userId", uid);

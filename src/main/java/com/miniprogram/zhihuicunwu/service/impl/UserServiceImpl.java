@@ -53,13 +53,13 @@ public class UserServiceImpl implements UserService {
         if(u!=null) {
             Integer uid = u.getUid();
             User u2 = User.parseFromJSON(userInfo);
-            u2.setUid(uid);
-            this.userDao.update(u2);
-            u2.setUphoto(ImageIOUtils.getUrlFromDBRecord(u2.getUphoto()));
+            u.mergeChanges(u2);
+            this.userDao.update(u);
+            u.setUphoto(ImageIOUtils.getUrlFromDBRecord(u.getUphoto()));
 
             Resident r = this.residentDao.queryById(uid);
             Work w = this.workDao.queryByUId(uid);
-            jsonObject.put("user", u2);
+            jsonObject.put("user", u);
             jsonObject.put("country", r == null ? null : countryService.queryById(r.getCid()));
             jsonObject.put("work", w);
             jsonObject.put("department", w == null ? null : this.departmentService.queryById(w.getDid()));
