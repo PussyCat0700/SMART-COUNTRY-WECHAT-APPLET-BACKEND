@@ -1,12 +1,15 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Feedbackcomment;
 import com.miniprogram.zhihuicunwu.service.FeedbackcommentService;
+import com.miniprogram.zhihuicunwu.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Feedbackcomment)表控制层
@@ -22,16 +25,29 @@ public class FeedbackcommentController {
      */
     @Resource
     private FeedbackcommentService feedbackcommentService;
+    @Resource
+    private UserService userService;
 
     /**
-     * 通过主键查询单条数据
+     * 通过主键查询多条数据
      *
-     * @param id 主键
-     * @return 单条数据
+     * @param fid 主键
+     * @return 多条数据
      */
-    @GetMapping("{id}")
-    public ResponseEntity<Feedbackcomment> queryById(@PathVariable("id") Integer id) {
-        return ResponseEntity.ok(this.feedbackcommentService.queryById(id));
+    @GetMapping("{fid}")
+    public ResponseEntity<JSONArray> queryById(@PathVariable("fid") Integer fid) {
+        Feedbackcomment feedbackcomment = new Feedbackcomment();
+        feedbackcomment.setFid(fid);
+        List<Feedbackcomment> feedbackcommentList = this.feedbackcommentService.queryAllByAny(feedbackcomment);
+        JSONArray jsonArray= new JSONArray();
+        if(feedbackcommentList!=null&&!feedbackcommentList.isEmpty()) {
+            for(Feedbackcomment feedbackcomment1:feedbackcommentList) {
+                JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSONString(feedbackcomment1));
+                jsonObject.put("userInfo", userService.queryById(feedbackcomment1.getUid()).getBriefInfo());
+                jsonArray.add(jsonObject);
+            }
+        }
+        return ResponseEntity.ok(jsonArray);
     }
 
     /**

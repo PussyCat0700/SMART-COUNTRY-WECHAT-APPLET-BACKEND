@@ -1,5 +1,6 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.miniprogram.zhihuicunwu.entity.Department;
 import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.entity.Work;
@@ -58,9 +59,9 @@ public class WorkController {
         return ResponseEntity.ok(ret);
     }
 
-    private ResponseEntity<JSONObject> doQuery(List<Department> departments){
+    private ResponseEntity<JSONObject> doQuery(List<Department> departments, boolean deptInfoRequired){
         JSONObject ret = new JSONObject();
-        List<JSONObject> people = new ArrayList<>();
+        JSONArray people = new JSONArray();
 
         ret.put("result", true);
 
@@ -69,7 +70,9 @@ public class WorkController {
             JSONObject dept = new JSONObject();
             List<JSONObject> personnel = new ArrayList<>();
 
-            dept.put("deptName", departments.get(i).getDname());
+            if(deptInfoRequired) {
+                dept.put("deptName", departments.get(i).getDname());
+            }
 
             List<Work> works = this.workService.queryById(departments.get(i).getDid());
             for(int j = 0; j < works.size(); j++)
@@ -87,9 +90,12 @@ public class WorkController {
 
                 personnel.add(temp);
             }
-
-            dept.put("personnel", personnel);
-            people.add(dept);
+            if(deptInfoRequired) {
+                dept.put("personnel", personnel);
+                people.add(dept);
+            }else if(!personnel.isEmpty()){
+                people.add(personnel);
+            }
         }
 
         ret.put("people", people);
@@ -100,13 +106,18 @@ public class WorkController {
     @GetMapping("/all/{cid}")
     public ResponseEntity<JSONObject> queryByCid(@PathVariable("cid") Integer cid) {
         List<Department> departments = this.departmentService.queryByCid(cid);
-        return doQuery(departments);
+        return doQuery(departments, true);
+    }
+    @GetMapping("/all/personnel/{cid}")
+    public ResponseEntity<JSONObject> queryPersonnelByCid(@PathVariable("cid") Integer cid) {
+        List<Department> departments = this.departmentService.queryByCid(cid);
+        return doQuery(departments, false);
     }
 
     @GetMapping("/all/dept/{did}")
     public ResponseEntity<JSONObject> queryByDid(@PathVariable("did") Integer did){
         Department department = this.departmentService.queryById(did);
-        return doQuery(Arrays.asList(department));
+        return doQuery(Arrays.asList(department), true);
     }
 
 
