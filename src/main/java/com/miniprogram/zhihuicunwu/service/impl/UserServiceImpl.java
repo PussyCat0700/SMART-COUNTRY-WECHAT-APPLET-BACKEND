@@ -47,29 +47,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public JSONObject queryOrRegisterByOpenId(String openID, JSONObject userInfo) throws IOException {
+    public JSONObject queryByThirdSessionKey(String thirdSessionKey, JSONObject userInfo) throws IOException {
         JSONObject jsonObject = new JSONObject();
-        User u = this.userDao.queryByOpenID(openID);
-        Resident r = null;
-        Work w = null;
-        if(u==null){
-            u = User.parseFromJSON(userInfo);
-            u.setUwxid(openID);
-            if(this.userDao.insert(u) == 0) {
-                u = null;
-            }else{
-                u.setUphoto(ImageIOUtils.getUrlFromDBRecord(u.getUphoto()));
-            }
+        User u = this.userDao.queryBy3rdSessionKey(thirdSessionKey);
+        if(u!=null) {
+            Integer uid = u.getUid();
+            User u2 = User.parseFromJSON(userInfo);
+            u2.setUid(uid);
+            this.userDao.update(u2);
+            u2.setUphoto(ImageIOUtils.getUrlFromDBRecord(u2.getUphoto()));
+
+            Resident r = this.residentDao.queryById(uid);
+            Work w = this.workDao.queryByUId(uid);
+            jsonObject.put("user", u2);
+            jsonObject.put("country", r == null ? null : countryService.queryById(r.getCid()));
+            jsonObject.put("work", w);
+            jsonObject.put("department", w == null ? null : this.departmentService.queryById(w.getDid()));
+        }else{
+            jsonObject.put("error", String.format("未找到%s的第三方key对应的该用户信息", thirdSessionKey));
         }
-        if(u!=null){
-            r = this.residentDao.queryById(u.getUid());
-            w = this.workDao.queryByUId(u.getUid());
-        }
-        jsonObject.put("user", u);
-        jsonObject.put("country", r==null?r:countryService.queryById(r.getCid()));
-        jsonObject.put("work", w);
-        jsonObject.put("department", w==null?w:this.departmentService.queryById(w.getDid()));
         return jsonObject;
+    }
+
+    @Override
+    public User queryByOpenId(String openId) {
+        return this.userDao.queryByOpenID(openId);
     }
 
     /**

@@ -54,17 +54,16 @@ public class UserController {
     /**
      * login Or register
      */
-    @PostMapping("/login")
-    public ResponseEntity<JSONObject> loginOrRegister(@RequestBody JSONObject params) throws IOException {
-        String encryptedData = params.getString("encryptedData");
+    @PostMapping("/getsskey")
+    public ResponseEntity<JSONObject> getSessionKeyAndRegister(@RequestBody JSONObject params) throws IOException {
         String code = params.getString("code");
-        String iv = params.getString("iv");
-        JSONObject decodeResult = LoginUtils.INSTANCE.login(code);
-        if(!decodeResult.containsKey("openid")){
-            return ResponseEntity.ok(decodeResult);
-        }
+        JSONObject decodeResult = LoginUtils.INSTANCE.getSessionResult(code, this.userService);
+        return ResponseEntity.ok(decodeResult);
+    }
+    @PostMapping("/login")
+    public ResponseEntity<JSONObject> login(@RequestHeader(name = "Cookie") String cookie, @RequestBody JSONObject params) throws IOException {
         JSONObject userInfo = params.getJSONObject("userInfo");
-        return ResponseEntity.ok(this.userService.queryOrRegisterByOpenId(decodeResult.getString("openid"), userInfo));
+        return ResponseEntity.ok(this.userService.queryByThirdSessionKey(cookie, userInfo));
     }
 
     /**

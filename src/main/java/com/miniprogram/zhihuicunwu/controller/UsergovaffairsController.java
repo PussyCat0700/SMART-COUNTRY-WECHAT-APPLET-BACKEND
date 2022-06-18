@@ -202,6 +202,7 @@ public class UsergovaffairsController {
             applicationService.insert(application);
 
             ret.put("result", true);
+            ret.put("usergaid", usergovaffairs.getUsergaid());
         }
         else
         {

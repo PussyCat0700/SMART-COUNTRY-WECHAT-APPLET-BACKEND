@@ -26,11 +26,10 @@ public interface UserDao {
     /**
      * 查询指定行数据
      *
-     * @param user 查询条件
-     * @param pageable         分页对象
-     * @return 对象列表
+     * @param thirdSessionKey 查询条件
+     * @return 指定User
      */
-    List<User> queryAllByLimit(User user, @Param("pageable") Pageable pageable);
+    User queryBy3rdSessionKey(String thirdSessionKey);
 
     /**
      * 统计总行数
