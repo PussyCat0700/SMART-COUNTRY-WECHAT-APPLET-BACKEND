@@ -1,19 +1,20 @@
 package com.miniprogram.zhihuicunwu.entity;
 
+import java.util.Date;
 import java.io.Serializable;
 
 /**
  * (Feedbackcomment)实体类
  *
  * @author makejava
- * @since 2022-06-12 16:23:47
+ * @since 2022-06-18 15:25:59
  */
 public class Feedbackcomment implements Serializable {
-    private static final long serialVersionUID = 898359825707473224L;
+    private static final long serialVersionUID = 144867378641951910L;
     
     private Integer commentId;
     
-    private Integer pid;
+    private Integer fid;
     
     private Integer uid;
     
@@ -21,7 +22,7 @@ public class Feedbackcomment implements Serializable {
     
     private String content;
     
-    private Integer replyCommentId;
+    private Date commentTime;
 
 
     public Integer getCommentId() {
@@ -32,12 +33,12 @@ public class Feedbackcomment implements Serializable {
         this.commentId = commentId;
     }
 
-    public Integer getPid() {
-        return pid;
+    public Integer getFid() {
+        return fid;
     }
 
-    public void setPid(Integer pid) {
-        this.pid = pid;
+    public void setFid(Integer fid) {
+        this.fid = fid;
     }
 
     public Integer getUid() {
@@ -64,12 +65,12 @@ public class Feedbackcomment implements Serializable {
         this.content = content;
     }
 
-    public Integer getReplyCommentId() {
-        return replyCommentId;
+    public Date getCommentTime() {
+        return commentTime;
     }
 
-    public void setReplyCommentId(Integer replyCommentId) {
-        this.replyCommentId = replyCommentId;
+    public void setCommentTime(Date commentTime) {
+        this.commentTime = commentTime;
     }
 
 }

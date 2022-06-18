@@ -130,7 +130,7 @@ public class User implements Serializable {
 
     static public User parseFromJSON(JSONObject jsonObject) throws IOException {
         User user = new User();
-        user.uname = jsonObject.getString("nickname");
+        user.uname = jsonObject.getString("nickName");
         user.ugender = jsonObject.getInteger("gender");
         String wxAvatarUrl = jsonObject.getString("avatarUrl");
         if(wxAvatarUrl!=null){

@@ -3,18 +3,19 @@
 <mapper namespace="com.miniprogram.zhihuicunwu.dao.FeedbackDao">
 
     <resultMap type="com.miniprogram.zhihuicunwu.entity.Feedback" id="FeedbackMap">
-        <result property="fid" column="fid" jdbcType="INTEGER"/>
         <result property="uid" column="uid" jdbcType="INTEGER"/>
         <result property="pid" column="pid" jdbcType="INTEGER"/>
         <result property="ftime" column="fTime" jdbcType="TIMESTAMP"/>
         <result property="fcontent" column="fContent" jdbcType="VARCHAR"/>
         <result property="freturn" column="fReturn" jdbcType="VARCHAR"/>
+        <result property="fid" column="fid" jdbcType="INTEGER"/>
+        <result property="ftitle" column="fTitle" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="FeedbackMap">
         select
-          fid, uid, pid, fTime, fContent, fReturn
+          fid, uid, pid, fTime, fContent, fReturn, fTitle
         from feedback
         where fid = #{fid}
     </select>
@@ -22,14 +23,14 @@
     <!--查询所有数据-->
     <select id="queryAll" resultMap="FeedbackMap">
         select
-          fid, uid, pid, fTime, fContent, fReturn
+            fid, uid, pid, fTime, fContent, fReturn, fTitle
         from feedback
     </select>
     
     <!--根据内容模糊查询-->
     <select id="queryFuzzyByContent" resultMap="FeedbackMap">
         select
-          fid, uid, pid, fTime, fContent, fReturn
+            fid, uid, pid, fTime, fContent, fReturn, fTitle
         from feedback
         where fContent REGEXP #{content}
     </select>
@@ -37,7 +38,7 @@
     <!--根据uid查询 我的反馈-->
     <select id="queryFeedbackByUid" resultMap="FeedbackMap">
         select
-          fid, uid, pid, fTime, fContent, fReturn
+            fid, uid, pid, fTime, fContent, fReturn, fTitle
         from feedback
         where uid = #{uid}
     </select>
@@ -45,7 +46,7 @@
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="FeedbackMap">
         select
-        fid, uid, pid, fTime, fContent, fReturn
+        fid, uid, pid, fTime, fContent, fReturn, fTitle
         from feedback
         <where>
             <if test="fid != null">
@@ -65,6 +66,9 @@
             </if>
             <if test="freturn != null and freturn != ''">
                 and fReturn = #{freturn}
+            </if>
+            <if test="ftitle != null and ftitle != ''">
+                and fTitle = #{ftitle}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -93,34 +97,38 @@
             <if test="freturn != null and freturn != ''">
                 and fReturn = #{freturn}
             </if>
+            <if test="ftitle != null and ftitle != ''">
+                and fTitle = #{ftitle}
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="uid" useGeneratedKeys="true">
-        insert into feedback(uid, pid, fContent, fReturn)
-        values (#{uid}, #{pid}, #{fcontent}, #{freturn})
+        insert into feedback(uid, pid, fContent, fReturn, fTitle)
+        values (#{uid}, #{pid}, #{fcontent}, #{freturn}, #{ftitle})
     </insert>
 
     <insert id="insertBatch" keyProperty="uid" useGeneratedKeys="true">
-        insert into feedback(uid, pid, fContent, fReturn)
+        insert into feedback(uid, pid, fContent, fReturn, fTitle)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{uid}, #{pid}, #{entity.fcontent}, #{entity.freturn})
+        (#{uid}, #{pid}, #{entity.fcontent}, #{entity.freturn}, #{entity.ftitle})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="uid" useGeneratedKeys="true">
-        insert into feedback(uid, pid, fContent, fReturn)
+        insert into feedback(uid, pid, fContent, fReturn, fTitle)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{uid}, #{pid}, #{entity.fcontent}, #{entity.freturn})
+            (#{uid}, #{pid}, #{entity.fcontent}, #{entity.freturn}, #{entity.ftitle})
         </foreach>
         on duplicate key update
         uid = values(uid),
         pid = values(pid),
         fContent = values(fContent),
-        fReturn = values(fReturn)
+        fReturn = values(fReturn),
+        fTitle = values(fTitle)
     </insert>
 
     <!--通过主键修改数据-->
@@ -141,6 +149,9 @@
             </if>
             <if test="freturn != null and freturn != ''">
                 fReturn = #{freturn},
+            </if>
+            <if test="ftitle != null and ftitle != ''">
+                and fTitle = #{ftitle}
             </if>
         </set>
         where fid = #{fid}

@@ -4,9 +4,6 @@ import com.miniprogram.zhihuicunwu.entity.Feedbackcomment;
 import com.miniprogram.zhihuicunwu.dao.FeedbackcommentDao;
 import com.miniprogram.zhihuicunwu.service.FeedbackcommentService;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -15,7 +12,7 @@ import java.util.List;
  * (Feedbackcomment)表服务实现类
  *
  * @author makejava
- * @since 2022-06-12 16:23:47
+ * @since 2022-06-18 11:19:00
  */
 @Service("feedbackcommentService")
 public class FeedbackcommentServiceImpl implements FeedbackcommentService {
@@ -32,14 +29,14 @@ public class FeedbackcommentServiceImpl implements FeedbackcommentService {
     public Feedbackcomment queryById(Integer commentId) {
         return this.feedbackcommentDao.queryById(commentId);
     }
-
+    
     /**
      * 通过任意字段查询数据列表
      *
      * @param feedbackcomment 实例对象
      * @return 实例对象列表
      */
-    @Override
+     @Override
     public List<Feedbackcomment> queryAllByAny(Feedbackcomment feedbackcomment){
         return this.feedbackcommentDao.queryAllByAny(feedbackcomment);
     }

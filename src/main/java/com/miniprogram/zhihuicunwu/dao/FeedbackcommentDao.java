@@ -9,7 +9,7 @@ import java.util.List;
  * (Feedbackcomment)表数据库访问层
  *
  * @author makejava
- * @since 2022-06-12 16:23:47
+ * @since 2022-06-18 11:19:00
  */
 public interface FeedbackcommentDao {
 
@@ -36,7 +36,7 @@ public interface FeedbackcommentDao {
      * @return 对象列表
      */
     List<Feedbackcomment> queryAllByAny(Feedbackcomment feedbackcomment);
-
+     
     /**
      * 统计总行数
      *

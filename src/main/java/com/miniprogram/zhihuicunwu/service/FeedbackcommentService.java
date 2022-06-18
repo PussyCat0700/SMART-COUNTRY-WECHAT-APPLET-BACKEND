@@ -1,16 +1,13 @@
 package com.miniprogram.zhihuicunwu.service;
 
 import com.miniprogram.zhihuicunwu.entity.Feedbackcomment;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-
 import java.util.List;
 
 /**
  * (Feedbackcomment)表服务接口
  *
  * @author makejava
- * @since 2022-06-12 16:23:47
+ * @since 2022-06-18 11:19:00
  */
 public interface FeedbackcommentService {
 
@@ -25,11 +22,11 @@ public interface FeedbackcommentService {
     /**
      * 通过任意字段查询数据列表
      *
-     * @param comment 实例对象
+     * @param feedbackcomment 实例对象
      * @return 实例对象列表
      */
     List<Feedbackcomment> queryAllByAny(Feedbackcomment feedbackcomment);
-
+    
     /**
      * 新增数据
      *
