@@ -55,7 +55,7 @@ public class FeedbackController {
             User user = this.userService.queryById(feedback.getUid());
             JSONObject userInfo = new JSONObject();
             if (user != null) {
-                userInfo.put("userName", user.getUname());
+                userInfo = user.getBriefInfo();
             }
             jsonObject.put("userInfo", userInfo);
         }
