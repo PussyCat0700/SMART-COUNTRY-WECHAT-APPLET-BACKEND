@@ -7,13 +7,11 @@ import java.io.Serializable;
  * (Feedback)实体类
  *
  * @author makejava
- * @since 2022-06-01 14:39:27
+ * @since 2022-06-18 10:38:49
  */
 public class Feedback implements Serializable {
-    private static final long serialVersionUID = -44440946822638501L;
-
-    private Integer fid;
-
+    private static final long serialVersionUID = 767212820402977514L;
+    
     private Integer uid;
     
     private Integer pid;
@@ -23,13 +21,11 @@ public class Feedback implements Serializable {
     private String fcontent;
     
     private String freturn;
+    
+    private Integer fid;
+    
+    private String ftitle;
 
-
-    public Integer getFid() { return fid; }
-
-    public void setFid(Integer fid) {
-        this.fid = fid;
-    }
 
     public Integer getUid() {
         return uid;
@@ -69,6 +65,22 @@ public class Feedback implements Serializable {
 
     public void setFreturn(String freturn) {
         this.freturn = freturn;
+    }
+
+    public Integer getFid() {
+        return fid;
+    }
+
+    public void setFid(Integer fid) {
+        this.fid = fid;
+    }
+
+    public String getFtitle() {
+        return ftitle;
+    }
+
+    public void setFtitle(String ftitle) {
+        this.ftitle = ftitle;
     }
 
 }

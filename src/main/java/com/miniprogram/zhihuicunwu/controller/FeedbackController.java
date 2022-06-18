@@ -51,6 +51,7 @@ public class FeedbackController {
             jsonObject.put("content", feedback.getFcontent());
             jsonObject.put("date", feedback.getFtime());
             jsonObject.put("related_article", feedback.getPid());
+            jsonObject.put("title", feedback.getFtitle());
             User user = this.userService.queryById(feedback.getUid());
             JSONObject userInfo = new JSONObject();
             if (user != null) {
@@ -83,6 +84,7 @@ public class FeedbackController {
             temp.put("related_article", feedbacks.get(i).getPid());
             temp.put("date", feedbacks.get(i).getFtime());
             temp.put("userInfo", user_info);
+            temp.put("title", feedbacks.get(i).getFtitle());
 
             ret.add(temp);
         }
@@ -117,6 +119,7 @@ public class FeedbackController {
             temp.put("related_article", feedbacks.get(i).getPid());
             temp.put("date", feedbacks.get(i).getFtime());
             temp.put("userInfo", user_info);
+            temp.put("title", feedbacks.get(i).getFtitle());
 
             ret.add(temp);
         }
@@ -142,6 +145,7 @@ public class FeedbackController {
             temp.put("feedback_id", feedbacks.get(i).getFid());
             temp.put("content", feedbacks.get(i).getFcontent());
             temp.put("create_time", feedbacks.get(i).getFtime());
+            temp.put("title", feedbacks.get(i).getFtitle());
 
             ret.add(temp);
         }
@@ -164,6 +168,7 @@ public class FeedbackController {
         feedback.setPid(params.getInteger("related_article"));
         feedback.setFcontent(params.getString("content"));
         feedback.setFreturn("");
+        feedback.setFtitle(params.getString("title"));
 
         return ResponseEntity.ok(this.feedbackService.insert(feedback));
     }
