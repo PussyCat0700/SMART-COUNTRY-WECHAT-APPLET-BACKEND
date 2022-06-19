@@ -38,6 +38,9 @@ public interface FeedbackDao {
     //模糊查询
     List<Feedback> queryFuzzyByContent(String content);
 
+    //模糊查询
+    List<Feedback> queryFuzzyByTitle(String title);
+
     //查询我的反馈（根据uid查询）
     List<Feedback> queryFeedbackByUid(int uid);
 

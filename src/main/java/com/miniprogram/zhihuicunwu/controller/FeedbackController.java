@@ -98,11 +98,41 @@ public class FeedbackController {
 //    }
 
     //模糊查询
-    @GetMapping("/fuzzy/{content}")
+    @GetMapping("/fuzzy/content/{content}")
     public ResponseEntity<List> queryFuzzyByContent(@PathVariable("content") String content)
     {
         List<JSONObject> ret = new ArrayList<JSONObject>();
         List<Feedback> feedbacks = this.feedbackService.queryFuzzyByContent(content);
+
+        for(int i = 0; i < feedbacks.size(); i++)
+        {
+            User user = userService.queryById(feedbacks.get(i).getUid());
+            JSONObject user_info = new JSONObject();
+            String avartar = ImageIOUtils.getUrlFromDBRecord(user.getUphoto());
+
+            user_info.put("avatarUrl", avartar);
+            user_info.put("nickName", user.getUname());
+
+            JSONObject temp = new JSONObject();
+            temp.put("id", feedbacks.get(i).getFid());
+            temp.put("content", feedbacks.get(i).getFcontent());
+            temp.put("related_article", feedbacks.get(i).getPid());
+            temp.put("date", feedbacks.get(i).getFtime());
+            temp.put("userInfo", user_info);
+            temp.put("title", feedbacks.get(i).getFtitle());
+
+            ret.add(temp);
+        }
+
+        return ResponseEntity.ok(ret);
+    }
+
+    //模糊查询
+    @GetMapping("/fuzzy/title/{title}")
+    public ResponseEntity<List> queryFuzzyByTitle(@PathVariable("title") String title)
+    {
+        List<JSONObject> ret = new ArrayList<JSONObject>();
+        List<Feedback> feedbacks = this.feedbackService.queryFuzzyByTitle(title);
 
         for(int i = 0; i < feedbacks.size(); i++)
         {

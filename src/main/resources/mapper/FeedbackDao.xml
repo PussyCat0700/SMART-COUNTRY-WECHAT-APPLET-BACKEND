@@ -35,6 +35,13 @@
         where fContent REGEXP #{content}
     </select>
 
+    <select id="queryFuzzyByTitle" resultMap="FeedbackMap">
+        select
+            fid, uid, pid, fTime, fContent, fReturn, fTitle
+        from feedback
+        where fTitle REGEXP #{title}
+    </select>
+
     <!--根据uid查询 我的反馈-->
     <select id="queryFeedbackByUid" resultMap="FeedbackMap">
         select

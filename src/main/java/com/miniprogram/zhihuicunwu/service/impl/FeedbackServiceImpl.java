@@ -46,6 +46,12 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
+    public List<Feedback> queryFuzzyByTitle(String title)
+    {
+        return this.feedbackDao.queryFuzzyByContent("[" + title + "]");
+    }
+
+    @Override
     public List<Feedback> queryFeedbackByUid(int uid)
     {
         return this.feedbackDao.queryFeedbackByUid(uid);
