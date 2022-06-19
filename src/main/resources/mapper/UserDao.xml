@@ -14,12 +14,13 @@
         <result property="uphone" column="uphone" jdbcType="VARCHAR"/>
         <result property="uCreateTime" column="ucreate_time" jdbcType="TIMESTAMP"/>
         <result property="realName" column="realname" jdbcType="VARCHAR"/>
+        <result property="thirdSessionKey" column="thirdsessionkey" jdbcType="VARCHAR"/>
     </resultMap>
 
     <!--查询单个-->
     <select id="queryById" resultMap="UserMap">
         select
-          uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, ucreate_time, realname
+          uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, ucreate_time, realname, thirdsessionkey
         from user
         where uid = #{uid}
     </select>
@@ -27,52 +28,17 @@
     <!--Query By OpenID-->
     <select id="queryByOpenID" resultMap="UserMap">
         select
-            uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, ucreate_time, realname
+            uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, ucreate_time, realname, thirdsessionkey
         from user
         where uwxid = #{openID}
     </select>
 
     <!--查询指定行数据-->
-    <select id="queryAllByLimit" resultMap="UserMap">
+    <select id="queryBy3rdSessionKey" resultMap="UserMap">
         select
-          uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, ucreate_time, realname
+        uid, status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, ucreate_time, realname, thirdsessionkey
         from user
-        <where>
-            <if test="uid != null">
-                and uid = #{uid}
-            </if>
-            <if test="status != null">
-                and status = #{status}
-            </if>
-            <if test="uname != null and uname != ''">
-                and uname = #{uname}
-            </if>
-            <if test="ugender != null">
-                and ugender = #{ugender}
-            </if>
-            <if test="uage != null">
-                and uage = #{uage}
-            </if>
-            <if test="uaddress != null and uaddress != ''">
-                and uaddress = #{uaddress}
-            </if>
-            <if test="uwxid != null and uwxid != ''">
-                and uwxid = #{uwxid}
-            </if>
-            <if test="uphoto != null and uphoto != ''">
-                uphoto = #{uphoto},
-            </if>
-            <if test="uphone != null and uphone != ''">
-                uphone = #{uphone},
-            </if>
-            <if test="uCreateTime != null">
-                and ucreate_time = #{uCreateTime}
-            </if>
-            <if test="realName != null and realName != ''">
-                and realname = #{realName},
-            </if>
-        </where>
-        limit #{pageable.offset}, #{pageable.pageSize}
+        where thirdsessionkey = #{thirdSessionKey}
     </select>
 
     <!--统计总行数-->
@@ -113,28 +79,31 @@
             <if test="realName != null and realName != ''">
                 and realname = #{realName},
             </if>
+            <if test="thirdsessionkey != null and thirdsessionkey != ''">
+                and thirdSessionKey = #{thirdsessionkey},
+            </if>
         </where>
     </select>
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="uid" useGeneratedKeys="true">
-        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, realname)
-        values (#{status}, #{uname}, #{ugender}, #{uage}, #{uaddress}, #{uwxid}, #{uphoto}, #{uphone}, #{realName})
+        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, realname, thirdsessionkey)
+        values (#{status}, #{uname}, #{ugender}, #{uage}, #{uaddress}, #{uwxid}, #{uphoto}, #{uphone}, #{realName}, #{thirdSessionKey})
     </insert>
 
     <insert id="insertBatch" keyProperty="uid" useGeneratedKeys="true">
-        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, realname)
+        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, realname, thirdsessionkey)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid}, #{entity.uphoto}, #{entity.uphone}, #{entity.realName})
+        (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid}, #{entity.uphoto}, #{entity.uphone}, #{entity.realName}, #{entity.thirdSessionKey})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="uid" useGeneratedKeys="true">
-        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, realname)
+        insert into user(status, uname, ugender, uage, uaddress, uwxid, uphoto, uphone, realname, thirdsessionkey)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid}, #{entity.uphoto}, #{entity.uphone}, #{entity.realName})
+            (#{entity.status}, #{entity.uname}, #{entity.ugender}, #{entity.uage}, #{entity.uaddress}, #{entity.uwxid}, #{entity.uphoto}, #{entity.uphone}, #{entity.realName}, #{entity.thirdSessionKey})
         </foreach>
         on duplicate key update
         status = values(status),
@@ -145,7 +114,8 @@
         uwxid = values(uwxid),
         uphoto = values(uphoto),
         uphone = values(uphone),
-        realname = values(realname)
+        realname = values(realname),
+        thirdsessionkey = values(thirdsessionkey)
     </insert>
 
     <!--通过主键修改数据-->
@@ -178,6 +148,9 @@
             </if>
             <if test="realName != null and realName != ''">
                 realname = #{realName},
+            </if>
+            <if test="thirdSessionKey != null and thirdSessionKey != ''">
+                thirdsessionkey = #{thirdSessionKey},
             </if>
         </set>
         where uid = #{uid}

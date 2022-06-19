@@ -3,8 +3,8 @@ server:
   url: 10.135.28.241
   port: 8999
 app:
-  id: wxb35202144a522b5a
-  secret: 733f3daca5a9d097ce7799ea2abeab44
+  id: wxc9ec4426aeac3da7
+  secret: 61a8858eb3538fd6803677dca4bf96ef
 
 #Mysql连接池
 spring:

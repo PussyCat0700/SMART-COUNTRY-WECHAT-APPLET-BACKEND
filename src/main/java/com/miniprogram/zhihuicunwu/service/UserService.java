@@ -21,7 +21,9 @@ public interface UserService {
      */
     User queryById(Integer uid);
 
-    JSONObject queryOrRegisterByOpenId(String openID, JSONObject userInfo) throws IOException;
+    JSONObject queryByThirdSessionKey(String thirdSessionKey, JSONObject userInfo) throws IOException;
+
+    User queryByOpenId(String openId);
 
     /**
      * 新增数据

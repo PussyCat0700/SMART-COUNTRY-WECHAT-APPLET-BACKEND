@@ -6,7 +6,6 @@ import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.sql.Blob;
 import java.util.Date;
 
 /**
@@ -39,6 +38,8 @@ public class User implements Serializable {
     private Date uCreateTime;
 
     private String realName;
+
+    private String thirdSessionKey;
 
     public Integer getUid() {
         return uid;
@@ -138,6 +139,17 @@ public class User implements Serializable {
         }
         return user;
     }
+    public void mergeChanges(User user){
+        if(uname==null){
+           uname = user.uname;
+        }
+        if (ugender == null) {
+            ugender = user.ugender;
+        }
+        if(uphoto == null){
+            uphoto = user.uphoto;
+        }
+    }
     public JSONObject getBriefInfo(){
         JSONObject ret = new JSONObject();
         ret.put("userId", uid);
@@ -146,5 +158,12 @@ public class User implements Serializable {
         return ret;
     }
 
+    public String getThirdSessionKey() {
+        return thirdSessionKey;
+    }
+
+    public void setThirdSessionKey(String thirdSessionKey) {
+        this.thirdSessionKey = thirdSessionKey;
+    }
 }
 
