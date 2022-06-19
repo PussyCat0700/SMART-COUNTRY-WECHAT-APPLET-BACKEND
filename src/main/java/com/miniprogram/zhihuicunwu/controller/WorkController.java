@@ -149,8 +149,9 @@ public class WorkController {
         if(this.workService.insert(work) != null)
         {
             ret.put("result", true);
-
-
+            ret.put("work", work);
+            ret.put("status", user.getStatus());
+            ret.put("department", department);
         }
         else
         {
