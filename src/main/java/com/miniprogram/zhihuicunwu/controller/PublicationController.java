@@ -182,7 +182,7 @@ public class PublicationController {
         publication.setPtype(jsonObject.getString("category"));
         publication.setPabstract(jsonObject.getString("abstract"));
         publication.setPcontent(jsonObject.getString("content"));
-        publication.setPtitle("title");
+        publication.setPtitle(jsonObject.getString("title"));
         this.publicationService.insert(publication);
         Publicationpic publicationpic = new Publicationpic();
         publicationpic.setPid(publication.getPid());
