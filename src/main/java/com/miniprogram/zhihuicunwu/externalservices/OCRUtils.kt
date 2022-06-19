@@ -3,6 +3,7 @@ package com.miniprogram.zhihuicunwu.externalservices
 import com.alibaba.fastjson.JSONObject
 import com.miniprogram.zhihuicunwu.exception.OCRAccessTokenException
 import com.miniprogram.zhihuicunwu.util.Base64Util
+import com.miniprogram.zhihuicunwu.util.ImageIOUtils
 import com.miniprogram.zhihuicunwu.util.UnirestUtils
 
 object OCRUtils {

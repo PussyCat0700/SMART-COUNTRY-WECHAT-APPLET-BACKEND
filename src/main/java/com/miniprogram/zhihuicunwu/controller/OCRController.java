@@ -30,7 +30,7 @@ public class OCRController {
         return ResponseEntity.ok(this.ocrService.getMalevolenceFromUrl(url));
     }
     @PostMapping("/detect/image")
-    public ResponseEntity<JSONObject> getMaliceForImage(@RequestBody String base64) throws IOException, InvalidKeyException, NoSuchAlgorithmException {
-        return ResponseEntity.ok(this.ocrService.getMalevolenceFromBase64(base64));
+    public ResponseEntity<JSONObject> getMaliceForImage(@RequestBody JSONObject jsonObject) throws IOException, InvalidKeyException, NoSuchAlgorithmException {
+        return ResponseEntity.ok(this.ocrService.getMalevolenceFromBase64(jsonObject.getString("base64")));
     }
 }
