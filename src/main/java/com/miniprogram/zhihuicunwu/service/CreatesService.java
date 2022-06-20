@@ -14,10 +14,12 @@ public interface CreatesService {
     /**
      * ͨ��ID��ѯ��������
      *
-     * @param uid ����
+     * @param cid ����
      * @return ʵ������
      */
-    Creates queryById(Integer uid);
+    Creates queryById(Integer cid);
+
+    Creates queryByUid(Integer uid);
 
     /**
      * ͨ�������ֶβ�ѯ�����б�

@@ -24,6 +24,8 @@ public class GovaffairsController {
      */
     @Resource
     private GovaffairsService govaffairsService;
+    @Resource
+    private DeptgovaffairsService deptgovaffairsService;
 
     /**
      * 通过主键查询单条数据
@@ -39,12 +41,24 @@ public class GovaffairsController {
     /**
      * 新增数据
      *
-     * @param govaffairs 实体
+     * @param jsonObject 实体
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Govaffairs> add(@RequestBody Govaffairs govaffairs) {
-        return ResponseEntity.ok(this.govaffairsService.insert(govaffairs));
+    public ResponseEntity<JSONObject> add(@RequestBody JSONObject jsonObject) {
+        JSONObject ret = new JSONObject();
+
+        Govaffairs govaffairs = JSONObject.parseObject(JSONObject.toJSONString(jsonObject), Govaffairs.class);
+        this.govaffairsService.insert(govaffairs);
+
+        Deptgovaffairs deptgovaffairs = new Deptgovaffairs();
+        deptgovaffairs.setDid(jsonObject.getInteger("did"));
+        deptgovaffairs.setGaid(govaffairs.getGaid());
+        this.deptgovaffairsService.insert(deptgovaffairs);
+
+        ret.put("result", true);
+
+        return ResponseEntity.ok(ret);
     }
 
     /**

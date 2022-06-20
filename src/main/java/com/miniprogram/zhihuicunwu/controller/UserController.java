@@ -94,6 +94,25 @@ public class UserController {
         return ResponseEntity.ok(ret);
     }
 
+    @PutMapping("status")
+    public ResponseEntity<JSONObject> editStatus(@RequestBody JSONObject params) {
+        User user = this.userService.queryById(params.getInteger("uid"));
+        JSONObject ret = new JSONObject();
+
+        if (user != null)
+        {
+            ret.put("result", true);
+            user.setStatus(4);
+            this.userService.update(user);
+        }
+        else
+        {
+            ret.put("result", false);
+        }
+
+        return ResponseEntity.ok(ret);
+    }
+
     /**
      * 删除数据
      *

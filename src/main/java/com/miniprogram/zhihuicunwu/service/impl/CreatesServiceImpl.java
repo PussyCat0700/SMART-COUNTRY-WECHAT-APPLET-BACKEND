@@ -22,13 +22,16 @@ public class CreatesServiceImpl implements CreatesService {
     /**
      * ͨ��ID��ѯ��������
      *
-     * @param uid ����
+     * @param cid ����
      * @return ʵ������
      */
     @Override
-    public Creates queryById(Integer uid) {
-        return this.createsDao.queryById(uid);
+    public Creates queryById(Integer cid) {
+        return this.createsDao.queryById(cid);
     }
+
+    @Override
+    public Creates queryByUid(Integer uid) { return this.createsDao.queryByUid(uid); }
     
     /**
      * ͨ�������ֶβ�ѯ�����б�

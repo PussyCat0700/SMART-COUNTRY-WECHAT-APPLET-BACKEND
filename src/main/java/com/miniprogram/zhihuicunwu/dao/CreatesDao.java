@@ -16,10 +16,12 @@ public interface CreatesDao {
     /**
      * ͨ��ID��ѯ��������
      *
-     * @param uid ����
+     * @param cid ����
      * @return ʵ������
      */
-    Creates queryById(Integer uid);
+    Creates queryById(Integer cid);
+
+    Creates queryByUid(Integer uid);
 
     /**
      * ��ѯָ��������

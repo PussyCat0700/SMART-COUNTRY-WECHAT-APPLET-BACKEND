@@ -68,26 +68,25 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="gaid" useGeneratedKeys="true">
-        insert into govaffairs(GATime, GADescription, GAName, isArrival)
-        values (#{gatime}, #{gadescription}, #{ganame}, #{isarrival})
+        insert into govaffairs(GADescription, GAName, isArrival)
+        values (#{gadescription}, #{ganame}, #{isarrival})
     </insert>
 
     <insert id="insertBatch" keyProperty="gaid" useGeneratedKeys="true">
-        insert into govaffairs(GATime, GADescription, GAName, isArrival)
+        insert into govaffairs(GADescription, GAName, isArrival)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.gatime}, #{entity.gadescription}, #{entity.ganame}, #{entity.isarrival})
+        (#{entity.gadescription}, #{entity.ganame}, #{entity.isarrival})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="gaid" useGeneratedKeys="true">
-        insert into govaffairs(GATime, GADescription, GAName, isArrival)
+        insert into govaffairs(GADescription, GAName, isArrival)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.gatime}, #{entity.gadescription}, #{entity.ganame}, #{entity.isarrival})
+            (#{entity.gadescription}, #{entity.ganame}, #{entity.isarrival})
         </foreach>
         on duplicate key update
-        GATime = values(GATime),
         GADescription = values(GADescription),
         GAName = values(GAName),
         isArrival = values(isArrival)
@@ -97,9 +96,6 @@
     <update id="update">
         update govaffairs
         <set>
-            <if test="gatime != null">
-                GATime = #{gatime},
-            </if>
             <if test="gadescription != null and gadescription != ''">
                 GADescription = #{gadescription},
             </if>

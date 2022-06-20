@@ -1,8 +1,10 @@
 package com.miniprogram.zhihuicunwu.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.miniprogram.zhihuicunwu.entity.Country;
 import com.miniprogram.zhihuicunwu.entity.Creates;
 import com.miniprogram.zhihuicunwu.entity.User;
+import com.miniprogram.zhihuicunwu.service.CountryService;
 import com.miniprogram.zhihuicunwu.service.CreatesService;
 import com.miniprogram.zhihuicunwu.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +28,8 @@ public class CreateController {
     private CreatesService createsService;
     @Resource
     private UserService userService;
+    @Resource
+    private CountryService countryService;
 
     /**
      * 通过主键查询单条数据
@@ -38,15 +42,53 @@ public class CreateController {
         return ResponseEntity.ok(this.createsService.queryById(id));
     }
 
+    @GetMapping("/uidcountry/{uid}")
+    public ResponseEntity<JSONObject> queryByUid(@PathVariable("uid") Integer uid) {
+        Creates creates = this.createsService.queryById(uid);
+        JSONObject ret = new JSONObject();
+
+        if(creates == null){
+            ret.put("result",false);
+        }
+        else{
+            Country country = this.countryService.queryById(creates.getCid());
+            ret.put("result", true);
+            ret.put("cid", country.getCid());
+            ret.put("score", country.getScore());
+            ret.put("location", country.getLocation());
+            ret.put("cname", country.getCname());
+            ret.put("cdesc", country.getCdesc());
+        }
+
+        return ResponseEntity.ok(ret);
+    }
+
     /**
      * 新增数据
      *
-     * @param create 实体
+     * @param params 实体
      * @return 新增结果
      */
     @PostMapping
-    public ResponseEntity<Creates> add(@RequestBody Creates create) {
-        return ResponseEntity.ok(this.createsService.insert(create));
+    public ResponseEntity<JSONObject> add(@RequestBody JSONObject params) {
+        JSONObject ret = new JSONObject();
+
+        Country country = new Country();
+        country.setCcode("");
+        country.setCname(params.getString("cname"));
+        country.setLocation(params.getString("location"));
+        country.setCdesc(params.getString("cdesc"));
+        country.setScore(0);
+        this.countryService.insert(country);
+
+        Creates create = new Creates();
+        create.setCid(country.getCid());
+        create.setUid(params.getInteger("uid"));
+        this.createsService.insert(create);
+
+        ret.put("result", true);
+
+        return ResponseEntity.ok(ret);
     }
 
     /**

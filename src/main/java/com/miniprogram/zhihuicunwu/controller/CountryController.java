@@ -95,6 +95,25 @@ public class CountryController {
         return ResponseEntity.ok(jsonObject);
     }
 
+    @PutMapping("ccode")
+    public ResponseEntity<JSONObject> editCcode(@RequestBody JSONObject jsonObject) {
+        JSONObject ret = new JSONObject();
+        Country country = this.countryService.queryById(jsonObject.getInteger("cid"));
+
+        if(country == null)
+        {
+            ret.put("result", false);
+        }
+        else
+        {
+            ret.put("result", true);
+            country.setCcode(jsonObject.getString("ccode"));
+            this.countryService.update(country);
+        }
+
+        return ResponseEntity.ok(ret);
+    }
+
     /**
      * 删除数据
      *

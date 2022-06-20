@@ -15,11 +15,11 @@ public class Govaffairs implements Serializable {
     private Integer gaid;
     
     private Date gatime;
-    
+
     private String gadescription;
-    
+
     private String ganame;
-    
+
     private Integer isarrival;
 
 

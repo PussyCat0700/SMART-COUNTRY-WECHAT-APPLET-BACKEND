@@ -15,6 +15,13 @@
         where cid = #{cid}
     </select>
 
+    <select id="queryByUid" resultMap="CreatesMap">
+        select
+          uid, cid
+        from creates
+        where uid = #{uid}
+    </select>
+
     <!--��ѯָ��������-->
     <select id="queryAllByLimit" resultMap="CreatesMap">
         select
