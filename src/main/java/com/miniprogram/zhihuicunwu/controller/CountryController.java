@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * (Country)表控制层
@@ -107,7 +108,12 @@ public class CountryController {
         else
         {
             ret.put("result", true);
-            country.setCcode(jsonObject.getString("ccode"));
+            if(jsonObject.getString("ccode") != "error") {
+                country.setCcode(UUID.randomUUID().toString());
+            }
+            else{
+                country.setCcode("error");
+            }
             this.countryService.update(country);
         }
 

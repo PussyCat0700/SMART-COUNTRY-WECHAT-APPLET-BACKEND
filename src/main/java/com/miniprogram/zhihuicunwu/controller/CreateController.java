@@ -128,12 +128,34 @@ public class CreateController {
     /**
      * 删除数据
      *
-     * @param id 主键
+     * @param uid 主键
      * @return 删除是否成功
      */
     @DeleteMapping("/delete/{uid}")
-    public ResponseEntity<Boolean> deleteById(@PathVariable("uid") Integer id) {
-        return ResponseEntity.ok(this.createsService.deleteById(id));
+    public ResponseEntity<JSONObject> deleteById(@PathVariable("uid") Integer uid) {
+        JSONObject ret = new JSONObject();
+        Creates creates = this.createsService.queryByUid(uid);
+
+        if(creates==null)
+        {
+            ret.put("result", false);
+        }
+        else
+        {
+            Country country = this.countryService.queryById(creates.getCid());
+            if(country==null)
+            {
+                ret.put("result", false);
+            }
+            else
+            {
+                ret.put("result", true);
+                this.countryService.deleteById(creates.getCid());
+                this.createsService.deleteById(uid);
+            }
+        }
+
+        return ResponseEntity.ok(ret);
     }
 
 }
