@@ -1,7 +1,12 @@
 #端口配置
 server:
-  url: 10.135.31.183
+  url: www.ylxteach.net
   port: 8999
+  port-http: 8998
+  ssl:
+    key-store: classpath:tomcat.jks
+    key-store-type: JKS
+    key-store-password: 123456
 app:
   id: wxc9ec4426aeac3da7
   secret: 61a8858eb3538fd6803677dca4bf96ef
@@ -29,7 +34,7 @@ logging:
   config: classpath:logback-spring.xml
 
 #存放路径
-absoluteImgPath: D:/images_zhihuicuiwu
+absoluteImgPath: D:/webapps/zhcw
 sonImgPath: /images/
 
 
