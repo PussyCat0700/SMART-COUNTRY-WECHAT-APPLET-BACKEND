@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * (Country)表控制层
@@ -40,7 +41,7 @@ public class CountryController {
     public ResponseEntity<JSONObject> queryById(@PathVariable("id") Integer id) {
         JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSONString(this.countryService.queryById(id)));
         Countryimg countryimg = this.countryimgService.queryById(jsonObject.getInteger("cimage"));
-        jsonObject.replace("cimage", ImageIOUtils.getUrlFromDBRecord(countryimg!=null?countryimg.getCpic():null));
+        jsonObject.put("cimage", countryimg!=null?ImageIOUtils.getUrlFromDBRecord(countryimg.getCpic()):null);
         return ResponseEntity.ok(jsonObject);
     }
 
@@ -107,7 +108,12 @@ public class CountryController {
         else
         {
             ret.put("result", true);
-            country.setCcode(jsonObject.getString("ccode"));
+            if(jsonObject.getString("ccode") != "error") {
+                country.setCcode(UUID.randomUUID().toString());
+            }
+            else{
+                country.setCcode("error");
+            }
             this.countryService.update(country);
         }
 

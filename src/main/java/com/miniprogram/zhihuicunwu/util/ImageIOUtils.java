@@ -44,7 +44,7 @@ public class ImageIOUtils {
      * @return 能够被前端直接点开访问的url
      */
     public static String getUrlFromDBRecord(String relativeUrl){
-        return "http://"+WebMvcConfig.serverUrl+":"+WebMvcConfig.serverPort+relativeUrl;
+        return "https://"+WebMvcConfig.serverUrl+":"+WebMvcConfig.serverPort+relativeUrl;
     }
 
     public static String processBase64(String relativeUrl){
