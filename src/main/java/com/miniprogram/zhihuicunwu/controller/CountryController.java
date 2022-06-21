@@ -41,7 +41,7 @@ public class CountryController {
     public ResponseEntity<JSONObject> queryById(@PathVariable("id") Integer id) {
         JSONObject jsonObject = JSONObject.parseObject(JSONObject.toJSONString(this.countryService.queryById(id)));
         Countryimg countryimg = this.countryimgService.queryById(jsonObject.getInteger("cimage"));
-        jsonObject.replace("cimage", ImageIOUtils.getUrlFromDBRecord(countryimg!=null?countryimg.getCpic():null));
+        jsonObject.put("cimage", countryimg!=null?ImageIOUtils.getUrlFromDBRecord(countryimg.getCpic()):null);
         return ResponseEntity.ok(jsonObject);
     }
 
