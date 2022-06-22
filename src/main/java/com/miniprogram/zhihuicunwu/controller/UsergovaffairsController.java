@@ -128,6 +128,7 @@ public class UsergovaffairsController {
             temp.put("name", usergovaffairs.get(i).getGaname());
             temp.put("status", usergovaffairs.get(i).getStatus());
             temp.put("create_time", usergovaffairs.get(i).getCreateTime());
+
             String type = govaffairs.getIsarrival() == 1 ? "arrival" : "spot";
             temp.put("type", type);
 
@@ -161,6 +162,128 @@ public class UsergovaffairsController {
         return ResponseEntity.ok(ret);
     }
 
+    //根据did获取对应部门的评价等信息
+    @GetMapping("/ratedid/{did}")
+    public ResponseEntity<JSONObject> queryRateByDid(@PathVariable("did") Integer did)
+    {
+        JSONObject ret = new JSONObject();
+        //获取该部门所有的 未评价&已评价订单
+        List<Usergovaffairs> usergovaffairs = this.usergovaffairsService.queryByDid(did);
+        //获取该部门所有的业务
+        List<Deptgovaffairs> deptgovaffairs = this.deptgovaffairsService.queryByDid(did);
+        //获取对应业务的所有信息
+        List<Govaffairs> govaffairs = new ArrayList<>();
+        //存储GAid
+        List<Integer> gaids = new ArrayList<>();
+
+        for(int i = 0; i < deptgovaffairs.size(); i++)
+        {
+            gaids.add(deptgovaffairs.get(i).getGaid());
+            govaffairs.add(this.govaffairsService.queryById(deptgovaffairs.get(i).getGaid()));
+        }
+
+        Integer gaNum;   //已评价业务总数
+        Double totalRate;    //总评分数
+        Double avgRate;    //平均评分分数
+        List<JSONObject> gaRates = new ArrayList<>();
+        JSONObject jsonObject;
+
+        ret.put("department", this.departmentService.queryById(did).getDname());
+
+        for(int i = 0; i < gaids.size(); i++)
+        {
+            gaNum = 0;
+            totalRate = 0.0;
+            jsonObject = new JSONObject();
+            for(int j = 0; j < usergovaffairs.size(); j++)
+            {
+                if(usergovaffairs.get(j).getGaid() == gaids.get(i) && usergovaffairs.get(j).getRate() != null)
+                {
+                    gaNum++;    //用户预约订单中此业务已评价数量
+                    totalRate += usergovaffairs.get(j).getRate();    //用户预约订单中此业务评价总分
+                }
+            }
+            if(gaNum != 0) {
+                avgRate = totalRate / gaNum;
+            }
+            else{
+                avgRate = 0.0;
+            }
+
+            jsonObject.put("ga_name", this.govaffairsService.queryById(gaids.get(i)).getGaname());
+            jsonObject.put("avg_rate", avgRate);
+            jsonObject.put("total_num", gaNum);
+            gaRates.add(jsonObject);
+        }
+
+        ret.put("ga_rates", gaRates);
+
+        return ResponseEntity.ok(ret);
+    }
+
+    //根据did获取对应部门的评价等信息
+    @GetMapping("/ratecid/{cid}")
+    public ResponseEntity<List> queryRateByCid(@PathVariable("cid") Integer cid)
+    {
+        List<JSONObject> ret = new ArrayList<>();
+        //获取村对应的所有部门
+        List<Department> departments = this.departmentService.queryByCid(cid);
+        //获取该部门所有的 未评价&已评价订单
+        List<Usergovaffairs> usergovaffairs = new ArrayList<>();
+        //获取该部门所有的业务
+        List<Deptgovaffairs> deptgovaffairs = new ArrayList<>();
+        //获取对应业务的所有信息
+        List<Govaffairs> govaffairs = new ArrayList<>();
+        //存储GAid
+        List<Integer> gaids = new ArrayList<>();
+
+        for(int k = 0; k < departments.size(); k++) {
+            JSONObject temp = new JSONObject();
+
+            usergovaffairs = this.usergovaffairsService.queryByDid(departments.get(k).getDid());
+            deptgovaffairs = this.deptgovaffairsService.queryByDid(departments.get(k).getDid());
+
+            for (int i = 0; i < deptgovaffairs.size(); i++) {
+                gaids.add(deptgovaffairs.get(i).getGaid());
+                govaffairs.add(this.govaffairsService.queryById(deptgovaffairs.get(i).getGaid()));
+            }
+
+            Integer gaNum;   //已评价业务总数
+            Double totalRate;    //总评分数
+            Double avgRate;    //平均评分分数
+            List<JSONObject> gaRates = new ArrayList<>();
+            JSONObject jsonObject;
+
+            temp.put("department", this.departmentService.queryById(departments.get(k).getDid()).getDname());
+
+            for (int i = 0; i < gaids.size(); i++) {
+                gaNum = 0;
+                totalRate = 0.0;
+                jsonObject = new JSONObject();
+                for (int j = 0; j < usergovaffairs.size(); j++) {
+                    if (usergovaffairs.get(j).getGaid() == gaids.get(i) && usergovaffairs.get(j).getRate() != null) {
+                        gaNum++;    //用户预约订单中此业务已评价数量
+                        totalRate += usergovaffairs.get(j).getRate();    //用户预约订单中此业务评价总分
+                    }
+                }
+                if (gaNum != 0) {
+                    avgRate = totalRate / gaNum;
+                } else {
+                    avgRate = 0.0;
+                }
+
+                jsonObject.put("ga_name", this.govaffairsService.queryById(gaids.get(i)).getGaname());
+                jsonObject.put("avg_rate", avgRate);
+                jsonObject.put("total_num", gaNum);
+                gaRates.add(jsonObject);
+            }
+            temp.put("ga_rates", gaRates);
+            ret.add(temp);
+        }
+
+        return ResponseEntity.ok(ret);
+    }
+
     /**
      * 新增数据
      *
@@ -184,7 +307,6 @@ public class UsergovaffairsController {
         usergovaffairs.setAppointTime(DateUtil.Companion.dateFromString(appoint_time_str));
         usergovaffairs.setGaname(params.getString("service"));
         usergovaffairs.setStatus(AffairStatus.ORDERED.ordinal());  //默认
-        usergovaffairs.setRate(0);  //默认
         usergovaffairs.setComment("");  //默认
         usergovaffairs.setContent(params.getString("content"));
         this.usergovaffairsService.insert(usergovaffairs);

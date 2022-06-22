@@ -10,7 +10,7 @@
         <result property="appointTime" column="Appoint_time" jdbcType="TIMESTAMP"/>
         <result property="ganame" column="GAName" jdbcType="VARCHAR"/>
         <result property="status" column="status" jdbcType="INTEGER"/>
-        <result property="rate" column="rate" jdbcType="INTEGER"/>
+        <result property="rate" column="rate" jdbcType="DECIMAL"/>
         <result property="comment" column="comment" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
         <result property="content" column="content" jdbcType="VARCHAR"/>
