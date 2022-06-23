@@ -75,7 +75,7 @@ public class CreateController {
         JSONObject ret = new JSONObject();
 
         Country country = new Country();
-        country.setCcode("");
+        country.setCcode(params.getString("ccode"));
         country.setCname(params.getString("cname"));
         country.setLocation(params.getString("location"));
         country.setCdesc(params.getString("cdesc"));
