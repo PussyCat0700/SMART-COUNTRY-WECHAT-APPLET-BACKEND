@@ -1,5 +1,6 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.config.AffairStatus;
 import com.miniprogram.zhihuicunwu.entity.*;
@@ -114,9 +115,9 @@ public class UsergovaffairsController {
 
     //获取所有预约列表
     @GetMapping("/allByDid/{did}")
-    public ResponseEntity<List> queryByDid(@PathVariable("did") Integer did)
+    public ResponseEntity<JSONArray> queryByDid(@PathVariable("did") Integer did)
     {
-        List<JSONObject> ret = new ArrayList<>();
+        JSONArray ret = new JSONArray();
         List<Usergovaffairs> usergovaffairs = this.usergovaffairsService.queryByDid(did);
 
         for(int i = 0; i < usergovaffairs.size(); i++)
@@ -130,9 +131,13 @@ public class UsergovaffairsController {
             temp.put("create_time", usergovaffairs.get(i).getCreateTime());
             String type = govaffairs.getIsarrival() == 1 ? "arrival" : "spot";
             temp.put("type", type);
-
+            temp.put("content", usergovaffairs.get(i).getContent());
+            Integer uid = usergovaffairs.get(i).getUid();
+            User user = this.userService.queryById(uid);
+            temp.put("userInfo", user==null?null:user.getBriefInfo());
             ret.add(temp);
         }
+
 
         return ResponseEntity.ok(ret);
     }
