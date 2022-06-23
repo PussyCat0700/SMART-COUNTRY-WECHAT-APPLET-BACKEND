@@ -186,7 +186,31 @@ public class PublicationController {
         this.publicationService.insert(publication);
         Publicationpic publicationpic = new Publicationpic();
         publicationpic.setPid(publication.getPid());
-        String relativePath = ImageIOUtils.uploadImg(jsonObject.getString("cover"));
+
+        String relativePath = "";
+        if(jsonObject.getString("cover")!=null) {
+            relativePath = ImageIOUtils.uploadImg(jsonObject.getString("cover"));
+        }
+        else
+        {
+            String type = jsonObject.getString("category");
+            switch (type){
+                case "1":
+                    relativePath = "/images/通知公告.png";
+                    break;
+                case "2":
+                    relativePath = "/images/村务财务.png";
+                    break;
+                case "3":
+                    relativePath = "/images/时政要闻.png";
+                    break;
+                case "4":
+                    relativePath = "/images/乡村新闻.png";
+                    break;
+                default:
+                   break;
+            }
+        }
         publicationpic.setPpic(relativePath);
         this.publicationpicService.insert(publicationpic);
         jsonObject.put("result", true);

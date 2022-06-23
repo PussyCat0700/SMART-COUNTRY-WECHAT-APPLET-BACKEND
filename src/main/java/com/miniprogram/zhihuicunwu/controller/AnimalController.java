@@ -22,8 +22,6 @@ public class AnimalController {
 
     @PostMapping("/image")
     public ResponseEntity<JSONObject> getPlantResultsForBase64(@RequestBody String base64) throws IOException{
-        String url = ImageIOUtils.getUrlFromDBRecord(ImageIOUtils.uploadImg(Base64Util.replaceEnter(base64)));
-        System.out.println(url);
-        return ResponseEntity.ok(this.animalService.parseBase64(url));
+        return ResponseEntity.ok(this.animalService.parseBase64(base64));
     }
 }

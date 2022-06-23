@@ -21,18 +21,13 @@ public class AnimalUtils {
      * https://ai.baidu.com/file/470B3ACCA3FE43788B5A963BF0B625F3
      * 下载
      */
-    public static JSONObject animal(String path) {
+    public static JSONObject animal(String base64) {
         // 请求url
         String url = "https://aip.baidubce.com/rest/2.0/image-classify/v1/animal";
         try {
-            // 本地文件路径
-            String filePath = path;
-            byte[] imgData = FileUtil.readFileByBytes(filePath);
-            String imgStr = Base64Util.encode(imgData);
-            String imgParam = URLEncoder.encode(imgStr, "UTF-8");
             Integer baike_num = 1;
-
-            String param = "image=" + imgParam + "&baike_num=" + baike_num;
+            base64 = URLEncoder.encode(base64, "UTF-8");
+            String param = "image=" + base64 + "&baike_num=" + baike_num;
 
             // 注意这里仅为了简化编码每一次请求都去获取access_token，线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
             String accessToken = "24.e8f653d766ca130ca379256fdaa815e5.2592000.1658390549.282335-26508112";
