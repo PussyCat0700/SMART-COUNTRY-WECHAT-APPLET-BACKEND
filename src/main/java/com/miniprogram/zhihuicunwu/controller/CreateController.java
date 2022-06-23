@@ -44,7 +44,7 @@ public class CreateController {
 
     @GetMapping("/uidcountry/{uid}")
     public ResponseEntity<JSONObject> queryByUid(@PathVariable("uid") Integer uid) {
-        Creates creates = this.createsService.queryById(uid);
+        Creates creates = this.createsService.queryByUid(uid);
         JSONObject ret = new JSONObject();
 
         if(creates == null){
@@ -58,6 +58,7 @@ public class CreateController {
             ret.put("location", country.getLocation());
             ret.put("cname", country.getCname());
             ret.put("cdesc", country.getCdesc());
+            ret.put("ccode", country.getCcode());
         }
 
         return ResponseEntity.ok(ret);
