@@ -26,7 +26,7 @@ public class Usergovaffairs implements Serializable {
     
     private Integer status;
     
-    private Integer rate;
+    private Double rate;
     
     private String comment;
     
@@ -89,11 +89,11 @@ public class Usergovaffairs implements Serializable {
         this.status = status;
     }
 
-    public Integer getRate() {
+    public Double getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(Double rate) {
         this.rate = rate;
     }
 
