@@ -124,9 +124,10 @@ public class DepartmentController {
             temp.put("dCode", departments.get(i).getDcode());
 
             Departmentimg departmentimgs = this.departmentimgService.queryByDid(departments.get(i).getDid());
-            String images = ImageIOUtils.getUrlFromDBRecord(departmentimgs.getDpic());
-
-            temp.put("dImage", images);
+            if(departmentimgs!=null) {
+                String images = ImageIOUtils.getUrlFromDBRecord(departmentimgs.getDpic());
+                temp.put("dImage", images);
+            }
 
             ret.add(temp);
         }
