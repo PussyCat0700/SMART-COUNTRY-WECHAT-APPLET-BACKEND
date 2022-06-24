@@ -188,7 +188,7 @@ public class PublicationController {
         publicationpic.setPid(publication.getPid());
 
         String relativePath = "";
-        if(jsonObject.getString("cover")!=null) {
+        if(jsonObject.getString("cover")!="") {
             relativePath = ImageIOUtils.uploadImg(jsonObject.getString("cover"));
         }
         else

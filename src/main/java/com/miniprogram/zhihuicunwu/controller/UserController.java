@@ -1,8 +1,12 @@
 package com.miniprogram.zhihuicunwu.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.miniprogram.zhihuicunwu.entity.Creates;
+import com.miniprogram.zhihuicunwu.entity.Resident;
 import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.externalservices.LoginUtils;
+import com.miniprogram.zhihuicunwu.service.CreatesService;
+import com.miniprogram.zhihuicunwu.service.ResidentService;
 import com.miniprogram.zhihuicunwu.service.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +28,10 @@ public class UserController {
      */
     @Resource
     private UserService userService;
-
+    @Resource
+    private ResidentService residentService;
+    @Resource
+    private CreatesService createsService;
     /**
      * 通过主键查询单条数据
      *
@@ -104,6 +111,12 @@ public class UserController {
             ret.put("result", true);
             user.setStatus(4);
             this.userService.update(user);
+
+            Creates creates = this.createsService.queryByUid(params.getInteger("uid"));
+            Resident resident = new Resident();
+            resident.setUid(params.getInteger("uid"));
+            resident.setCid(creates.getCid());
+            this.residentService.insert(resident);
         }
         else
         {

@@ -123,7 +123,7 @@
                 cname = #{cname},
             </if>
             <if test="ccode != null and ccode != ''">
-                ccode = #{ccode}
+                ccode = #{ccode},
             </if>
             <if test="cdesc != null and cdesc != ''">
                 cdesc = #{cdesc}
