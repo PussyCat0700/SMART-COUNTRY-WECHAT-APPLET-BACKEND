@@ -59,7 +59,7 @@ public class WorkController {
         return ResponseEntity.ok(ret);
     }
 
-    private ResponseEntity<JSONObject> doQuery(List<Department> departments, boolean deptInfoRequired){
+    private ResponseEntity<JSONObject> doQuery(List<Department> departments, boolean deptInfoRequired, String searchName){
         JSONObject ret = new JSONObject();
         JSONArray people = new JSONArray();
 
@@ -79,17 +79,19 @@ public class WorkController {
             {
                 JSONObject temp = new JSONObject();
                 User user = this.userService.queryById(works.get(j).getUid());
-                temp.put("name", user.getUname());
-                temp.put("uid", user.getUid());
-                temp.put("real_name", user.getRealName());
-                temp.put("status", user.getStatus());
-                temp.put("avatar", ImageIOUtils.getUrlFromDBRecord(user.getUphoto()));
-                temp.put("wname", works.get(j).getWname());
-                temp.put("wtime", works.get(j).getWtime());
-                temp.put("phone", user.getUphone());
-                temp.put("gender", user.getUgender());
+                if(searchName == null || user.getUname().contains(searchName)) {
+                    temp.put("name", user.getUname());
+                    temp.put("uid", user.getUid());
+                    temp.put("real_name", user.getRealName());
+                    temp.put("status", user.getStatus());
+                    temp.put("avatar", ImageIOUtils.getUrlFromDBRecord(user.getUphoto()));
+                    temp.put("wname", works.get(j).getWname());
+                    temp.put("wtime", works.get(j).getWtime());
+                    temp.put("phone", user.getUphone());
+                    temp.put("gender", user.getUgender());
 
-                personnel.add(temp);
+                    personnel.add(temp);
+                }
             }
             if(deptInfoRequired) {
                 dept.put("personnel", personnel);
@@ -107,20 +109,31 @@ public class WorkController {
     @GetMapping("/all/{cid}")
     public ResponseEntity<JSONObject> queryByCid(@PathVariable("cid") Integer cid) {
         List<Department> departments = this.departmentService.queryByCid(cid);
-        return doQuery(departments, true);
+        return doQuery(departments, true, "");
     }
     @GetMapping("/all/personnel/{cid}")
     public ResponseEntity<JSONObject> queryPersonnelByCid(@PathVariable("cid") Integer cid) {
         List<Department> departments = this.departmentService.queryByCid(cid);
-        return doQuery(departments, false);
+        return doQuery(departments, false, "");
     }
 
     @GetMapping("/all/dept/{did}")
     public ResponseEntity<JSONObject> queryByDid(@PathVariable("did") Integer did){
         Department department = this.departmentService.queryById(did);
-        return doQuery(Arrays.asList(department), true);
+        return doQuery(Arrays.asList(department), true, "");
     }
 
+    @PostMapping("/search/dept")
+    public ResponseEntity<JSONObject> queryByDidName(@RequestBody JSONObject params){
+        Department department = this.departmentService.queryById(params.getInteger("did"));
+        return doQuery(Arrays.asList(department), false, params.getString("searchValue"));
+    }
+
+    @PostMapping("/search/country")
+    public ResponseEntity<JSONObject> queryByCidName(@RequestBody JSONObject params){
+        List<Department> departments = this.departmentService.queryByCid(params.getInteger("cid"));
+        return doQuery(departments, true, params.getString("searchValue"));
+    }
 
     /**
      * 新增数据

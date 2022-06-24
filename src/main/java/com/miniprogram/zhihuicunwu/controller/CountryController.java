@@ -108,11 +108,12 @@ public class CountryController {
         else
         {
             ret.put("result", true);
-            if(jsonObject.getString("ccode") != "error") {
-                country.setCcode(UUID.randomUUID().toString());
+            if(country.getCcode().equals("waiting")){
+                country.setCcode("pass");
+                System.out.println(country.getCcode());
             }
-            else{
-                country.setCcode("error");
+            else if(country.getCcode().equals("pass")){
+                country.setCcode(UUID.randomUUID().toString());
             }
             this.countryService.update(country);
         }
