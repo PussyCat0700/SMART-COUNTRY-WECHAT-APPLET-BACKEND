@@ -66,7 +66,13 @@ public class DepartmentController {
 
             //存基本信息
             Departmentimg departmentimgs = this.departmentimgService.queryByDid(department.getDid());
-            String images = ImageIOUtils.getUrlFromDBRecord(departmentimgs.getDpic());
+            String images;
+            if(departmentimgs!=null) {
+                images = ImageIOUtils.getUrlFromDBRecord(departmentimgs.getDpic());
+            }
+            else{
+                images = null;
+            }
 
             ret.put("result", true);
             ret.put("headPic", images);
