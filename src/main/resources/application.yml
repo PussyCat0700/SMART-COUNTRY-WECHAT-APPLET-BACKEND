@@ -1,6 +1,6 @@
 #端口配置
 server:
-  url: 10.135.31.183
+  url: 10.132.48.2
   port: 8999
 app:
   id: wxc9ec4426aeac3da7

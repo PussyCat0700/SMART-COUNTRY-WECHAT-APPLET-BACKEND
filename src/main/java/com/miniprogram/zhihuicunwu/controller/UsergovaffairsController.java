@@ -4,8 +4,12 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.config.AffairStatus;
 import com.miniprogram.zhihuicunwu.entity.*;
+import com.miniprogram.zhihuicunwu.externalservices.MailDTO;
+import com.miniprogram.zhihuicunwu.externalservices.SubscribeSend;
 import com.miniprogram.zhihuicunwu.service.*;
 import com.miniprogram.zhihuicunwu.util.DateUtil;
+import com.miniprogram.zhihuicunwu.util.MyAsyncTask;
+import com.miniprogram.zhihuicunwu.util.MyCallback;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +44,8 @@ public class UsergovaffairsController {
     private ApplicationService applicationService;
     @Resource
     private UserService userService;
+    @Resource
+    private WorkService workService;
 
     /**
      * 通过主键查询单条数据
@@ -299,27 +305,26 @@ public class UsergovaffairsController {
     public ResponseEntity<JSONObject> add(@RequestBody JSONObject params) throws ParseException {
         Usergovaffairs usergovaffairs = new Usergovaffairs();
         Application application = new Application();
-        JSONObject applicant_info = new JSONObject();
         JSONObject ret = new JSONObject();
 
         String appoint_time_str = params.getString("appoint_time");
 
         //存入到Usergovaffairs实体中
+        Integer did = params.getInteger("did");
+        String content = params.getString("content");
         usergovaffairs.setGaid(params.getInteger("affairId"));
         usergovaffairs.setUid(params.getInteger("uid"));
-        usergovaffairs.setDid(params.getInteger("did"));
+        usergovaffairs.setDid(did);
         usergovaffairs.setAddress(params.getString("arrival_location"));
         usergovaffairs.setAppointTime(DateUtil.Companion.dateFromString(appoint_time_str));
         usergovaffairs.setGaname(params.getString("service"));
         usergovaffairs.setStatus(AffairStatus.ORDERED.ordinal());  //默认
         usergovaffairs.setComment("");  //默认
-        usergovaffairs.setContent(params.getString("content"));
+        usergovaffairs.setContent(content);
         this.usergovaffairsService.insert(usergovaffairs);
 
-        //System.out.println(usergovaffairs.getUsergaid());
-
         //存入到Application实体中
-        applicant_info = params.getJSONObject("application_info");
+        JSONObject applicant_info = params.getJSONObject("application_info");
         if(applicant_info!=null) {
             application.setName(applicant_info.getString("name"));
             application.setGender(applicant_info.getInteger("gender"));
@@ -330,6 +335,7 @@ public class UsergovaffairsController {
 
             ret.put("result", true);
             ret.put("usergaid", usergovaffairs.getUsergaid());
+            new MyAsyncTask().task(() -> SubscribeSend.INSTANCE.sendNoticeToDept(new MailDTO("您所在的部门有一个新业务", content, "请及时查看"), did, userService, workService));
         }
         else
         {

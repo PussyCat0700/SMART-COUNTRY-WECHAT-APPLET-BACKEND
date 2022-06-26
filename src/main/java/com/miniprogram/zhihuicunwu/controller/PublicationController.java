@@ -8,7 +8,6 @@ import com.miniprogram.zhihuicunwu.service.PublicationService;
 import com.miniprogram.zhihuicunwu.service.PublicationattachService;
 import com.miniprogram.zhihuicunwu.service.PublicationpicService;
 import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -47,14 +46,14 @@ public class PublicationController {
     public ResponseEntity<JSONObject> queryByPage(@PathVariable("cid") Integer cid) {
         JSONObject ret = new JSONObject();
         int pagesize_max = this.publicationService.countAll();
-        int size = pagesize_max >= 16 ? 16 : pagesize_max;
+        int size = Math.min(pagesize_max, 16);
         int page = 0;
 
         Pageable pageable = new PageRequest(page,size);
         Page<Publication> pages = this.publicationService.queryByPage(pageable, cid);
 
         List<Publication> publications = pages.getContent();
-        List<JSONObject> news = new ArrayList<JSONObject>();
+        List<JSONObject> news = new ArrayList<>();
         for(int i = 0; i < publications.size(); i++)
         {
             List<Publicationattach> publicationattaches = this.publicationattachService.queryByPid(publications.get(i).getPid());
@@ -96,6 +95,18 @@ public class PublicationController {
     @GetMapping("{pid}")
     public ResponseEntity<JSONObject> queryById(@PathVariable("pid") Integer pid) {
         Publication publication = this.publicationService.queryById(pid);
+        JSONObject ret = getPubInfo(publication);
+        return ResponseEntity.ok(ret);
+    }
+    @GetMapping("/did/{did}")
+    public ResponseEntity<List> queryByDid(@PathVariable("did") Integer did){
+        Publication publication = new Publication();
+        publication.setDid(did);
+        List<Publication> publications = this.publicationService.queryAllByAny(publication);
+        return ResponseEntity.ok(publications);
+    }
+    private JSONObject getPubInfo(Publication publication){
+        Integer pid = publication.getPid();
         List<Publicationattach> publicationattaches = this.publicationattachService.queryByPid(pid);
         List<Publicationpic> publicationpics = this.publicationpicService.queryByPid(pid);
 
@@ -120,9 +131,10 @@ public class PublicationController {
         ret.put("from", publication.getDid());
         ret.put("create_time", publication.getPtime());
         ret.put("pic", images);
+        ret.put("abstract", publication.getPabstract());
+        ret.put("type", publication.getPtype());
         ret.put("attachment", attaches);
-
-        return ResponseEntity.ok(ret);
+        return ret;
     }
 
     @PostMapping("/fuzzy")
@@ -224,7 +236,7 @@ public class PublicationController {
      * @return 编辑结果
      */
     @PutMapping
-    public ResponseEntity<Publication> edit(Publication publication) {
+    public ResponseEntity<Publication> edit(@RequestBody Publication publication) {
         return ResponseEntity.ok(this.publicationService.update(publication));
     }
 
