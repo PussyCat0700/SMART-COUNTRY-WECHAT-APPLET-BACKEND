@@ -54,6 +54,14 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 多因为Undefined引起的Number Format Exception
+     */
+    @ExceptionHandler(NumberFormatException.class)
+    public Result handleNFE(NumberFormatException e){
+        return e.getMessage().contains("undefined")?Result.fail(SystemCode.FAILURE_CODE, "传入了undefined"):handleGeneralException(e, "数字解析异常");
+    }
+
+    /**
      * 方法不支持
      */
     @ExceptionHandler(org.springframework.web.HttpRequestMethodNotSupportedException.class)
