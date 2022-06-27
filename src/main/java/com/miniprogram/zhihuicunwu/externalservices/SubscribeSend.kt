@@ -13,7 +13,7 @@ object SubscribeSend {
         val workRelations = workService.queryById(did)
         val jsonArray = JSONArray()
         for (workRelation in workRelations){
-            jsonArray.add(sendNoticeToUser(mailDTO = mailDTO, uid = workRelation.uid, userService))
+            jsonArray.add(sendNoticeToUser(mailDTO = mailDTO, uid = workRelation.uid, userService = userService))
         }
         return jsonArray
     }
