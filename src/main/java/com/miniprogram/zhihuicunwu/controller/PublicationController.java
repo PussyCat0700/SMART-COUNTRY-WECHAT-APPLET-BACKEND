@@ -1,5 +1,6 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Publication;
 import com.miniprogram.zhihuicunwu.entity.Publicationattach;
@@ -99,11 +100,15 @@ public class PublicationController {
         return ResponseEntity.ok(ret);
     }
     @GetMapping("/did/{did}")
-    public ResponseEntity<List> queryByDid(@PathVariable("did") Integer did){
+    public ResponseEntity<JSONArray> queryByDid(@PathVariable("did") Integer did){
         Publication publication = new Publication();
         publication.setDid(did);
         List<Publication> publications = this.publicationService.queryAllByAny(publication);
-        return ResponseEntity.ok(publications);
+        JSONArray jsonArray = new JSONArray();
+        for(Publication publication1:publications){
+            jsonArray.add(getPubInfo(publication1));
+        }
+        return ResponseEntity.ok(jsonArray);
     }
     private JSONObject getPubInfo(Publication publication){
         Integer pid = publication.getPid();

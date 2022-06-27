@@ -10,6 +10,7 @@ import com.miniprogram.zhihuicunwu.service.*;
 import com.miniprogram.zhihuicunwu.util.DateUtil;
 import com.miniprogram.zhihuicunwu.util.MyAsyncTask;
 import com.miniprogram.zhihuicunwu.util.MyCallback;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +27,7 @@ import java.util.List;
  * @author makejava
  * @since 2022-06-05 15:18:48
  */
+@Slf4j
 @RestController
 @RequestMapping("usergovaffairs")
 public class UsergovaffairsController {
@@ -335,7 +337,10 @@ public class UsergovaffairsController {
 
             ret.put("result", true);
             ret.put("usergaid", usergovaffairs.getUsergaid());
-            new MyAsyncTask().task(() -> SubscribeSend.INSTANCE.sendNoticeToDept(new MailDTO("您所在的部门有一个新业务", content, "请及时查看"), did, userService, workService));
+            new MyAsyncTask().task(() -> {
+                JSONArray jsonArray = SubscribeSend.INSTANCE.sendNoticeToDept(new MailDTO("您所在的部门有一个新业务", content, "请及时查看"), did, userService, workService);
+                log.warn("通知情况:{}", jsonArray);
+            });
         }
         else
         {
