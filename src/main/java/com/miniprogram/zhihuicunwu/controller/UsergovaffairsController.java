@@ -333,6 +333,23 @@ public class UsergovaffairsController {
         return ResponseEntity.ok(ret);
     }
 
+    @PutMapping
+    public ResponseEntity<JSONObject> edit(@RequestBody JSONObject params) {
+        JSONObject ret = new JSONObject();
+        Usergovaffairs usergovaffairs = this.usergovaffairsService.queryById(params.getInteger("usergaid"));
+
+        if(usergovaffairs!=null) {
+            ret.put("result",true);
+            usergovaffairs.setAppointTime(params.getDate("appointTime"));
+            usergovaffairs.setAddress("address");
+            this.usergovaffairsService.update(usergovaffairs);
+        }
+        else{
+            ret.put("result",false);
+        }
+        return ResponseEntity.ok(ret);
+    }
+
     private ResponseEntity<JSONObject> getEditResult(Usergovaffairs usergovaffairs, AffairStatus newStatus){
         JSONObject jsonObject = new JSONObject();
         usergovaffairs.setStatus(newStatus.ordinal());
@@ -403,4 +420,3 @@ public class UsergovaffairsController {
     }
 
 }
-
