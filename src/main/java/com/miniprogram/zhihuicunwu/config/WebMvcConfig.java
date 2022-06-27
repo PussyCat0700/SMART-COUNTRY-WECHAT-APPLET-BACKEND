@@ -32,13 +32,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
         serverPort = b;
     }
 
-    public static String appId;
+    public static String appId = "wxc9ec4426aeac3da7";
     @Value("${app.id}")
     public void setAppId(String b){
         appId = b;
     }
 
-    public static String appSecret;
+    public static String appSecret = "61a8858eb3538fd6803677dca4bf96ef";
     @Value("${app.secret}")
     public void setAppSecret(String b){
         appSecret = b;

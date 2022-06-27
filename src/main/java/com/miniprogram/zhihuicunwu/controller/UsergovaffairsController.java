@@ -1,10 +1,16 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.config.AffairStatus;
 import com.miniprogram.zhihuicunwu.entity.*;
+import com.miniprogram.zhihuicunwu.externalservices.MailDTO;
+import com.miniprogram.zhihuicunwu.externalservices.SubscribeSend;
 import com.miniprogram.zhihuicunwu.service.*;
 import com.miniprogram.zhihuicunwu.util.DateUtil;
+import com.miniprogram.zhihuicunwu.util.MyAsyncTask;
+import com.miniprogram.zhihuicunwu.util.MyCallback;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +27,7 @@ import java.util.List;
  * @author makejava
  * @since 2022-06-05 15:18:48
  */
+@Slf4j
 @RestController
 @RequestMapping("usergovaffairs")
 public class UsergovaffairsController {
@@ -39,6 +46,8 @@ public class UsergovaffairsController {
     private ApplicationService applicationService;
     @Resource
     private UserService userService;
+    @Resource
+    private WorkService workService;
 
     /**
      * 通过主键查询单条数据
@@ -114,9 +123,9 @@ public class UsergovaffairsController {
 
     //获取所有预约列表
     @GetMapping("/allByDid/{did}")
-    public ResponseEntity<List> queryByDid(@PathVariable("did") Integer did)
+    public ResponseEntity<JSONArray> queryByDid(@PathVariable("did") Integer did)
     {
-        List<JSONObject> ret = new ArrayList<>();
+        JSONArray ret = new JSONArray();
         List<Usergovaffairs> usergovaffairs = this.usergovaffairsService.queryByDid(did);
 
         for(int i = 0; i < usergovaffairs.size(); i++)
@@ -131,9 +140,13 @@ public class UsergovaffairsController {
 
             String type = govaffairs.getIsarrival() == 1 ? "arrival" : "spot";
             temp.put("type", type);
-
+            temp.put("content", usergovaffairs.get(i).getContent());
+            Integer uid = usergovaffairs.get(i).getUid();
+            User user = this.userService.queryById(uid);
+            temp.put("userInfo", user==null?null:user.getBriefInfo());
             ret.add(temp);
         }
+
 
         return ResponseEntity.ok(ret);
     }
@@ -294,27 +307,26 @@ public class UsergovaffairsController {
     public ResponseEntity<JSONObject> add(@RequestBody JSONObject params) throws ParseException {
         Usergovaffairs usergovaffairs = new Usergovaffairs();
         Application application = new Application();
-        JSONObject applicant_info = new JSONObject();
         JSONObject ret = new JSONObject();
 
         String appoint_time_str = params.getString("appoint_time");
 
         //存入到Usergovaffairs实体中
+        Integer did = params.getInteger("did");
+        String content = params.getString("content");
         usergovaffairs.setGaid(params.getInteger("affairId"));
         usergovaffairs.setUid(params.getInteger("uid"));
-        usergovaffairs.setDid(params.getInteger("did"));
+        usergovaffairs.setDid(did);
         usergovaffairs.setAddress(params.getString("arrival_location"));
         usergovaffairs.setAppointTime(DateUtil.Companion.dateFromString(appoint_time_str));
         usergovaffairs.setGaname(params.getString("service"));
         usergovaffairs.setStatus(AffairStatus.ORDERED.ordinal());  //默认
         usergovaffairs.setComment("");  //默认
-        usergovaffairs.setContent(params.getString("content"));
+        usergovaffairs.setContent(content);
         this.usergovaffairsService.insert(usergovaffairs);
 
-        //System.out.println(usergovaffairs.getUsergaid());
-
         //存入到Application实体中
-        applicant_info = params.getJSONObject("application_info");
+        JSONObject applicant_info = params.getJSONObject("application_info");
         if(applicant_info!=null) {
             application.setName(applicant_info.getString("name"));
             application.setGender(applicant_info.getInteger("gender"));
@@ -325,6 +337,10 @@ public class UsergovaffairsController {
 
             ret.put("result", true);
             ret.put("usergaid", usergovaffairs.getUsergaid());
+            new MyAsyncTask().task(() -> {
+                JSONArray jsonArray = SubscribeSend.INSTANCE.sendNoticeToDept(new MailDTO("您所在的部门有一个新业务", content, "请及时查看"), did, userService, workService);
+                log.warn("通知情况:{}", jsonArray);
+            });
         }
         else
         {

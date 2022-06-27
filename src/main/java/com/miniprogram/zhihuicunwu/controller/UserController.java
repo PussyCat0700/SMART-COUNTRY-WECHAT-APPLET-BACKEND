@@ -88,6 +88,7 @@ public class UserController {
         user.setUgender(params.getInteger("gender"));
         user.setUage(params.getInteger("age"));
         user.setUphone(params.getString("phoneNumber"));
+        user.setRealName(params.getString("realname"));
 
         if (this.userService.update(user) != null)
         {
