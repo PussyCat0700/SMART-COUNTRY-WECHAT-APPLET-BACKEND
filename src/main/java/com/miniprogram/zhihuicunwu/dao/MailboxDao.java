@@ -32,6 +32,8 @@ public interface MailboxDao {
      */
     List<Mailbox> queryAllByLimit(Mailbox mailbox, @Param("pageable") Pageable pageable);
 
+    List<Mailbox> queryAllByAny(Mailbox mailbox);
+
     /**
      * 统计总行数
      *

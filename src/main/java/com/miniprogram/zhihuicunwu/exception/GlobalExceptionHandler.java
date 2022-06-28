@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnWebApplicat
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.jdbc.BadSqlGrammarException;
 import org.springframework.web.HttpMediaTypeException;
@@ -92,8 +93,13 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(BadSqlGrammarException.class)
-    public Result handleSQLException(BadSqlGrammarException e) {
+    public Result handleSQLGrammerException(BadSqlGrammarException e) {
         return handleGeneralException(e.getMessage(), "SQL语义错误：请检查您传入的数据中是否缺失了主键或更新字段等关键信息");
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public Result handleSQLIntegrityException(DataIntegrityViolationException e){
+        return handleGeneralException(e.getMessage(), "SQL Integrity Error: 请检查是否违反外键约束，比如尝试插入数据库不存在的id");
     }
 
     /**

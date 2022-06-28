@@ -1,26 +1,29 @@
 package com.miniprogram.zhihuicunwu.entity;
 
-import java.io.Serializable;
 import java.util.Date;
+import java.io.Serializable;
 
 /**
  * (Mailbox)实体类
  *
  * @author makejava
- * @since 2022-06-05 14:26:30
+ * @since 2022-06-28 09:37:57
  */
 public class Mailbox implements Serializable {
-    private static final long serialVersionUID = -69521182436785941L;
+    private static final long serialVersionUID = 404273825496446168L;
     
     private Integer mid;
-
+    
     private Integer uid;
     
     private String mailcontent;
-
+    
     private Integer cid;
-
+    
+    private Integer anonymous;
+    
     private Date createTime;
+
 
     public Integer getMid() {
         return mid;
@@ -42,7 +45,9 @@ public class Mailbox implements Serializable {
         return mailcontent;
     }
 
-    public void setMailcontent(String mailcontent) { this.mailcontent = mailcontent; }
+    public void setMailcontent(String mailcontent) {
+        this.mailcontent = mailcontent;
+    }
 
     public Integer getCid() {
         return cid;
@@ -50,6 +55,14 @@ public class Mailbox implements Serializable {
 
     public void setCid(Integer cid) {
         this.cid = cid;
+    }
+
+    public Integer getAnonymous() {
+        return anonymous;
+    }
+
+    public void setAnonymous(Integer anonymous) {
+        this.anonymous = anonymous;
     }
 
     public Date getCreateTime() {

@@ -49,6 +49,11 @@ public class MailboxServiceImpl implements MailboxService {
         return new PageImpl<>(this.mailboxDao.queryAllByLimit(mailbox, pageRequest), pageRequest, total);
     }
 
+    @Override
+    public List<Mailbox> queryAllByAny(Mailbox mailbox) {
+        return this.mailboxDao.queryAllByAny(mailbox);
+    }
+
     /**
      * 新增数据
      *

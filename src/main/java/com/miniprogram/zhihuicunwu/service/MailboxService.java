@@ -33,6 +33,8 @@ public interface MailboxService {
      */
     Page<Mailbox> queryByPage(Mailbox mailbox, PageRequest pageRequest);
 
+    List<Mailbox> queryAllByAny(Mailbox mailbox);
+
     /**
      * 新增数据
      *
