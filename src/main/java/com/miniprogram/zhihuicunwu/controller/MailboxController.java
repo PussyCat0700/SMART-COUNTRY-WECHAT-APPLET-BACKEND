@@ -60,7 +60,7 @@ public class MailboxController {
     @GetMapping("/country/all/{cid}")
     public ResponseEntity<List> queryAllByCid(@PathVariable("cid") Integer cid) {
         List<Mailbox> mailboxes = this.mailboxService.queryByCid(cid);
-        List<JSONObject> ret = queryMails(mailboxes, true);
+        List<JSONObject> ret = queryMails(mailboxes, false);
         return ResponseEntity.ok(ret);
     }
     @GetMapping("/country/{cid}")
@@ -69,7 +69,7 @@ public class MailboxController {
         mailbox.setAnonymous(0);
         mailbox.setCid(cid);
         List<Mailbox> mailboxes = this.mailboxService.queryAllByAny(mailbox);
-        List<JSONObject> ret = queryMails(mailboxes, true);
+        List<JSONObject> ret = queryMails(mailboxes, false);
         return ResponseEntity.ok(ret);
     }
     @GetMapping("/country/anonymous/{cid}")
@@ -78,7 +78,7 @@ public class MailboxController {
         mailbox.setAnonymous(1);
         mailbox.setCid(cid);
         List<Mailbox> mailboxes = this.mailboxService.queryAllByAny(mailbox);
-        List<JSONObject> ret = queryMails(mailboxes, true);
+        List<JSONObject> ret = queryMails(mailboxes, false);
         return ResponseEntity.ok(ret);
     }
     private List<JSONObject> queryMails(List<Mailbox> mailboxes, boolean anonymous){
