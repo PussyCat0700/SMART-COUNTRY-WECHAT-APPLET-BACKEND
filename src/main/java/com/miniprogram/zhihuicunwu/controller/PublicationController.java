@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Publication;
 import com.miniprogram.zhihuicunwu.entity.Publicationattach;
 import com.miniprogram.zhihuicunwu.entity.Publicationpic;
+import com.miniprogram.zhihuicunwu.service.DepartmentService;
 import com.miniprogram.zhihuicunwu.service.PublicationService;
 import com.miniprogram.zhihuicunwu.service.PublicationattachService;
 import com.miniprogram.zhihuicunwu.service.PublicationpicService;
@@ -38,6 +39,8 @@ public class PublicationController {
     private PublicationpicService publicationpicService;
     @Resource
     private PublicationattachService publicationattachService;
+    @Resource
+    private DepartmentService departmentService;
     /**
      * 分页查询
      *
@@ -133,7 +136,8 @@ public class PublicationController {
         ret.put("result", true);
         ret.put("title", publication.getPtitle());
         ret.put("content", publication.getPcontent());
-        ret.put("from", publication.getDid());
+        ret.put("from", this.departmentService.queryById(publication.getDid()).getDname());
+        ret.put("pid", publication.getPid());
         ret.put("create_time", publication.getPtime());
         ret.put("pic", images);
         ret.put("abstract", publication.getPabstract());
