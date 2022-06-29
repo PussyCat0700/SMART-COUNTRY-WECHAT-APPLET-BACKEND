@@ -237,7 +237,9 @@ public class DepartmentController {
         Departmentimg departmentimgs = this.departmentimgService.queryByDid(department.getDid());
         JSONObject ret = new JSONObject();
 
-        this.departmentimgService.deleteById(departmentimgs.getImgId());
+        if(departmentimgs!=null) {
+            this.departmentimgService.deleteById(departmentimgs.getImgId());
+        }
 
         if(!this.departmentService.deleteById(did))
         {
