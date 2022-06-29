@@ -69,7 +69,7 @@ public class MailboxController {
         mailbox.setAnonymous(0);
         mailbox.setCid(cid);
         List<Mailbox> mailboxes = this.mailboxService.queryAllByAny(mailbox);
-        List<JSONObject> ret = queryMails(mailboxes, false);
+        List<JSONObject> ret = queryMails(mailboxes, true);
         return ResponseEntity.ok(ret);
     }
     @GetMapping("/country/anonymous/{cid}")
