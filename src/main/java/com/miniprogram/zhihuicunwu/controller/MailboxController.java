@@ -57,47 +57,23 @@ public class MailboxController {
         return ResponseEntity.ok(jsonObject);
     }
 
-    @GetMapping("/country/all/{cid}")
-    public ResponseEntity<List> queryAllByCid(@PathVariable("cid") Integer cid) {
-        List<Mailbox> mailboxes = this.mailboxService.queryByCid(cid);
-        List<JSONObject> ret = queryMails(mailboxes, true);
-        return ResponseEntity.ok(ret);
-    }
     @GetMapping("/country/{cid}")
     public ResponseEntity<List> queryByCid(@PathVariable("cid") Integer cid) {
-        Mailbox mailbox = new Mailbox();
-        mailbox.setAnonymous(0);
-        mailbox.setCid(cid);
-        List<Mailbox> mailboxes = this.mailboxService.queryAllByAny(mailbox);
-        List<JSONObject> ret = queryMails(mailboxes, false);
-        return ResponseEntity.ok(ret);
-    }
-    @GetMapping("/country/anonymous/{cid}")
-    public ResponseEntity<List> queryAnonymousByCid(@PathVariable("cid") Integer cid) {
-        Mailbox mailbox = new Mailbox();
-        mailbox.setAnonymous(1);
-        mailbox.setCid(cid);
-        List<Mailbox> mailboxes = this.mailboxService.queryAllByAny(mailbox);
-        List<JSONObject> ret = queryMails(mailboxes, true);
-        return ResponseEntity.ok(ret);
-    }
-    private List<JSONObject> queryMails(List<Mailbox> mailboxes, boolean anonymous){
+        List<Mailbox> mailboxs = this.mailboxService.queryByCid(cid);
         List<JSONObject> ret = new ArrayList<>();
-        if(mailboxes!=null) {
-            for(int i = 0; i < mailboxes.size(); i++) {
+        if(mailboxs!=null) {
+            for(int i = 0; i < mailboxs.size(); i++) {
                 List<String> image_urls = new ArrayList<>();
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("content", mailboxes.get(i).getMailcontent());
-                jsonObject.put("id", mailboxes.get(i).getMid());
-                jsonObject.put("create_time", mailboxes.get(i).getCreateTime());
-                if(!anonymous) {
-                    User user = this.userService.queryById(mailboxes.get(i).getUid());
-                    if (user != null) {
-                        jsonObject.put("userInfo", user.getBriefInfo());
-                    }
+                jsonObject.put("content", mailboxs.get(i).getMailcontent());
+                jsonObject.put("id", mailboxs.get(i).getMid());
+                jsonObject.put("create_time", mailboxs.get(i).getCreateTime());
+                User user = this.userService.queryById(mailboxs.get(i).getUid());
+                if (user != null) {
+                    jsonObject.put("userInfo", user.getBriefInfo());
                 }
 
-                List<Mailboximg> images = this.mailboximgService.queryByMid(mailboxes.get(i).getMid());
+                List<Mailboximg> images = this.mailboximgService.queryByMid(mailboxs.get(i).getMid());
                 for(int j = 0; j < images.size(); j++)
                 {
                     String url = ImageIOUtils.getUrlFromDBRecord(images.get(j).getImagebase64());
@@ -108,7 +84,7 @@ public class MailboxController {
                 ret.add(jsonObject);
             }
         }
-        return ret;
+        return ResponseEntity.ok(ret);
     }
 
     /**
@@ -119,24 +95,16 @@ public class MailboxController {
      */
     @PostMapping
     public ResponseEntity<Mailbox> add(@RequestBody JSONObject params) throws IOException {
-        Mailbox mailbox = addMail(params, false);
-        return ResponseEntity.ok(mailbox);
-    }
-    @PostMapping("/anonymous")
-    public ResponseEntity<Mailbox> addAnonymous(@RequestBody JSONObject params) throws IOException {
-        Mailbox mailbox = addMail(params, true);
-        return ResponseEntity.ok(mailbox);
-    }
-    private Mailbox addMail(JSONObject jsonObject, boolean anonymous) throws IOException {
         //存到mailbox
         Mailbox mailbox = new Mailbox();
-        mailbox.setUid(jsonObject.getInteger("uid"));
-        mailbox.setMailcontent(jsonObject.getString("content"));
-        mailbox.setCid(jsonObject.getInteger("cid"));
-        mailbox.setAnonymous(anonymous?1:0);
+        mailbox.setUid(params.getInteger("uid"));
+        mailbox.setMailcontent(params.getString("content"));
+        mailbox.setCid(params.getInteger("cid"));
         this.mailboxService.insert(mailbox);
 
-        JSONArray base64List = jsonObject.getJSONArray("postImages");
+        System.out.println(mailbox.getCreateTime());
+
+        JSONArray base64List = params.getJSONArray("postImages");
         for(Object base64:base64List){
             Mailboximg mailboximg = new Mailboximg();
             mailboximg.setMailboxid(mailbox.getMid());
@@ -144,7 +112,8 @@ public class MailboxController {
             mailboximg.setImagebase64(path);
             this.mailboximgService.insert(mailboximg);
         }
-        return mailbox;
+
+        return ResponseEntity.ok(mailbox);
     }
 
     /**
