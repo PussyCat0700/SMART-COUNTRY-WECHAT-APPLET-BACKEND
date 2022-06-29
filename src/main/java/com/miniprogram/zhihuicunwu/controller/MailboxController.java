@@ -102,6 +102,8 @@ public class MailboxController {
         mailbox.setCid(params.getInteger("cid"));
         this.mailboxService.insert(mailbox);
 
+        System.out.println(mailbox.getCreateTime());
+
         JSONArray base64List = params.getJSONArray("postImages");
         for(Object base64:base64List){
             Mailboximg mailboximg = new Mailboximg();
