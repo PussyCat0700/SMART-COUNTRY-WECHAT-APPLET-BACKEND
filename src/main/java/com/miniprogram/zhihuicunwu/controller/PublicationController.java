@@ -218,7 +218,7 @@ public class PublicationController {
             switch (type){
                 case "1":
                     relativePath = "/images/通知公告.png";
-                    break;
+                break;
                 case "2":
                     relativePath = "/images/村务财务.png";
                     break;
@@ -227,6 +227,12 @@ public class PublicationController {
                     break;
                 case "4":
                     relativePath = "/images/乡村新闻.png";
+                    break;
+                case "5":
+                    relativePath = "/images/学习园地.png";
+                    break;
+                case "6":
+                    relativePath = "/images/兴村富民.png";
                     break;
                 default:
                    break;
