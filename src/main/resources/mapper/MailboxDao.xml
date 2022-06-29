@@ -108,23 +108,23 @@
 
     <!--新增所有列-->
     <insert id="insert" keyProperty="mid" useGeneratedKeys="true">
-        insert into mailbox(uid, mailContent, cid, anonymous, create_time)
-        values (#{uid}, #{mailcontent}, #{cid}, #{anonymous}, #{createTime})
+        insert into mailbox(uid, mailContent, cid, anonymous)
+        values (#{uid}, #{mailcontent}, #{cid}, #{anonymous})
     </insert>
 
     <insert id="insertBatch" keyProperty="mid" useGeneratedKeys="true">
-        insert into mailbox(uid, mailContent, cid, anonymous, create_time)
+        insert into mailbox(uid, mailContent, cid, anonymous)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.uid}, #{entity.mailcontent}, #{entity.cid}, #{entity.anonymous}, #{entity.createTime})
+        (#{entity.uid}, #{entity.mailcontent}, #{entity.cid}, #{entity.anonymous})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="mid" useGeneratedKeys="true">
-        insert into mailbox(uid, mailContent, cid, anonymous, create_time)
+        insert into mailbox(uid, mailContent, cid, anonymous)
         values
         <foreach collection="entities" item="entity" separator=",">
-            (#{entity.uid}, #{entity.mailcontent}, #{entity.cid}, #{entity.anonymous}, #{entity.createTime})
+            (#{entity.uid}, #{entity.mailcontent}, #{entity.cid}, #{entity.anonymous})
         </foreach>
         on duplicate key update
         uid = values(uid),
