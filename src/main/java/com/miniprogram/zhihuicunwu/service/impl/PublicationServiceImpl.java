@@ -33,6 +33,11 @@ public class PublicationServiceImpl implements PublicationService {
     }
 
     @Override
+    public List<Publication> queryByDid(Integer did){
+        return this.publicationDao.queryByDid(did);
+    }
+
+    @Override
     public int countAll()
     {
         return this.publicationDao.countAll();

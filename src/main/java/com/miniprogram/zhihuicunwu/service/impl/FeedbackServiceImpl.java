@@ -34,6 +34,9 @@ public class FeedbackServiceImpl implements FeedbackService {
     }
 
     @Override
+    public List<Feedback> queryByPid(Integer pid) { return this.feedbackDao.queryByPid(pid); }
+
+    @Override
     public List<Feedback> queryAll()
     {
         return this.feedbackDao.queryAll();

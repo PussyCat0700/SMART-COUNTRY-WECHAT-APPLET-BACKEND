@@ -15,6 +15,13 @@
         where uid = #{uid}
     </select>
 
+    <select id="queryByCid" resultMap="ResidentMap">
+        select
+          uid, cid
+        from resident
+        where cid = #{cid}
+    </select>
+
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="ResidentMap">
         select
