@@ -1,13 +1,9 @@
 package com.miniprogram.zhihuicunwu.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.miniprogram.zhihuicunwu.entity.Creates;
-import com.miniprogram.zhihuicunwu.entity.Resident;
-import com.miniprogram.zhihuicunwu.entity.User;
+import com.miniprogram.zhihuicunwu.entity.*;
 import com.miniprogram.zhihuicunwu.externalservices.LoginUtils;
-import com.miniprogram.zhihuicunwu.service.CreatesService;
-import com.miniprogram.zhihuicunwu.service.ResidentService;
-import com.miniprogram.zhihuicunwu.service.UserService;
+import com.miniprogram.zhihuicunwu.service.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +28,10 @@ public class UserController {
     private ResidentService residentService;
     @Resource
     private CreatesService createsService;
+    @Resource
+    private DepartmentService departmentService;
+    @Resource
+    private WorkService workService;
     /**
      * 通过主键查询单条数据
      *
@@ -118,6 +118,24 @@ public class UserController {
             resident.setUid(params.getInteger("uid"));
             resident.setCid(creates.getCid());
             this.residentService.insert(resident);
+
+            //创建名为村长的部门
+            Department department = new Department();
+            department.setCid(creates.getCid());
+            department.setDname("村");
+            department.setDdescription("仅用于村长发布公告");
+            department.setDaddress("无");
+            department.setDphone("无");
+            String dcode = creates.getCid() + "-" + user.getUid();
+            department.setDcode(dcode);
+            this.departmentService.insert(department);
+
+            //加入work表
+            Work work = new Work();
+            work.setWname("负责人");
+            work.setUid(user.getUid());
+            work.setDid(department.getDid());
+            this.workService.insert(work);
         }
         else
         {
