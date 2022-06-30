@@ -21,6 +21,8 @@ public interface PublicationDao {
      */
     Publication queryById(Integer pid);
 
+    List<Publication> queryByDid(Integer did);
+
     //根据标题模糊查询
     List<Publication> queryFuzzyByTitle(String keywords, Integer cid);
 

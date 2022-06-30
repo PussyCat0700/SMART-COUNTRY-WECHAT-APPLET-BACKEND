@@ -6,6 +6,7 @@ import com.miniprogram.zhihuicunwu.service.ResidentService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Resident)表服务实现类
@@ -28,6 +29,9 @@ public class ResidentServiceImpl implements ResidentService {
     public Resident queryById(Integer uid) {
         return this.residentDao.queryById(uid);
     }
+
+    @Override
+    public List<Resident> queryByCid(Integer cid) { return this.residentDao.queryByCid(cid); }
 
     /**
      * 新增数据

@@ -23,6 +23,8 @@ public interface FeedbackDao {
      */
     Feedback queryById(Integer uid);
 
+    List<Feedback> queryByPid(Integer pid);
+
     /**
      * 查询指定行数据
      *

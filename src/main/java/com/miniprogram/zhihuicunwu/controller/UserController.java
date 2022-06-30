@@ -151,8 +151,8 @@ public class UserController {
      * @param id 主键
      * @return 删除是否成功
      */
-    @DeleteMapping
-    public ResponseEntity<Boolean> deleteById(Integer id) {
+    @DeleteMapping("{uid}")
+    public ResponseEntity<Boolean> deleteById(@PathVariable("uid") Integer id) {
         return ResponseEntity.ok(this.userService.deleteById(id));
     }
 

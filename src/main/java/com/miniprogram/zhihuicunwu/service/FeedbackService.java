@@ -22,6 +22,8 @@ public interface FeedbackService {
      */
     Feedback queryById(Integer fid);
 
+    List<Feedback> queryByPid(Integer pid);
+
     //查询所有数据
     List<Feedback> queryAll();
 
