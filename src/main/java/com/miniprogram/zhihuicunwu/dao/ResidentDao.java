@@ -21,6 +21,7 @@ public interface ResidentDao {
      */
     Resident queryById(Integer uid);
 
+    List<Resident> queryByCid(Integer cid);
     /**
      * 查询指定行数据
      *

@@ -2,6 +2,8 @@ package com.miniprogram.zhihuicunwu.service;
 
 import com.miniprogram.zhihuicunwu.entity.Resident;
 
+import java.util.List;
+
 /**
  * (Resident)表服务接口
  *
@@ -17,6 +19,8 @@ public interface ResidentService {
      * @return 实例对象
      */
     Resident queryById(Integer uid);
+
+    List<Resident> queryByCid(Integer cid);
 
     /**
      * 新增数据

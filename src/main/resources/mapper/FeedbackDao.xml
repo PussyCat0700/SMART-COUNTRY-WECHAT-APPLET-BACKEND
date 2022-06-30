@@ -20,6 +20,13 @@
         where fid = #{fid}
     </select>
 
+    <select id="queryByPid" resultMap="FeedbackMap">
+        select
+            fid, uid, pid, fTime, fContent, fReturn, fTitle
+        from feedback
+        where pid = #{pid}
+    </select>
+
     <!--查询所有数据-->
     <select id="queryAll" resultMap="FeedbackMap">
         select

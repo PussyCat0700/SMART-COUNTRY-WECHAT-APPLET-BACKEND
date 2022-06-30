@@ -21,6 +21,13 @@
         where pid = #{pid}
     </select>
 
+    <select id="queryByDid" resultMap="PublicationMap">
+        select
+            pid, cid, pType, pContent, pTime, did, pTitle, pAbstract
+        from publication
+        where did = #{did}
+    </select>
+
     <!--根据标题模糊查询-->
     <select id="queryFuzzyByTitle" resultMap="PublicationMap">
         select

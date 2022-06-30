@@ -48,6 +48,8 @@ public class UsergovaffairsController {
     private UserService userService;
     @Resource
     private WorkService workService;
+    @Resource
+    private ResidentService residentService;
 
     /**
      * 通过主键查询单条数据
@@ -156,6 +158,42 @@ public class UsergovaffairsController {
     {
         List<JSONObject> ret = new ArrayList<>();
         List<Usergovaffairs> usergovaffairs = this.usergovaffairsService.queryByUid(uid);
+
+        for(int i = 0; i < usergovaffairs.size(); i++)
+        {
+            JSONObject temp = new JSONObject();
+            Govaffairs govaffairs = this.govaffairsService.queryById(usergovaffairs.get(i).getGaid());
+
+            temp.put("aid", usergovaffairs.get(i).getUsergaid());
+            temp.put("name", usergovaffairs.get(i).getGaname());
+            temp.put("status", usergovaffairs.get(i).getStatus());
+            temp.put("create_time", usergovaffairs.get(i).getCreateTime());
+            String type = govaffairs.getIsarrival() == 1 ? "arrival" : "spot";
+            temp.put("type", type);
+
+            ret.add(temp);
+        }
+
+        return ResponseEntity.ok(ret);
+    }
+
+    @GetMapping("/allByCid/{cid}")
+    public ResponseEntity<List> queryByCid(@PathVariable("cid") Integer cid) {
+        List<Resident> residents = this.residentService.queryByCid(cid);
+        List<Usergovaffairs> usergovaffairs = new ArrayList<>();
+        List<JSONObject> ret = new ArrayList<>();
+
+        for(int i=0; i<residents.size(); i++)
+        {
+            List<Usergovaffairs> uUsergovaffairs = this.usergovaffairsService.queryByUid(residents.get(i).getUid());
+            if(uUsergovaffairs.size()!=0)
+            {
+                for(int j=0; j<uUsergovaffairs.size(); j++)
+                {
+                    usergovaffairs.add(uUsergovaffairs.get(j));
+                }
+            }
+        }
 
         for(int i = 0; i < usergovaffairs.size(); i++)
         {

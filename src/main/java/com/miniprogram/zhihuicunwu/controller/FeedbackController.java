@@ -2,8 +2,12 @@ package com.miniprogram.zhihuicunwu.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Feedback;
+import com.miniprogram.zhihuicunwu.entity.Publication;
+import com.miniprogram.zhihuicunwu.entity.Resident;
 import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.service.FeedbackService;
+import com.miniprogram.zhihuicunwu.service.PublicationService;
+import com.miniprogram.zhihuicunwu.service.ResidentService;
 import com.miniprogram.zhihuicunwu.service.UserService;
 import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
 import org.springframework.http.ResponseEntity;
@@ -36,13 +40,48 @@ public class FeedbackController {
     private FeedbackService feedbackService;
     @Resource
     private UserService userService;
+    @Resource
+    private ResidentService residentService;
+    @Resource
+    private PublicationService publicationService;
 
     /**
-     * 通过主键查询单条数据
+   * 通过主键查询单条数据
      *
-     * @param id 主键
-     * @return 单条数据
-     */
+     * @param cid 主键
+     * @return 单条数据*/
+    @GetMapping("/country/{cid}")
+    public ResponseEntity<List> queryByCid(@PathVariable("cid") Integer cid) {
+        List<Resident> residents = this.residentService.queryByCid(cid);
+        List<Feedback> feedbacks = new ArrayList<>();
+        List<JSONObject> ret = new ArrayList<>();
+
+        for(int i=0; i<residents.size(); i++)
+        {
+            List<Feedback> uFeedbacks = this.feedbackService.queryFeedbackByUid(residents.get(i).getUid());
+            if(uFeedbacks.size()!=0)
+            {
+                for(int j=0; j<uFeedbacks.size(); j++)
+                {
+                    feedbacks.add(uFeedbacks.get(j));
+                }
+            }
+        }
+
+        for(int i = 0; i < feedbacks.size(); i++)
+        {
+            JSONObject temp = new JSONObject();
+            temp.put("feedback_id", feedbacks.get(i).getFid());
+            temp.put("content", feedbacks.get(i).getFcontent());
+            temp.put("create_time", feedbacks.get(i).getFtime());
+            temp.put("title", feedbacks.get(i).getFtitle());
+
+            ret.add(temp);
+        }
+
+        return ResponseEntity.ok(ret);
+    }
+
     @GetMapping("{id}")
     public ResponseEntity<JSONObject> queryById(@PathVariable("id") Integer id) {
         JSONObject jsonObject = new JSONObject();
@@ -60,6 +99,55 @@ public class FeedbackController {
             jsonObject.put("userInfo", userInfo);
         }
         return ResponseEntity.ok(jsonObject);
+    }
+
+    @GetMapping("/allByDid/{did}")
+    public ResponseEntity<List> queryAllByDid(@PathVariable("did") Integer did) throws SQLException
+    {
+        List<JSONObject> ret = new ArrayList<JSONObject>();
+        List<Publication> publications = this.publicationService.queryByDid(did);
+        List<Integer> pids = new ArrayList<>();
+        List<Feedback> feedbacks = new ArrayList<>();
+//        List<Feedback> feedbacks = this.feedbackService.queryAll();
+
+        for(int i = 0; i < publications.size(); i++)
+        {
+            if(!pids.contains(publications.get(i).getPid()))
+            {
+                pids.add(publications.get(i).getPid());
+            }
+        }
+
+        for(int i = 0; i < pids.size(); i++)
+        {
+            List<Feedback> dFeedback = this.feedbackService.queryByPid(pids.get(i));
+            for(int j = 0; j < dFeedback.size(); j++)
+            {
+                feedbacks.add(dFeedback.get(j));
+            }
+        }
+
+        for(int i = 0; i < feedbacks.size(); i++)
+        {
+            User user = userService.queryById(feedbacks.get(i).getUid());
+            JSONObject user_info = new JSONObject();
+            String avartar = ImageIOUtils.getUrlFromDBRecord(user.getUphoto());
+
+            user_info.put("avatarUrl", avartar);
+            user_info.put("nickName", user.getUname());
+
+            JSONObject temp = new JSONObject();
+            temp.put("id", feedbacks.get(i).getFid());
+            temp.put("content", feedbacks.get(i).getFcontent());
+            temp.put("related_article", feedbacks.get(i).getPid());
+            temp.put("date", feedbacks.get(i).getFtime());
+            temp.put("userInfo", user_info);
+            temp.put("title", feedbacks.get(i).getFtitle());
+
+            ret.add(temp);
+        }
+
+        return ResponseEntity.ok(ret);
     }
 
     //查询所有数据
