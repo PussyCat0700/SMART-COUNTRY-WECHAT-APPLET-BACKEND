@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.miniprogram.zhihuicunwu.entity.Department;
 import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.entity.Work;
+import com.miniprogram.zhihuicunwu.service.CreatesService;
 import com.miniprogram.zhihuicunwu.service.DepartmentService;
 import com.miniprogram.zhihuicunwu.service.UserService;
 import com.miniprogram.zhihuicunwu.service.WorkService;
@@ -36,6 +37,8 @@ public class WorkController {
     private UserService userService;
     @Resource
     private DepartmentService departmentService;
+    @Resource
+    private CreatesService createsService;
 
     /**
      * 通过主键查询单条数据
@@ -67,6 +70,11 @@ public class WorkController {
 
         for(int i = 0; i < departments.size(); i++)
         {
+            if(departments.get(i).getDcode().equals(departments.get(i).getCid() + "-" + this.createsService.queryById(departments.get(i).getCid()).getUid()))
+            {
+                continue;
+            }
+
             JSONObject dept = new JSONObject();
             List<JSONObject> personnel = new ArrayList<>();
 
