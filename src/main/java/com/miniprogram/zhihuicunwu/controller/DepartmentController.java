@@ -1,14 +1,8 @@
 package com.miniprogram.zhihuicunwu.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.miniprogram.zhihuicunwu.entity.Department;
-import com.miniprogram.zhihuicunwu.entity.Departmentimg;
-import com.miniprogram.zhihuicunwu.entity.Deptgovaffairs;
-import com.miniprogram.zhihuicunwu.entity.Govaffairs;
-import com.miniprogram.zhihuicunwu.service.DepartmentService;
-import com.miniprogram.zhihuicunwu.service.DepartmentimgService;
-import com.miniprogram.zhihuicunwu.service.DeptgovaffairsService;
-import com.miniprogram.zhihuicunwu.service.GovaffairsService;
+import com.miniprogram.zhihuicunwu.entity.*;
+import com.miniprogram.zhihuicunwu.service.*;
 import com.miniprogram.zhihuicunwu.util.ImageIOUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.BadSqlGrammarException;
@@ -40,6 +34,8 @@ public class DepartmentController {
     private GovaffairsService govaffairsService;
     @Resource
     private DeptgovaffairsService deptgovaffairsService;
+    @Resource
+    private CreatesService createsService;
 //    @Resource
 //    private CountrydepartmentService countrydepartmentService;
 
@@ -118,6 +114,14 @@ public class DepartmentController {
     public ResponseEntity<List> queryByCid(@PathVariable("cid") Integer cid) {
         List<Department> departments = this.departmentService.queryByCid(cid);
         List<JSONObject> ret = new ArrayList<JSONObject>();
+        Creates creates = this.createsService.queryById(cid);
+        for(int i = 0; i < departments.size(); i++)
+        {
+            if(departments.get(i).getDcode().equals(cid + "-" + creates.getUid())){
+                departments.remove(i);
+                break;
+            }
+        }
 
         for(int i = 0; i < departments.size(); i++)
         {
