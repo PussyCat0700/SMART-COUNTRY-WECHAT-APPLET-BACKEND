@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -36,6 +37,8 @@ public class DepartmentController {
     private DeptgovaffairsService deptgovaffairsService;
     @Resource
     private CreatesService createsService;
+    @Resource
+    private UsergovaffairsService usergovaffairsService;
 //    @Resource
 //    private CountrydepartmentService countrydepartmentService;
 
@@ -105,6 +108,54 @@ public class DepartmentController {
             ret.put("spots", spots);
         }
 
+        //获取部门评分
+        //获取该部门所有的 未评价&已评价订单
+        List<Usergovaffairs> usergovaffairs = this.usergovaffairsService.queryByDid(did);
+        //获取该部门所有的业务
+        List<Deptgovaffairs> deptgovaffairs = this.deptgovaffairsService.queryByDid(did);
+        //获取对应业务的所有信息
+        List<Govaffairs> govaffairs = new ArrayList<>();
+        //存储GAid
+        List<Integer> gaids = new ArrayList<>();
+
+        for(int i = 0; i < deptgovaffairs.size(); i++)
+        {
+            gaids.add(deptgovaffairs.get(i).getGaid());
+            govaffairs.add(this.govaffairsService.queryById(deptgovaffairs.get(i).getGaid()));
+        }
+
+        Integer gaNum;   //已评价业务总数
+        Double totalRate;    //总评分数
+        Double avgRate;    //平均评分分数
+        List<JSONObject> gaRates = new ArrayList<>();
+        JSONObject jsonObject;
+
+        ret.put("department", this.departmentService.queryById(did).getDname());
+
+        gaNum = 0;
+        totalRate = 0.0;
+
+        for(int i = 0; i < gaids.size(); i++)
+        {
+            for(int j = 0; j < usergovaffairs.size(); j++)
+            {
+                if(usergovaffairs.get(j).getGaid() == gaids.get(i) && usergovaffairs.get(j).getRate() != null)
+                {
+                    gaNum++;    //用户预约订单中此业务已评价数量
+                    totalRate += usergovaffairs.get(j).getRate();    //用户预约订单中此业务评价总分
+                }
+            }
+        }
+
+        DecimalFormat df = new DecimalFormat(".0");
+        if(gaNum != 0) {
+            avgRate = totalRate / gaNum;
+            ret.put("rate", df.format(avgRate));
+        }
+        else{
+            avgRate = 0.0;
+            ret.put("rate", avgRate);
+        }
 
         return ResponseEntity.ok(ret);
     }
@@ -139,6 +190,50 @@ public class DepartmentController {
                 temp.put("dImage", images);
             }
 
+            //获取评分
+            //获取该部门所有的 未评价&已评价订单
+            List<Usergovaffairs> usergovaffairs = new ArrayList<>();
+            //获取该部门所有的业务
+            List<Deptgovaffairs> deptgovaffairs = new ArrayList<>();
+            //获取对应业务的所有信息
+            List<Govaffairs> govaffairs = new ArrayList<>();
+            //存储GAid
+            List<Integer> gaids = new ArrayList<>();
+
+            usergovaffairs = this.usergovaffairsService.queryByDid(departments.get(i).getDid());
+            deptgovaffairs = this.deptgovaffairsService.queryByDid(departments.get(i).getDid());
+
+            for (int j = 0; j < deptgovaffairs.size(); j++) {
+                gaids.add(deptgovaffairs.get(j).getGaid());
+                govaffairs.add(this.govaffairsService.queryById(deptgovaffairs.get(j).getGaid()));
+            }
+
+            Integer gaNum;   //已评价业务总数
+            Double totalRate;    //总评分数
+            Double avgRate;    //平均评分分数
+            List<JSONObject> gaRates = new ArrayList<>();
+            JSONObject jsonObject;
+
+            gaNum = 0;
+            totalRate = 0.0;
+
+            for (int j = 0; j < gaids.size(); j++) {
+                jsonObject = new JSONObject();
+                for (int k = 0; k < usergovaffairs.size(); k++) {
+                    if (usergovaffairs.get(k).getGaid() == gaids.get(j) && usergovaffairs.get(k).getRate() != null) {
+                        gaNum++;    //用户预约订单中此业务已评价数量
+                        totalRate += usergovaffairs.get(k).getRate();    //用户预约订单中此业务评价总分
+                    }
+                }
+            }
+            DecimalFormat df = new DecimalFormat(".0");
+            if (gaNum != 0) {
+                avgRate = totalRate / gaNum;
+                temp.put("rate", df.format(avgRate));
+            } else {
+                avgRate = 0.0;
+                temp.put("rate", avgRate);
+            }
             ret.add(temp);
         }
 

@@ -70,10 +70,19 @@ public class FeedbackController {
 
         for(int i = 0; i < feedbacks.size(); i++)
         {
+            User user = userService.queryById(feedbacks.get(i).getUid());
+            JSONObject user_info = new JSONObject();
+            String avartar = ImageIOUtils.getUrlFromDBRecord(user.getUphoto());
+
+            user_info.put("avatarUrl", avartar);
+            user_info.put("nickName", user.getUname());
+
             JSONObject temp = new JSONObject();
-            temp.put("feedback_id", feedbacks.get(i).getFid());
+            temp.put("id", feedbacks.get(i).getFid());
             temp.put("content", feedbacks.get(i).getFcontent());
-            temp.put("create_time", feedbacks.get(i).getFtime());
+            temp.put("related_article", feedbacks.get(i).getPid());
+            temp.put("date", feedbacks.get(i).getFtime());
+            temp.put("userInfo", user_info);
             temp.put("title", feedbacks.get(i).getFtitle());
 
             ret.add(temp);
