@@ -53,60 +53,9 @@ public class DepartmentController {
     public ResponseEntity<JSONObject> queryById(@PathVariable("did") Integer did) {
         Department department = this.departmentService.queryById(did);
         JSONObject ret = new JSONObject();
-
-        if(department==null)
-        {
-            ret.put("result", false);
-        }
-        else
-        {
-            List<JSONObject> arrivals = new ArrayList<>();
-            List<JSONObject> spots = new ArrayList<>();
-
-            //存基本信息
-            Departmentimg departmentimgs = this.departmentimgService.queryByDid(department.getDid());
-            String images;
-            if(departmentimgs!=null) {
-                images = ImageIOUtils.getUrlFromDBRecord(departmentimgs.getDpic());
-            }
-            else{
-                images = null;
-            }
-
-            ret.put("result", true);
-            ret.put("headPic", images);
-            ret.put("deptName", department.getDname());
-            ret.put("desc", department.getDdescription());
-            ret.put("phoneNum", department.getDphone());
-            ret.put("location", department.getDaddress());
-            ret.put("dcode", department.getDcode());
-
-            //存政务
-            //获取政务id
-            List<Deptgovaffairs> deptgovaffairs = this.deptgovaffairsService.queryByDid(department.getDid());
-
-            for(int i = 0; i < deptgovaffairs.size(); i++) {
-                JSONObject temp = new JSONObject();
-                Integer GAid = deptgovaffairs.get(i).getGaid();
-                //获取政务详细信息
-                Govaffairs govaffairs = this.govaffairsService.queryById(GAid);
-
-                temp.put("name", govaffairs.getGaname());
-                temp.put("id", GAid);
-
-                boolean isArrival = govaffairs.getIsarrival() != 0;
-                if (isArrival) {
-                    arrivals.add(temp);
-                }
-                else
-                {
-                    spots.add(temp);
-                }
-            }
-
-            ret.put("arrivals", arrivals);
-            ret.put("spots", spots);
-        }
+        List<JSONObject> arrivals = new ArrayList<>();
+        List<JSONObject> spots = new ArrayList<>();
+        double[] rates;
 
         //获取部门评分
         //获取该部门所有的 未评价&已评价订单
@@ -117,6 +66,8 @@ public class DepartmentController {
         List<Govaffairs> govaffairs = new ArrayList<>();
         //存储GAid
         List<Integer> gaids = new ArrayList<>();
+
+        rates = new double[deptgovaffairs.size()];
 
         for(int i = 0; i < deptgovaffairs.size(); i++)
         {
@@ -137,15 +88,56 @@ public class DepartmentController {
 
         for(int i = 0; i < gaids.size(); i++)
         {
+            int gaNum_1 = 0;
+            double totalRate_1 = 0.0;
+            double avgRate_1 = 0.0;
             for(int j = 0; j < usergovaffairs.size(); j++)
             {
                 if(usergovaffairs.get(j).getGaid() == gaids.get(i) && usergovaffairs.get(j).getRate() != null)
                 {
                     gaNum++;    //用户预约订单中此业务已评价数量
+                    gaNum_1++;
                     totalRate += usergovaffairs.get(j).getRate();    //用户预约订单中此业务评价总分
+                    totalRate_1 += usergovaffairs.get(j).getRate();
                 }
             }
+            if(gaNum_1 != 0) {
+                avgRate_1 = totalRate_1 / gaNum_1;
+            }
+            else{
+                avgRate_1 = 0.0;
+            }
+            rates[i] = avgRate_1;
         }
+
+        for(int i = 0; i < deptgovaffairs.size(); i++) {
+            JSONObject temp = new JSONObject();
+            Integer GAid = deptgovaffairs.get(i).getGaid();
+            //获取政务详细信息
+            Govaffairs govaffairs_1 = this.govaffairsService.queryById(GAid);
+
+            temp.put("name", govaffairs_1.getGaname());
+            temp.put("id", GAid);
+            DecimalFormat df = new DecimalFormat(".0");
+            if(rates[i] != 0) {
+                temp.put("rate", df.format(rates[i]));
+            }
+            else{
+                temp.put("rate", rates[i]);
+            }
+
+            boolean isArrival = govaffairs_1.getIsarrival() != 0;
+            if (isArrival) {
+                arrivals.add(temp);
+            }
+            else
+            {
+                spots.add(temp);
+            }
+        }
+
+        ret.put("arrivals", arrivals);
+        ret.put("spots", spots);
 
         DecimalFormat df = new DecimalFormat(".0");
         if(gaNum != 0) {
@@ -155,6 +147,37 @@ public class DepartmentController {
         else{
             avgRate = 0.0;
             ret.put("rate", avgRate);
+        }
+
+        //获取部门信息
+        if(department==null)
+        {
+            ret.put("result", false);
+        }
+        else
+        {
+            //存基本信息
+            Departmentimg departmentimgs = this.departmentimgService.queryByDid(department.getDid());
+            String images;
+            if(departmentimgs!=null) {
+                images = ImageIOUtils.getUrlFromDBRecord(departmentimgs.getDpic());
+            }
+            else{
+                images = null;
+            }
+
+            ret.put("result", true);
+            ret.put("headPic", images);
+            ret.put("deptName", department.getDname());
+            ret.put("desc", department.getDdescription());
+            ret.put("phoneNum", department.getDphone());
+            ret.put("location", department.getDaddress());
+            ret.put("dcode", department.getDcode());
+
+            //存政务
+            //获取政务id
+//            deptgovaffairs.clear();
+//            deptgovaffairs = this.deptgovaffairsService.queryByDid(department.getDid());
         }
 
         return ResponseEntity.ok(ret);
