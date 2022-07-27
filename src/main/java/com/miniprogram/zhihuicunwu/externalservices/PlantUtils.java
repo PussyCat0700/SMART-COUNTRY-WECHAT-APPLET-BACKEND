@@ -30,7 +30,7 @@ public class PlantUtils {
             String param = "image=" + base64 + "&baike_num=" + baike_num;
 
             // 注意这里仅为了简化编码每一次请求都去获取access_token，线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
-            String accessToken = "24.4dcc9d537308728bddba6282ba96a619.2592000.1658387737.282335-26507317";
+            String accessToken = "24.35bd85163ed685a1ada762981dc35c7f.2592000.1661499442.282335-26507317";
 
             String result = HttpUtil.post(url, accessToken, param);
             System.out.println(result);

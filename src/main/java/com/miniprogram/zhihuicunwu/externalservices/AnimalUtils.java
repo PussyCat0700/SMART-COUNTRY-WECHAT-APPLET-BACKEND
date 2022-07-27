@@ -30,7 +30,7 @@ public class AnimalUtils {
             String param = "image=" + base64 + "&baike_num=" + baike_num;
 
             // 注意这里仅为了简化编码每一次请求都去获取access_token，线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
-            String accessToken = "24.e8f653d766ca130ca379256fdaa815e5.2592000.1658390549.282335-26508112";
+            String accessToken = "24.501d14f9f5f008a4e63d2be1b2a39334.2592000.1661499904.282335-26508112";
 
             String result = HttpUtil.post(url, accessToken, param);
             System.out.println(result);
