@@ -278,7 +278,8 @@ public class UsergovaffairsController {
         if(usergovaffairs!=null) {
             ret.put("result",true);
             usergovaffairs.setAppointTime(params.getDate("appointTime"));
-            usergovaffairs.setAddress("address");
+            usergovaffairs.setAddress(params.getString("address"));
+            usergovaffairs.setAppointTime(params.getDate("gatime"));
             this.usergovaffairsService.update(usergovaffairs);
         }
         else{
