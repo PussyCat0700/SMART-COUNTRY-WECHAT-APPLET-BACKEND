@@ -5,19 +5,20 @@
     <resultMap type="com.miniprogram.zhihuicunwu.entity.Creates" id="CreatesMap">
         <result property="uid" column="uid" jdbcType="INTEGER"/>
         <result property="cid" column="cid" jdbcType="INTEGER"/>
+        <result property="passed" column="passed" jdbcType="INTEGER"/>
     </resultMap>
 
     <!--��ѯ����-->
     <select id="queryById" resultMap="CreatesMap">
         select
-          uid, cid
+          uid, cid, passed
         from creates
         where cid = #{cid}
     </select>
 
     <select id="queryByUid" resultMap="CreatesMap">
         select
-          uid, cid
+            uid, cid, passed
         from creates
         where uid = #{uid}
     </select>
@@ -25,7 +26,7 @@
     <!--��ѯָ��������-->
     <select id="queryAllByLimit" resultMap="CreatesMap">
         select
-          uid, cid
+        uid, cid, passed
         from creates
         <where>
             <if test="uid != null">
@@ -33,6 +34,9 @@
             </if>
             <if test="cid != null">
                 and cid = #{cid}
+            </if>
+            <if test="passed != null">
+                and passed = #{passed}
             </if>
         </where>
         limit #{pageable.offset}, #{pageable.pageSize}
@@ -40,7 +44,7 @@
     <!--�����ѯ�������б�-->
     <select id="queryAllByAny" resultMap="CreatesMap">
         select
-          uid, cid
+        uid, cid, passed
         from creates
         <where>
             <if test="uid != null">
@@ -48,6 +52,9 @@
             </if>
             <if test="cid != null">
                 and cid = #{cid}
+            </if>
+            <if test="passed != null">
+                and passed = #{passed}
             </if>
         </where>
     </select>
@@ -63,38 +70,46 @@
             <if test="cid != null">
                 and cid = #{cid}
             </if>
+            <if test="passed != null">
+                and passed = #{passed}
+            </if>
         </where>
     </select>
 
     <!--����������-->
     <insert id="insert" keyProperty="uid" useGeneratedKeys="true">
-        insert into creates(uid, cid)
-        values (#{uid}, #{cid})
+        insert into creates(uid, cid, passed)
+        values (#{uid}, #{cid}, #{passed})
     </insert>
 
     <insert id="insertBatch" keyProperty="uid" useGeneratedKeys="true">
-        insert into creates(uid, cid)
+        insert into creates(uid, cid, passed)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.uid}, #{entity.cid})
+        (#{entity.uid}, #{entity.cid}, #{entity.passed})
         </foreach>
     </insert>
 
     <insert id="insertOrUpdateBatch" keyProperty="uid" useGeneratedKeys="true">
-        insert into creates(uid, cid)
+        insert into creates(uid, cid, passed)
         values
         <foreach collection="entities" item="entity" separator=",">
-        (#{entity.uid}, #{entity.cid})
+        (#{entity.uid}, #{entity.cid}, #{entity.passed})
         </foreach>
         on duplicate key update
         uid = values(uid),
-        cid = values(cid)
+        cid = values(cid),
+        passed = values(passed)
     </insert>
 
     <!--ͨ�������޸�����-->
     <update id="update">
         update creates
         <set>
+            <if test="cid != null">
+                cid = #{cid},
+            </if>
+            passed = #{passed},
         </set>
         where uid = #{uid}
     </update>

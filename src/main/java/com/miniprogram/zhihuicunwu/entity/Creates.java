@@ -3,17 +3,19 @@ package com.miniprogram.zhihuicunwu.entity;
 import java.io.Serializable;
 
 /**
- * (Creates)ʵ����
+ * (Creates)实体类
  *
  * @author makejava
- * @since 2022-06-15 21:17:04
+ * @since 2022-07-27 17:31:00
  */
 public class Creates implements Serializable {
-    private static final long serialVersionUID = 956084124609408287L;
-    
+    private static final long serialVersionUID = -23521498393868198L;
+
     private Integer uid;
-    
+
     private Integer cid;
+
+    private Integer passed;
 
 
     public Integer getUid() {
@@ -30,6 +32,14 @@ public class Creates implements Serializable {
 
     public void setCid(Integer cid) {
         this.cid = cid;
+    }
+
+    public Integer getPassed() {
+        return passed;
+    }
+
+    public void setPassed(Integer passed) {
+        this.passed = passed;
     }
 
 }

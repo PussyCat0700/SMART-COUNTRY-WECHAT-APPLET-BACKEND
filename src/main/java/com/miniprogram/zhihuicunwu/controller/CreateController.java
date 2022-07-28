@@ -1,5 +1,7 @@
 package com.miniprogram.zhihuicunwu.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.miniprogram.zhihuicunwu.entity.Country;
 import com.miniprogram.zhihuicunwu.entity.Creates;
@@ -7,10 +9,13 @@ import com.miniprogram.zhihuicunwu.entity.User;
 import com.miniprogram.zhihuicunwu.service.CountryService;
 import com.miniprogram.zhihuicunwu.service.CreatesService;
 import com.miniprogram.zhihuicunwu.service.UserService;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * (Create)表控制层
@@ -40,6 +45,51 @@ public class CreateController {
     @GetMapping("{id}")
     public ResponseEntity<Creates> queryById(@PathVariable("id") Integer id) {
         return ResponseEntity.ok(this.createsService.queryById(id));
+    }
+
+    @GetMapping("/country/verified")
+    public ResponseEntity<JSONObject> queryVerified(){
+        return testTimeResponseEntity(pageWrapper(queryCountry(true)));
+    }
+
+    @GetMapping("/country/unverified")
+    public ResponseEntity<JSONObject> queryUnverified(){
+        return testTimeResponseEntity(pageWrapper(queryCountry(false)));
+    }
+
+    @GetMapping("/country/all")
+    public ResponseEntity<JSONObject> queryAll(){
+        return testTimeResponseEntity(pageWrapper(queryCountry(null)));
+    }
+
+    private <T> ResponseEntity<T> testTimeResponseEntity(T body){
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Access-Control-Allow-Origin", "*");
+        return new ResponseEntity(body, headers, HttpStatus.OK);
+    }
+
+    private JSONObject pageWrapper(JSONArray jsonArray){
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("list", jsonArray);
+        jsonObject.put("pageTotal", jsonArray.size());
+        return jsonObject;
+    }
+    private JSONArray queryCountry(Boolean isVerifiedRequired){
+        Creates creates = new Creates();
+        if(isVerifiedRequired!=null) {
+            creates.setPassed(isVerifiedRequired ? 1 : 0);
+        }
+        List<Creates> createsList = this.createsService.queryAllByAny(creates);
+        JSONArray jsonArray = new JSONArray();
+        for(Creates creates1:createsList){
+            JSONObject jsonObject = JSONObject.parseObject(JSON.toJSONString(creates1));
+            Country country = this.countryService.queryById(creates1.getCid());
+            jsonObject.putAll(JSONObject.parseObject(JSON.toJSONString(country)));
+            User user = this.userService.queryById(creates1.getUid());
+            jsonObject.put("name", user.getRealName());
+            jsonArray.add(jsonObject);
+        }
+        return jsonArray;
     }
 
     @GetMapping("/uidcountry/{uid}")
@@ -101,6 +151,11 @@ public class CreateController {
     @PutMapping
     public ResponseEntity<Creates> edit(@RequestBody Creates create) {
         return ResponseEntity.ok(this.createsService.update(create));
+    }
+
+    @GetMapping("/modify/test")
+    public ResponseEntity<Creates> testTimeEdit(Creates create) {
+        return testTimeResponseEntity(this.createsService.update(create));
     }
 
     @PutMapping("/setting")
