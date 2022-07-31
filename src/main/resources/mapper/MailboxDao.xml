@@ -24,6 +24,7 @@
             mid, uid, mailContent, cid, anonymous, create_time
         from mailbox
         where cid = #{cid}
+        ORDER by create_time desc
     </select>
 
     <!--查询指定行数据-->
@@ -78,6 +79,7 @@
                 and create_time = #{createTime}
             </if>
         </where>
+        ORDER by create_time desc
     </select>
     
     <!--统计总行数-->
